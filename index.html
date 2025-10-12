@@ -1,118 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GEO CONSULTANTS – Legal & Corporate Advisors based in Cyprus. Corporate law, compliance, tax, and advisory services.">
-    <title>GEO CONSULTANTS - Legal & Corporate Advisors</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GEO CONSULTANTS — Legal & Corporate Advisors</title>
+  <meta name="description" content="Cyprus-based legal and corporate consultancy in Nicosia delivering clear, practical, and compliant solutions across Cyprus and the EU." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Inline SVG Logo Symbols -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="logo-wordmark" viewBox="0 0 520 80">
+      <defs>
+        <linearGradient id="lg" x1="0" x2="1">
+          <stop offset="0" stop-color="#C7A157"/>
+          <stop offset="1" stop-color="#9F8146"/>
+        </linearGradient>
+      </defs>
+      <g fill="#0B1F3A">
+        <text x="0" y="54" font-family="Playfair Display, serif" font-weight="700" font-size="42">GEO</text>
+        <text x="150" y="54" font-family="Inter, sans-serif" font-weight="600" font-size="28" letter-spacing="1.5">CONSULTANTS</text>
+      </g>
+      <rect x="0" y="62" width="320" height="4" rx="2" fill="url(#lg)"/>
+    </symbol>
+
+    <symbol id="logo-mark" viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="g2" x1="0" x2="1">
+          <stop offset="0" stop-color="#C7A157"/>
+          <stop offset="1" stop-color="#B08B4F"/>
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="60" height="60" rx="12" fill="#0B1F3A"/>
+      <path d="M20 26c0-5 4-9 9-9h6" fill="none" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M44 38c0 5-4 9-9 9h-8" fill="none" stroke="#F7F9FC" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+      <text x="20" y="36" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="12" fill="#F7F9FC">GC</text>
+    </symbol>
+  </svg>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='%230B1F3A'/%3E%3Cpath d='M20 26c0-5 4-9 9-9h6' fill='none' stroke='%23C7A157' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 38c0 5-4 9-9 9h-8' fill='none' stroke='%23F7F9FC' stroke-width='3' stroke-linecap='round' opacity='.9'/%3E%3Ctext x='20' y='36' font-family='Inter' font-weight='700' font-size='12' fill='%23F7F9FC'%3EGC%3C/text%3E%3C/svg%3E"/>
 </head>
-
 <body>
-
-    <header>
-        <h1>GEO CONSULTANTS</h1>
-        <p>Legal & Corporate Advisors You Can Rely On</p>
-    </header>
-
-    <nav>
+  <header>
+    <nav class="nav">
+      <div class="brand" aria-label="GEO CONSULTANTS">
+        <svg width="150" height="28" viewBox="0 0 520 80" aria-hidden="true"><use href="#logo-wordmark"></use></svg>
+      </div>
+      <div class="menu">
         <a href="#home">Home</a>
-        <a href="#about">About Us</a>
+        <a href="#about">About</a>
         <a href="#services">Services</a>
-        <a href="#why-cyprus">Why Cyprus</a>
-        <a href="#team">Our Team</a>
-        <a href="#contact">Contact Us</a>
+        <a href="#cyprus">Why Cyprus</a>
+        <a href="#contact" class="btn">Free Consultation</a>
+      </div>
     </nav>
+  </header>
 
-    <section id="home">
-        <!-- Optional hero image -->
-        <img src="hero-placeholder.jpg" alt="GEO CONSULTANTS Office" style="width:100%; max-height:400px; object-fit:cover; margin-bottom:20px; border-radius:8px;">
-        <h2>Welcome to GEO CONSULTANTS</h2>
-        <p>At GEO CONSULTANTS, we combine legal precision with practical insight to help clients navigate the Cypriot and European legal landscape with confidence. Based in Nicosia, we work closely with individuals, entrepreneurs, and international companies, offering clear, solution-driven advice that meets both local and cross-border needs.</p>
-        <p>Our team of experienced lawyers and consultants is dedicated to providing professional, responsive, and discreet support. We value clarity, efficiency, and personal communication — ensuring that every client receives the attention and guidance their matter deserves.</p>
-        <p>Whether you are setting up a new business, managing ongoing corporate obligations, or addressing personal legal matters, our goal remains the same: to deliver reliable advice and practical solutions that make a real difference.</p>
-    </section>
-
-    <section id="about">
-        <h2>About Us</h2>
-        <p>GEO CONSULTANTS is a Cyprus-based legal and corporate consultancy offering clear, practical, and results-oriented advice. Headquartered in Nicosia, we assist both local and international clients in navigating the Cypriot and EU legal landscape with confidence and ease.</p>
-        <p>Our focus is simple — to make legal and corporate matters straightforward, efficient, and fully compliant.</p>
-    </section>
-
-    <section id="services">
-        <h2>Our Services</h2>
-        <ul>
-            <li>Regulatory Compliance & AML: Advisory, internal policy drafting, tailored manuals</li>
-            <li>Inheritance Law: Asset administration, wills, dispute guidance</li>
-            <li>Corporate & Commercial Law: Company formation, corporate filings, mergers & acquisitions</li>
-            <li>Contracts & Legal Agreements: Drafting, review, trademark registration, negotiation support</li>
-            <li>Employment Law: Contracts, HR policies, pensions, benefits</li>
-            <li>Real Estate: Property transfer, contract drafting and review</li>
-            <li>Banking Services: Account management, KYC/AML compliance guidance</li>
-            <li>Intellectual Property: IP Box tax regime advisory and protection</li>
-            <li>Trusts & Estate Planning: Establishment, management, compliance</li>
-            <li>Translations: Certified legal, corporate, technical translations</li>
-            <li>Cyprus Tax & VAT: Registration, planning, compliance support</li>
-            <li>Offshore Companies: Hong Kong, Singapore, Seychelles formations</li>
-        </ul>
-    </section>
-
-    <section id="why-cyprus">
-        <h2>Why Choose Cyprus?</h2>
-        <p>Cyprus is one of Europe’s most reliable business hubs with a strategic location, modern legal framework, and business-friendly tax systems.</p>
-        <ul>
-            <li>Competitive corporate tax rates (12.5%, rising to 15% in 2026 with EU compliance)</li>
-            <li>Tax exemptions on dividends within the EU</li>
-            <li>No withholding tax on dividends paid to EU shareholders</li>
-            <li>No capital gains tax on securities sales</li>
-            <li>High-quality professional services and infrastructure</li>
-            <li>Excellent quality of life for entrepreneurs and families</li>
-        </ul>
-    </section>
-
-    <section id="team">
-        <h2>Our Team</h2>
-        <div class="team-list">
-            <div class="team-member">
-                <h3>GEO</h3>
-                <p>Legal & Corporate Advisors</p>
-                <p>Dedicated professionals providing legal and corporate consultancy with expertise in Cyprus and EU law.</p>
-            </div>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="h-eyebrow">Nicosia • Cyprus • EU</div>
+          <h1>Legal & Corporate Advisors You Can Rely On</h1>
+          <p class="lead">Combining legal precision with practical insight to navigate Cyprus and the EU with confidence for individuals, entrepreneurs, and international companies.</p>
+          <p class="lead">Professional, responsive, and discreet support with clear, solution‑driven advice.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn">Schedule a Free Consultation</a>
+            <a href="#services" class="btn btn-outline">Explore Services</a>
+          </div>
         </div>
+        <div class="hero-art" aria-hidden="true"></div>
+      </div>
     </section>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>We’re here to make your legal and corporate matters easier to manage.</p>
-        <p>Phone: <a href="tel:+357999999">+357 999999</a></p>
-        <p>Email: <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
-        <p>Address: Your office address here, Nicosia, Cyprus</p>
+    <section id="about" class="section">
+      <div class="sh"><div class="line"></div><h2>About Us</h2></div>
+      <div class="cols">
+        <div>
+          <h3>Who We Are</h3>
+          <p>GEO CONSULTANTS is a Cyprus‑based legal and corporate consultancy delivering clear, practical, and results‑oriented advice, headquartered in Nicosia for local and EU needs.</p>
+          <h3>Our Approach</h3>
+          <p>Clarity, integrity, and efficiency guide every matter, with personal attention and honest communication from start to finish.</p>
+          <h3>Mission & Vision</h3>
+          <p>To simplify complex procedures with transparent, reliable, tailored support and build long‑term relationships based on trust and measurable results.</p>
+        </div>
+        <div>
+          <div class="cards" style="grid-template-columns:1fr;gap:14px">
+            <div class="card"><h3>GEO</h3><p class="muted">[Position / Area of Practice]</p><p class="muted"></p></div>
+            <div class="card"><h3>GEO</h3><p class="muted">[Position / Area of Practice]</p><p class="muted"></p></div>
+            <div class="card"><h3>GEO</h3><p class="muted">[Position / Area of Practice]</p><p class="muted"></p></div>
+          </div>
+          <div class="kpi">
+            <div class="k"><strong>Cyprus/EU</strong><span>Compliance Focus</span></div>
+            <div class="k"><strong>Responsive</strong><span>Personal Communication</span></div>
+            <div class="k"><strong>Discrete</strong><span>Professional Support</span></div>
+            <div class="k"><strong>Results</strong><span>Solution‑Driven Advice</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Formspree contact form -->
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+    <section id="services" class="section alt">
+      <div class="sh"><div class="line"></div><h2>Services</h2></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Regulatory Compliance & AML</h3>
+          <ul class="list">
+            <li>Advisory for Cyprus/EU AML obligations</li>
+            <li>Internal AML policies and procedures</li>
+            <li>Tailored company compliance manuals</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Inheritance Law</h3>
+          <ul class="list">
+            <li>Administration and distribution of assets</li>
+            <li>Wills: drafting and execution</li>
+            <li>Guidance in disputes and asset division</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Corporate & Commercial</h3>
+          <ul class="list">
+            <li>Company formation (Cyprus Companies Law)</li>
+            <li>Directorship, secretarial, registered office</li>
+            <li>Minutes, filings, Registrar procedures</li>
+            <li>Partnerships, SPs, associations, foundations</li>
+            <li>Trade names & trademarks (CY/EU/international)</li>
+            <li>Restructurings, mergers, acquisitions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Contracts & Agreements</h3>
+          <ul class="list">
+            <li>Drafting and review</li>
+            <li>Negotiation support and advice</li>
+            <li>Trademark registration and protection</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Employment Law</h3>
+          <ul class="list">
+            <li>Employment contracts and HR policies</li>
+            <li>Pension scheme and benefits registration</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Real Estate</h3>
+          <ul class="list">
+            <li>Transfers (sale or donation)</li>
+            <li>Contract drafting and review</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Banking Services</h3>
+          <ul class="list">
+            <li>Corporate/personal accounts (banks, EMIs)</li>
+            <li>KYC/AML procedures and compliance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Intellectual Property</h3>
+          <p>Cyprus IP Box regime: effective tax rate on qualifying IP profits may be as low as 2.5% (OECD‑aligned).</p>
+        </div>
+        <div class="card">
+          <h3>Trusts</h3>
+          <p>Establishment and management for asset protection, estate planning, or investment with full compliance.</p>
+        </div>
+        <div class="card">
+          <h3>Translations</h3>
+          <p>Professional and certified translations of legal, corporate, and technical documents in multiple languages.</p>
+        </div>
+        <div class="card">
+          <h3>Cyprus Tax & VAT</h3>
+          <ul class="list">
+            <li>VAT registration</li>
+            <li>Tax planning and advisory</li>
+            <li>Ongoing compliance and reporting</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Offshore Companies</h3>
+          <ul class="list">
+            <li>Hong Kong company formation</li>
+            <li>Singapore company formation</li>
+            <li>Seychelles company formation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+    <section id="cyprus" class="section">
+      <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
+      <div class="cols">
+        <div>
+          <h3>Business Hub</h3>
+          <p>Strategic location, modern legal framework, and a business‑friendly tax system place Cyprus among Europe’s reliable business hubs.</p>
+          <h3>Tax Advantages</h3>
+          <ul class="list">
+            <li>Corporate tax 12.5% rising to 15% in 2026, remaining competitive.</li>
+            <li>Dividends from subsidiaries tax‑exempt where >50% active income and ≥6.25% effective tax.</li>
+            <li>No withholding tax on intra‑EU dividends.</li>
+            <li>No capital gains tax on sale of shares or securities in subsidiaries.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Services & Infrastructure</h3>
+          <p>High‑quality professional services, fast company registration, and modern banking, legal, and accounting infrastructure.</p>
+          <h3>Quality of Life</h3>
+          <p>Excellent infrastructure, favorable relocation programs, and a high standard of living for entrepreneurs and families.</p>
+        </div>
+      </div>
+    </section>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-
-            <button type="submit">Send Message</button>
+    <section id="contact" class="section alt">
+      <div class="sh"><div class="line"></div><h2>Contact Us</h2></div>
+      <div class="contact">
+        <form name="contact" netlify>
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Full name" required>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="name@example.com" required>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="+357 ...">
+          <label for="service">Service of interest</label>
+          <select id="service" name="service">
+            <option>Regulatory Compliance & AML</option>
+            <option>Corporate & Commercial Law</option>
+            <option>Inheritance Law</option>
+            <option>Employment Law</option>
+            <option>Real Estate</option>
+            <option>Banking Services</option>
+            <option>Intellectual Property</option>
+            <option>Trusts</option>
+            <option>Translations</option>
+            <option>Cyprus Tax & VAT</option>
+            <option>Offshore Companies</option>
+            <option>Other</option>
+          </select>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Briefly describe your matter..."></textarea>
+          <div class="consent">
+            <input id="consent" name="consent" type="checkbox" required>
+            <label for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
+          </div>
+          <div style="margin-top:14px">
+            <button class="btn" type="submit">Send Request</button>
+          </div>
         </form>
+        <div class="card">
+          <h3>Get in Touch</h3>
+          <p><strong>Phone:</strong> <a href="tel:+357">+357</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
+          <p><strong>Location:</strong> Nicosia, Cyprus</p>
+          <p>Business hours: Mon–Fri, 09:00–18:00 EEST</p>
+          <p>Free initial consultation by appointment.</p>
+          <div style="margin-top:16px;display:flex;align-items:center;gap:10px">
+            <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark"></use></svg>
+            <span class="muted">GEO CONSULTANTS</span>
+          </div>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 GEO CONSULTANTS. All rights reserved.</p>
-    </footer>
-
+  <footer>
+    <div class="foot">
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark"></use></svg>
+        <span>© GEO CONSULTANTS</span>
+      </div>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#cyprus">Why Cyprus</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 </body>
-
 </html>
