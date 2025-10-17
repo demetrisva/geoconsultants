@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- ===== LOGO (latest gold/grey geometric version) ===== -->
+  <!-- ===== LOGO (gold/grey geometric, calligraphic wordmark) ===== -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
     <symbol id="logo-wordmark" viewBox="0 0 780 120">
       <defs>
@@ -17,14 +17,12 @@
           <stop offset="1" stop-color="#A78953"/>
         </linearGradient>
       </defs>
-
       <!-- geometric frame (gold lines) -->
       <g fill="none" stroke="url(#lg)" stroke-width="6" stroke-linecap="round">
         <path d="M24 22 v56 a16 16 0 0 0 16 16 h150" />
         <path d="M540 22 v46 M500 68 h80" />
         <path d="M640 92 h96 M688 60 v64" />
       </g>
-
       <!-- wordmark -->
       <g fill="#2E3138">
         <text x="56" y="78" font-family="Playfair Display, serif" font-weight="700" font-size="54" letter-spacing="0.5">Geo</text>
@@ -78,6 +76,7 @@
     .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gray);color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:.2s}
     .btn:hover{transform:translateY(-1px);filter:brightness(.95)}
     .menu-toggle{display:none;background:none;border:1px solid #e1e8f2;border-radius:10px;padding:6px 10px;font-size:18px;cursor:pointer}
+
     .hero{position:relative;background:radial-gradient(1000px 600px at 85% -10%, rgba(199,161,87,.15), transparent 70%), var(--light)}
     .hero .inner{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center;padding:76px 0}
     .h-eyebrow{color:var(--gold);font-weight:600;letter-spacing:.12em;text-transform:uppercase}
@@ -88,12 +87,14 @@
     .btn-outline:hover{border-color:#c9d3e2}
     .hero-art{min-height:320px;border-radius:16px;background:linear-gradient(160deg,#1d2128 0%,#2e3138 60%);box-shadow:var(--shadow);position:relative;overflow:hidden}
     .hero-art::after{content:"";position:absolute;inset:-2px;border-radius:18px;background:radial-gradient(500px 200px at -10% 120%, rgba(199,161,87,.35), transparent 60%)}
+
     section{scroll-margin-top:92px}
     .section{padding:76px 0}
     .section.alt{background:var(--light);border-top:1px solid #eef3f9;border-bottom:1px solid #eef3f9}
     .sh{display:flex;align-items:center;gap:12px;margin-bottom:18px}
     .sh .line{width:40px;height:3px;background:var(--gold);border-radius:2px}
     .sh h2{font-family:"Playfair Display",serif;font-size:34px;margin:0;color:var(--gray)}
+
     .cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .card{background:var(--panel);border:1px solid #e7edf5;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease}
@@ -104,22 +105,29 @@
     .list li{margin:6px 0}
     .ic{display:flex;align-items:flex-start;gap:12px}
     .ic svg{width:22px;height:22px;color:var(--gold);margin-top:2px}
+
     .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:10px}
     .kpi .k{background:#fff;border:1px solid #e7edf5;border-radius:var(--radius);padding:16px;text-align:center}
     .k strong{display:block;font-size:22px}
+
     .contact{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
     form{background:#fff;border:1px solid #e7edf5;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     label{display:block;font-weight:600;margin-top:10px}
     input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #dfe6f1;border-radius:8px;font:inherit;outline:none}
     input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px var(--ring);border-color:#b9c9e4}
     textarea{min-height:120px;resize:vertical}
+
+    /* Safari overflow fix for consent row */
     .consent{display:flex;align-items:flex-start;gap:10px;margin-top:12px;flex-wrap:wrap;}
     .consent input[type="checkbox"]{flex:0 0 auto;margin-top:2px;}
     .consent label{flex:1 1 0;min-width:0;margin:0;white-space:normal;}
+
     .btn[disabled]{opacity:.7;cursor:not-allowed}
+
     footer{background:#2E3138;color:#c7d2e1}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:28px 0}
     .foot a{color:#c7d2e1}
+
     @media (max-width:1080px){.hero .inner{grid-template-columns:1fr}}
     @media (max-width:960px){
       .cols{grid-template-columns:1fr}
@@ -150,18 +158,307 @@
     </div>
   </header>
 
-  <!-- same main + footer as before -->
-  <!-- (paste your previous main + footer here unchanged, they stay identical) -->
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container inner">
+        <div>
+          <div class="h-eyebrow">Nicosia • Cyprus • EU</div>
+          <h1>Legal & Corporate Advisors You Can Rely On</h1>
+          <p class="lead">Combining legal precision with practical insight to navigate Cyprus and the EU with confidence for individuals, entrepreneurs, and international companies.</p>
+          <p class="lead">Professional, responsive, and discreet support with clear, solution-driven advice.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn">Schedule a Free Consultation</a>
+            <a href="#services" class="btn btn-outline">Explore Services</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>About Us</h2></div>
+        <div class="cols">
+          <div>
+            <h3>Who We Are</h3>
+            <p>GEO CONSULTANTS is a Cyprus-based legal and corporate consultancy delivering clear, practical, and results-oriented advice, headquartered in Nicosia for local and EU needs.</p>
+            <h3>Our Approach</h3>
+            <p>Clarity, integrity, and efficiency guide every matter, with personal attention and honest communication from start to finish.</p>
+            <h3>Mission & Vision</h3>
+            <p>To simplify complex procedures with transparent, reliable, tailored support and build long-term relationships based on trust and measurable results.</p>
+          </div>
+          <!-- Associates removed for privacy; keep KPIs -->
+          <div>
+            <div class="kpi">
+              <div class="k"><strong>Cyprus/EU</strong><span>Compliance Focus</span></div>
+              <div class="k"><strong>Responsive</strong><span>Personal Communication</span></div>
+              <div class="k"><strong>Discreet</strong><span>Professional Support</span></div>
+              <div class="k"><strong>Results</strong><span>Solution-Driven Advice</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section alt">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Services</h2></div>
+        <div class="cards">
+          <div class="card ic">
+            <svg><use href="#i-compliance"></use></svg>
+            <div>
+              <h3>Regulatory Compliance & AML</h3>
+              <ul class="list">
+                <li>Advisory for Cyprus/EU AML obligations</li>
+                <li>Internal AML policies and procedures</li>
+                <li>Tailored company compliance manuals</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-corporate"></use></svg>
+            <div>
+              <h3>Corporate & Commercial</h3>
+              <ul class="list">
+                <li>Company formation (Cyprus Companies Law)</li>
+                <li>Directorship, secretarial, registered office</li>
+                <li>Minutes, filings, Registrar procedures</li>
+                <li>Partnerships, SPs, associations, foundations</li>
+                <li>Trade names & trademarks (CY/EU/international)</li>
+                <li>Restructurings, mergers, acquisitions</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Contracts & Agreements</h3>
+              <ul class="list">
+                <li>Drafting and review</li>
+                <li>Negotiation support and advice</li>
+                <li>Trademark registration and protection</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Inheritance Law</h3>
+              <ul class="list">
+                <li>Administration and distribution of assets</li>
+                <li>Wills: drafting and execution</li>
+                <li>Guidance in disputes and asset division</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-corporate"></use></svg>
+            <div>
+              <h3>Employment Law</h3>
+              <ul class="list">
+                <li>Employment contracts and HR policies</li>
+                <li>Pension scheme and benefits registration</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Real Estate</h3>
+              <ul class="list">
+                <li>Transfers (sale or donation)</li>
+                <li>Contract drafting and review</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Banking Services</h3>
+              <ul class="list">
+                <li>Corporate/personal accounts (banks, EMIs)</li>
+                <li>KYC/AML procedures and compliance</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-tax"></use></svg>
+            <div>
+              <h3>Intellectual Property</h3>
+              <p>Cyprus IP Box regime: effective tax rate on qualifying IP profits may be as low as 2.5% (OECD-aligned).</p>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Trusts</h3>
+              <p>Establishment and management for asset protection, estate planning, or investment with full compliance.</p>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-contracts"></use></svg>
+            <div>
+              <h3>Translations</h3>
+              <p>Professional and certified translations of legal, corporate, and technical documents in multiple languages.</p>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-tax"></use></svg>
+            <div>
+              <h3>Cyprus Tax & VAT</h3>
+              <ul class="list">
+                <li>VAT registration</li>
+                <li>Tax planning and advisory</li>
+                <li>Ongoing compliance and reporting</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card ic">
+            <svg><use href="#i-corporate"></use></svg>
+            <div>
+              <h3>Offshore Companies</h3>
+              <ul class="list">
+                <li>Hong Kong company formation</li>
+                <li>Singapore company formation</li>
+                <li>Seychelles company formation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CYPRUS -->
+    <section id="cyprus" class="section">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
+        <div class="cols">
+          <div>
+            <h3>Business Hub</h3>
+            <p>Strategic location, modern legal framework, and a business-friendly tax system place Cyprus among Europe’s reliable business hubs.</p>
+            <h3>Tax Advantages</h3>
+            <ul class="list">
+              <li>Corporate tax 12.5% rising to 15% in 2026, remaining competitive.</li>
+              <li>Dividends from subsidiaries tax-exempt where &gt;50% active income and ≥6.25% effective tax.</li>
+              <li>No withholding tax on intra-EU dividends.</li>
+              <li>No capital gains tax on sale of shares or securities in subsidiaries.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Services & Infrastructure</h3>
+            <p>High-quality professional services, fast company registration, and modern banking, legal, and accounting infrastructure.</p>
+            <h3>Quality of Life</h3>
+            <p>Excellent infrastructure, favorable relocation programs, and a high standard of living for entrepreneurs and families.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section alt">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Contact Us</h2></div>
+        <div class="contact">
+          <form id="contact-form" action="#" method="POST" novalidate>
+            <div class="group">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Full name" required>
+            </div>
+            <div class="group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required>
+            </div>
+            <div class="group">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="+357 ...">
+            </div>
+            <div class="group">
+              <label for="service">Service of interest</label>
+              <select id="service" name="service">
+                <option>Regulatory Compliance & AML</option>
+                <option>Corporate & Commercial Law</option>
+                <option>Inheritance Law</option>
+                <option>Employment Law</option>
+                <option>Real Estate</option>
+                <option>Banking Services</option>
+                <option>Intellectual Property</option>
+                <option>Trusts</option>
+                <option>Translations</option>
+                <option>Cyprus Tax & VAT</option>
+                <option>Offshore Companies</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Briefly describe your matter..." required></textarea>
+            </div>
+            <div class="consent">
+              <input id="consent" name="consent" type="checkbox" required>
+              <label for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
+            </div>
+            <div style="margin-top:14px">
+              <button class="btn" id="submitBtn" type="submit">Send Request</button>
+            </div>
+            <p id="formStatus" class="muted" style="margin-top:10px"></p>
+          </form>
+          <div class="card">
+            <h3>Get in Touch</h3>
+            <p><strong>Phone:</strong> <a href="tel:+357">+357</a></p>
+            <p><strong>Email:</strong> <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
+            <p><strong>Location:</strong> Nicosia, Cyprus</p>
+            <p>Business hours: Mon–Fri, 09:00–18:00 EEST</p>
+            <p>Free initial consultation by appointment.</p>
+            <div style="margin-top:16px;display:flex;align-items:center;gap:10px">
+              <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark"></use></svg>
+              <span class="muted">GEO CONSULTANTS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark"></use></svg>
+        <span>© GEO CONSULTANTS</span>
+      </div>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#cyprus">Why Cyprus</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    const toggle=document.querySelector('.menu-toggle');const menu=document.querySelector('.menu');
-    toggle.addEventListener('click',()=>menu.classList.toggle('open'));
-    const form=document.getElementById('contact-form');if(form){
-      const statusEl=document.getElementById('formStatus');const btn=document.getElementById('submitBtn');
-      form.addEventListener('submit',e=>{
-        e.preventDefault();if(!form.reportValidity())return;
-        btn.setAttribute('disabled','true');statusEl.textContent='Submitting...';
-        setTimeout(()=>{statusEl.textContent='Thanks — your request has been recorded.';btn.removeAttribute('disabled');form.reset();},800);
+    // Mobile menu toggle
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
+
+    // Basic client-side form UX (no backend wired yet)
+    const form = document.getElementById('contact-form');
+    if (form) {
+      const statusEl = document.getElementById('formStatus');
+      const btn = document.getElementById('submitBtn');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!form.reportValidity()) return;
+        btn.setAttribute('disabled', 'true');
+        statusEl.textContent = 'Submitting...';
+        setTimeout(() => {
+          statusEl.textContent = 'Thanks — your request has been recorded.';
+          btn.removeAttribute('disabled');
+          form.reset();
+        }, 800);
       });
     }
   </script>
