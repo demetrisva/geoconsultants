@@ -1,0 +1,2 @@
+/admin/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://github.com https://cms-auth.geoconsultants.eu; img-src * data: blob:;
