@@ -1,32 +1,21 @@
-cd "/Users/demetrisv/Documents/GeoConsultants/Code"
-
-cat > admin/index.html <<'EOF'
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Geo Consultants — Admin</title>
-  <meta name="robots" content="noindex">
+  <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0}
-    .boot{padding:24px;color:#555}
+    #boot{padding:24px;color:#555}
   </style>
-  <script>
-    // If the CMS fails to load, show something instead of a blank screen
-    window.addEventListener('error', e => {
-      const box = document.getElementById('boot');
-      if (box) box.textContent = 'Admin failed to load. Check console for details.';
-    });
-  </script>
-  <!-- Primary CDN -->
-  <script src="https://unpkg.com/decap-cms@3.3.0/dist/decap-cms.js"
-          onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/decap-cms@3.3.0/dist/decap-cms.js';document.head.appendChild(s);})();">
-  </script>
 </head>
 <body>
-  <div id="boot" class="boot">Loading admin…</div>
-  <!-- Decap auto-loads config from /admin/config.yml -->
+  <div id="boot">Loading admin…</div>
+
+  <!-- Load Decap CMS after body is parsed -->
+  <script defer src="https://unpkg.com/decap-cms@3.3.0/dist/decap-cms.js"
+    onerror="(function(){var s=document.createElement('script');s.defer=true;s.src='https://cdn.jsdelivr.net/npm/decap-cms@3.3.0/dist/decap-cms.js';document.head.appendChild(s);}())">
+  </script>
 </body>
 </html>
-EOF
