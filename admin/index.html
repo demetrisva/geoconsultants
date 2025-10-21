@@ -12,25 +12,14 @@
 </head>
 <body>
   <div id="boot">Loading admin…</div>
-
-  <!-- Load Decap *after* DOM is ready, and disable Rocket Loader on this tag -->
   <script data-cfasync="false">
-    function loadDecap(src, fallback){
-      var s=document.createElement('script');
-      s.src=src;
-      s.defer=true;
-      s.onload=function(){ /* Decap auto-inits */ };
-      s.onerror=function(){
-        if(fallback){ loadDecap(fallback, null); }
-        else { document.getElementById('boot').textContent='Failed to load CMS script.'; }
-      };
-      document.head.appendChild(s);
-    }
     document.addEventListener('DOMContentLoaded', function(){
-      loadDecap(
-        "https://unpkg.com/decap-cms@3.3.0/dist/decap-cms.js",
-        "https://cdn.jsdelivr.net/npm/decap-cms@3.3.0/dist/decap-cms.js"
-      );
+      var s=document.createElement('script');
+      s.src='/admin/vendor/decap-cms.js';
+      s.defer=true;
+      s.onload=function(){ /* Decap auto-inits using /admin/config.yml */ };
+      s.onerror=function(){ document.getElementById('boot').textContent='Failed to load CMS script.'; };
+      document.head.appendChild(s);
     });
   </script>
 </body>
