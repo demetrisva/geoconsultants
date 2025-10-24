@@ -1,506 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GEO CONSULTANTS — Legal & Corporate Advisors</title>
-  <meta name="description" content="Cyprus-based legal and corporate consultancy in Nicosia delivering clear, practical, and compliant solutions across Cyprus and the EU." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- ===== Inline SVG sprite (with xlink namespace) ===== -->
-  <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Wordmark: gold geometric frame + Playfair title case -->
-    <symbol id="logo-wordmark" viewBox="0 0 780 120">
-      <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#C7A157"/>
-          <stop offset="1" stop-color="#A78953"/>
-        </linearGradient>
-        <!-- subtle highlight for gold lines -->
-        <filter id="gold-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- geometric frame (gold) -->
-      <g fill="none" stroke="url(#lg)" stroke-width="6" stroke-linecap="round" filter="url(#gold-soft)" opacity="0.95">
-        <path d="M24 22 v56 a16 16 0 0 0 16 16 h150"/>
-        <path d="M540 22 v46 M500 68 h80"/>
-        <path d="M640 92 h96 M688 60 v64"/>
-      </g>
-
-      <!-- wordmark -->
-      <g fill="#2E3138">
-        <text x="56" y="78" font-family="Playfair Display, serif" font-weight="700" font-size="54" letter-spacing="0.5">Geo</text>
-        <text x="220" y="78" font-family="Playfair Display, serif" font-weight="600" font-size="46" letter-spacing="1.1">Consultants</text>
-      </g>
-    </symbol>
-
-    <!-- Square mark for footer/favicon -->
-    <symbol id="logo-mark" viewBox="0 0 64 64">
-      <defs>
-        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#C7A157"/>
-          <stop offset="1" stop-color="#A78953"/>
-        </linearGradient>
-      </defs>
-      <rect x="2" y="2" width="60" height="60" rx="12" fill="#2E3138"/>
-      <g fill="none" stroke="url(#g2)" stroke-width="3" stroke-linecap="round">
-        <path d="M14 20 v24 a10 10 0 0 0 10 10 h16"/>
-        <path d="M50 14 v16 M42 22 h16"/>
-      </g>
-      <text x="16" y="40" font-family="Playfair Display, serif" font-weight="700" font-size="14" fill="#F7F9FC">Gc</text>
-    </symbol>
-
-    <!-- service icons -->
-    <symbol id="i-compliance" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></symbol>
-    <symbol id="i-corporate" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"><path d="M3 21h18M5 21V6h6v15M13 21V10h6v11M5 6l4-4h2"/></symbol>
-    <symbol id="i-contracts" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
-    <symbol id="i-tax" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"><circle cx="7" cy="7" r="3"/><path d="M3 21l18-18M14 14h5v7h-5z"/></symbol>
-  </svg>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='%232E3138'/%3E%3Cg fill='none' stroke='%23C7A157' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M14 20 v24 a10 10 0 0 0 10 10 h16'/%3E%3Cpath d='M50 14 v16 M42 22 h16'/%3E%3C/g%3E%3Ctext x='16' y='40' font-family='Playfair Display' font-weight='700' font-size='14' fill='%23F7F9FC'%3EGc%3C/text%3E%3C/svg%3E" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoConsultants — Legal & Corporate Services</title>
+  <meta name="description" content="GeoConsultants provides legal, corporate, and advisory services across Europe.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    :root{
-      --gray:#2E3138; --muted:#6E7A88; --light:#F7F9FC; --panel:#ffffff; --gold:#C7A157;
-      --radius:12px; --shadow:0 10px 30px rgba(11,31,58,.08); --ring:#9fb6d8;
-      --container:1180px; --gap:26px;
+    :root {
+      --primary: #004c99;
+      --accent: #007bff;
+      --text: #222;
+      --bg: #fff;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#fff;color:var(--gray);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;line-height:1.6}
-    a{color:var(--gray);text-decoration:none}
-    img,svg{max-width:100%;height:auto}
-    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
-
-    /* Header */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #e9eef6}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand svg{height:38px}
-    .menu{display:flex;gap:18px;align-items:center}
-    .menu a{font-weight:500;color:#5C6773;padding:8px 10px;border-radius:8px}
-    .menu a:hover{color:#1d2128;background:#f2f6fc}
-    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gray);color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:.2s}
-    .btn:hover{transform:translateY(-1px);filter:brightness(.95)}
-    .menu-toggle{display:none;background:none;border:1px solid #e1e8f2;border-radius:10px;padding:6px 10px;font-size:18px;cursor:pointer}
-
-    /* Logo sheen (subtle, reduced-motion safe) */
-    .brand .sheen{position:relative;display:inline-block}
-    .brand .sheen:after{
-      content:"";position:absolute;inset:0;
-      background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.35) 35%,transparent 70%);
-      mix-blend-mode:soft-light;opacity:.35;
-      animation:shine 2.8s ease-in-out infinite;
-      pointer-events:none;border-radius:6px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      scroll-behavior: smooth;
     }
-    @media (prefers-reduced-motion:reduce){.brand .sheen:after{animation:none}}
-
-    @keyframes shine {
-      0%{transform:translateX(-20%)}
-      50%{transform:translateX(20%)}
-      100%{transform:translateX(-20%)}
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-
-    /* Hero */
-    .hero{position:relative;background:radial-gradient(1000px 600px at 85% -10%, rgba(199,161,87,.16), transparent 70%), var(--light)}
-    .hero .inner{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center;padding:76px 0}
-    .h-eyebrow{color:var(--gold);font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-    h1{font-family:"Playfair Display",serif;font-size:46px;line-height:1.15;margin:10px 0 16px;color:var(--gray)}
-    .lead{color:var(--muted);font-size:18px;margin:0 0 16px;max-width:62ch}
-    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
-    .btn-outline{border:1px solid #d7dfeb;color:var(--gray);background:#fff}
-    .btn-outline:hover{border-color:#c9d3e2}
-    .hero-art{min-height:320px;border-radius:16px;background:linear-gradient(160deg,#1d2128 0%,#2e3138 60%);box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .hero-art::after{content:"";position:absolute;inset:-2px;border-radius:18px;background:radial-gradient(500px 200px at -10% 120%, rgba(199,161,87,.35), transparent 60%)}
-
-    /* Sections */
-    section{scroll-margin-top:92px}
-    .section{padding:76px 0}
-    .section.alt{background:var(--light);border-top:1px solid #eef3f9;border-bottom:1px solid #eef3f9}
-    .sh{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-    .sh .line{width:40px;height:3px;background:var(--gold);border-radius:2px}
-    .sh h2{font-family:"Playfair Display",serif;font-size:34px;margin:0;color:var(--gray)}
-
-    /* Grid, cards */
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .card{background:var(--panel);border:1px solid #e7edf5;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease}
-    .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(11,31,56,.12)}
-    .card h3{margin:0 0 8px;font-size:18px}
-    .muted{color:var(--muted)}
-    .list{margin:0;padding-left:18px}
-    .list li{margin:6px 0}
-    .ic{display:flex;align-items:flex-start;gap:12px}
-    .ic svg{width:22px;height:22px;color:var(--gold);margin-top:2px}
-
-    /* KPI badges */
-    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:10px}
-    .kpi .k{background:#fff;border:1px solid #e7edf5;border-radius:var(--radius);padding:16px;text-align:center}
-    .k strong{display:block;font-size:22px}
-
-    /* Contact */
-    .contact{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    form{background:#fff;border:1px solid #e7edf5;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-    label{display:block;font-weight:600;margin-top:10px}
-    input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #dfe6f1;border-radius:8px;font:inherit;outline:none}
-    input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px var(--ring);border-color:#b9c9e4}
-    textarea{min-height:120px;resize:vertical}
-    .consent{display:flex;align-items:flex-start;gap:10px;margin-top:12px;flex-wrap:wrap;}
-    .consent input[type="checkbox"]{flex:0 0 auto;margin-top:2px;}
-    .consent label{flex:1 1 0;min-width:0;margin:0;white-space:normal;}
-    .btn[disabled]{opacity:.7;cursor:not-allowed}
-
-    /* Footer */
-    footer{background:#2E3138;color:#c7d2e1}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:28px 0}
-    .foot a{color:#c7d2e1}
-
-    /* Responsive */
-    @media (max-width:1080px){.hero .inner{grid-template-columns:1fr}}
-    @media (max-width:960px){
-      .cols{grid-template-columns:1fr}
-      .cards{grid-template-columns:repeat(2,1fr)}
-      .kpi{grid-template-columns:repeat(2,1fr)}
-      .contact{grid-template-columns:1fr}
-      .menu-toggle{display:block}
-      .menu{position:fixed;top:64px;right:16px;background:#fff;border:1px solid #e7edf5;border-radius:12px;padding:14px;flex-direction:column;gap:10px;box-shadow:var(--shadow);transform:translateY(-10px) scale(.98);opacity:0;pointer-events:none;transition:.18s}
-      .menu.open{transform:none;opacity:1;pointer-events:auto}
+    header img.logo {
+      height: 44px;
+      transition: opacity 0.3s ease;
     }
-    @media (max-width:600px){h1{font-size:36px}.cards{grid-template-columns:1fr}}
+    header img.logo:hover {
+      opacity: 0.85;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .hero {
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 6rem 2rem;
+      box-shadow: inset 0 -4px 10px rgba(0,0,0,0.2);
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+    footer {
+      background: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.95rem;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav {
+        margin-top: 0.5rem;
+      }
+      nav a {
+        margin: 0 0.75rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="container nav">
-      <div class="brand sheen" aria-label="GEO CONSULTANTS">
-        <!-- use BOTH href + xlink:href for compatibility -->
-        <svg width="268" height="44" viewBox="0 0 780 120" aria-hidden="true">
-          <use href="#logo-wordmark" xlink:href="#logo-wordmark"></use>
-        </svg>
-      </div>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <div class="menu" role="navigation" aria-label="Primary">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#cyprus">Why Cyprus</a>
-        <a href="#contact" class="btn">Free Consultation</a>
-      </div>
-    </div>
+    <img src="logo.png" alt="GeoConsultants Logo" class="logo">
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="container inner">
-        <div>
-          <div class="h-eyebrow">Nicosia • Cyprus • EU</div>
-          <h1>Legal & Corporate Advisors You Can Rely On</h1>
-          <p class="lead">Combining legal precision with practical insight to navigate Cyprus and the EU with confidence for individuals, entrepreneurs, and international companies.</p>
-          <p class="lead">Professional, responsive, and discreet support with clear, solution-driven advice.</p>
-          <div class="hero-cta">
-            <a href="#contact" class="btn">Schedule a Free Consultation</a>
-            <a href="#services" class="btn btn-outline">Explore Services</a>
-          </div>
-        </div>
-        <div class="hero-art" aria-hidden="true"></div>
-      </div>
-    </section>
+  <section class="hero">
+    <h1>GeoConsultants</h1>
+    <p>Legal, Corporate & Advisory Services Across Europe</p>
+  </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>About Us</h2></div>
-        <div class="cols">
-          <div>
-            <h3>Who We Are</h3>
-            <p>GEO CONSULTANTS is a Cyprus-based legal and corporate consultancy delivering clear, practical, and results-oriented advice, headquartered in Nicosia for local and EU needs.</p>
-            <h3>Our Approach</h3>
-            <p>Clarity, integrity, and efficiency guide every matter, with personal attention and honest communication from start to finish.</p>
-            <h3>Mission & Vision</h3>
-            <p>To simplify complex procedures with transparent, reliable, tailored support and build long-term relationships based on trust and measurable results.</p>
-          </div>
-          <div>
-            <!-- Associates removed for privacy; keep KPIs -->
-            <div class="kpi">
-              <div class="k"><strong>Cyprus/EU</strong><span>Compliance Focus</span></div>
-              <div class="k"><strong>Responsive</strong><span>Personal Communication</span></div>
-              <div class="k"><strong>Discreet</strong><span>Professional Support</span></div>
-              <div class="k"><strong>Results</strong><span>Solution-Driven Advice</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      GeoConsultants is a professional advisory firm offering integrated legal and corporate solutions. 
+      We specialize in company formation, compliance, tax structuring, and business advisory across Europe.
+    </p>
+  </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="section alt">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Services</h2></div>
-        <div class="cards">
-          <div class="card ic">
-            <svg><use href="#i-compliance" xlink:href="#i-compliance"></use></svg>
-            <div>
-              <h3>Regulatory Compliance & AML</h3>
-              <ul class="list">
-                <li>Advisory for Cyprus/EU AML obligations</li>
-                <li>Internal AML policies and procedures</li>
-                <li>Tailored company compliance manuals</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-corporate" xlink:href="#i-corporate"></use></svg>
-            <div>
-              <h3>Corporate & Commercial</h3>
-              <ul class="list">
-                <li>Company formation (Cyprus Companies Law)</li>
-                <li>Directorship, secretarial, registered office</li>
-                <li>Minutes, filings, Registrar procedures</li>
-                <li>Partnerships, SPs, associations, foundations</li>
-                <li>Trade names & trademarks (CY/EU/international)</li>
-                <li>Restructurings, mergers, acquisitions</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Contracts & Agreements</h3>
-              <ul class="list">
-                <li>Drafting and review</li>
-                <li>Negotiation support and advice</li>
-                <li>Trademark registration and protection</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Inheritance Law</h3>
-              <ul class="list">
-                <li>Administration and distribution of assets</li>
-                <li>Wills: drafting and execution</li>
-                <li>Guidance in disputes and asset division</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-corporate" xlink:href="#i-corporate"></use></svg>
-            <div>
-              <h3>Employment Law</h3>
-              <ul class="list">
-                <li>Employment contracts and HR policies</li>
-                <li>Pension scheme and benefits registration</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Real Estate</h3>
-              <ul class="list">
-                <li>Transfers (sale or donation)</li>
-                <li>Contract drafting and review</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Banking Services</h3>
-              <ul class="list">
-                <li>Corporate/personal accounts (banks, EMIs)</li>
-                <li>KYC/AML procedures and compliance</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-tax" xlink:href="#i-tax"></use></svg>
-            <div>
-              <h3>Intellectual Property</h3>
-              <p>Cyprus IP Box regime: effective tax rate on qualifying IP profits may be as low as 2.5% (OECD-aligned).</p>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Trusts</h3>
-              <p>Establishment and management for asset protection, estate planning, or investment with full compliance.</p>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-contracts" xlink:href="#i-contracts"></use></svg>
-            <div>
-              <h3>Translations</h3>
-              <p>Professional and certified translations of legal, corporate, and technical documents in multiple languages.</p>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-tax" xlink:href="#i-tax"></use></svg>
-            <div>
-              <h3>Cyprus Tax & VAT</h3>
-              <ul class="list">
-                <li>VAT registration</li>
-                <li>Tax planning and advisory</li>
-                <li>Ongoing compliance and reporting</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card ic">
-            <svg><use href="#i-corporate" xlink:href="#i-corporate"></use></svg>
-            <div>
-              <h3>Offshore Companies</h3>
-              <ul class="list">
-                <li>Hong Kong company formation</li>
-                <li>Singapore company formation</li>
-                <li>Seychelles company formation</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Company formation & administration</li>
+      <li>Legal structuring & compliance</li>
+      <li>Tax & advisory support</li>
+      <li>Corporate governance & due diligence</li>
+      <li>Cross-border business setup</li>
+    </ul>
+  </section>
 
-    <!-- WHY CYPRUS -->
-    <section id="cyprus" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
-        <div class="cols">
-          <div>
-            <h3>Business Hub</h3>
-            <p>Strategic location, modern legal framework, and a business-friendly tax system place Cyprus among Europe’s reliable business hubs.</p>
-            <h3>Tax Advantages</h3>
-            <ul class="list">
-              <li>Corporate tax 12.5% rising to 15% in 2026, remaining competitive.</li>
-              <li>Dividends from subsidiaries tax-exempt where &gt;50% active income and ≥6.25% effective tax.</li>
-              <li>No withholding tax on intra-EU dividends.</li>
-              <li>No capital gains tax on sale of shares or securities in subsidiaries.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Services & Infrastructure</h3>
-            <p>High-quality professional services, fast company registration, and modern banking, legal, and accounting infrastructure.</p>
-            <h3>Quality of Life</h3>
-            <p>Excellent infrastructure, favorable relocation programs, and a high standard of living for entrepreneurs and families.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section alt">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Contact Us</h2></div>
-        <div class="contact">
-          <form id="contact-form" action="#" method="POST" novalidate>
-            <div class="group">
-              <label for="name">Full name</label>
-              <input id="name" name="name" type="text" placeholder="Full name" required>
-            </div>
-            <div class="group">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="name@example.com" required>
-            </div>
-            <div class="group">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" placeholder="+357 ...">
-            </div>
-            <div class="group">
-              <label for="service">Service of interest</label>
-              <select id="service" name="service">
-                <option>Regulatory Compliance & AML</option>
-                <option>Corporate & Commercial Law</option>
-                <option>Inheritance Law</option>
-                <option>Employment Law</option>
-                <option>Real Estate</option>
-                <option>Banking Services</option>
-                <option>Intellectual Property</option>
-                <option>Trusts</option>
-                <option>Translations</option>
-                <option>Cyprus Tax & VAT</option>
-                <option>Offshore Companies</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Briefly describe your matter..." required></textarea>
-            </div>
-            <div class="consent">
-              <input id="consent" name="consent" type="checkbox" required>
-              <label for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
-            </div>
-            <div style="margin-top:14px">
-              <button class="btn" id="submitBtn" type="submit">Send Request</button>
-            </div>
-            <p id="formStatus" class="muted" style="margin-top:10px"></p>
-          </form>
-          <div class="card">
-            <h3>Get in Touch</h3>
-            <p><strong>Phone:</strong> <a href="tel:+357">+357</a></p>
-            <p><strong>Email:</strong> <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
-            <p><strong>Location:</strong> Nicosia, Cyprus</p>
-            <p>Business hours: Mon–Fri, 09:00–18:00 EEST</p>
-            <p>Free initial consultation by appointment.</p>
-            <div style="margin-top:16px;display:flex;align-items:center;gap:10px">
-              <svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true">
-                <use href="#logo-mark" xlink:href="#logo-mark"></use>
-              </svg>
-              <span class="muted">GEO CONSULTANTS</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>
+      For inquiries, please reach us at 
+      <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a>.
+    </p>
+  </section>
 
   <footer>
-    <div class="container foot">
-      <div style="display:flex;align-items:center;gap:10px">
-        <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
-          <use href="#logo-mark" xlink:href="#logo-mark"></use>
-        </svg>
-        <span>© GEO CONSULTANTS</span>
-      </div>
-      <div class="menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#cyprus">Why Cyprus</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
+    <p>&copy; <span id="year"></span> GeoConsultants. All rights reserved.</p>
+    <p><a href="https://www.geoconsultants.eu">www.geoconsultants.eu</a></p>
   </footer>
 
   <script>
-    // Mobile menu toggle
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
-
-    // Basic client-side form UX
-    const form = document.getElementById('contact-form');
-    if (form) {
-      const statusEl = document.getElementById('formStatus');
-      const btn = document.getElementById('submitBtn');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if(!form.reportValidity()) return;
-        btn.setAttribute('disabled', 'true');
-        statusEl.textContent = 'Submitting...';
-        setTimeout(() => {
-          statusEl.textContent = 'Thanks — your request has been recorded.';
-          btn.removeAttribute('disabled');
-          form.reset();
-        }, 800);
-      });
-    }
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>

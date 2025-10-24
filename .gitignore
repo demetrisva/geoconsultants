@@ -1,18 +1,36 @@
-# OS
+# macOS system files
 .DS_Store
-Thumbs.db
+.AppleDouble
+.LSOverride
 
-# Editors
+# macOS metadata folders
+__MACOSX/
+
+# VS Code settings
 .vscode/
-.idea/
+.history/
+*.code-workspace
 
-# Node (if added later)
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Node or build artifacts (if you add tooling later)
 node_modules/
 dist/
 build/
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Backup files
+*~
+*.orig
+
+# Environment files (for safety)
+.env
+.env.local
+.env.production
+.env.development
+
+# Cloudflare Pages cache (if generated locally)
+.cloudflare/
