@@ -1,59 +1,107 @@
-// /functions/api/contact.js
-export const onRequestPost = async ({ request }) => {
-  try {
-    const data = await request.json();
+// Cloudflare Pages Function: /api/contact
+// Sends email via MailChannels. Optional Turnstile verification if env.TURNSTILE_SECRET is set.
 
-    // Basic validation/sanitization
-    const nonEmpty = (v) => typeof v === 'string' && v.trim().length > 0;
-    if (!nonEmpty(data.name) || !nonEmpty(data.email) || !nonEmpty(data.message)) {
-      return json({ error: 'Missing required fields' }, 400);
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      return json({ error: 'Invalid email' }, 400);
-    }
-
-    const html = `
-      <div style="font-family:Segoe UI,Arial,sans-serif">
-        <h2>New Website Inquiry — GeoConsultants</h2>
-        <p><strong>Name:</strong> ${esc(data.name)}</p>
-        <p><strong>Email:</strong> ${esc(data.email)}</p>
-        ${data.phone ? `<p><strong>Phone:</strong> ${esc(data.phone)}</p>` : ''}
-        ${data.service ? `<p><strong>Service:</strong> ${esc(data.service)}</p>` : ''}
-        <hr style="border:none;border-top:1px solid #ddd;margin:12px 0;" />
-        <p><strong>Message:</strong></p>
-        <pre style="white-space:pre-wrap; font-family:inherit;">${esc(data.message)}</pre>
-      </div>`.trim();
-
-    // Send with MailChannels
-    const r = await fetch('https://api.mailchannels.net/tx/v1/send', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: 'info@geoconsultants.eu', name: 'GeoConsultants' }] }],
-        from: { email: 'noreply@geoconsultants.eu', name: 'Website Form' },
-        reply_to: [{ email: data.email, name: data.name }],
-        subject: `Website contact from ${data.name}`,
-        content: [{ type: 'text/html', value: html }]
-      })
-    });
-
-    if (!r.ok) {
-      const t = await r.text();
-      return json({ error: 'MailChannels error', details: t.slice(0, 200) }, 502);
-    }
-
-    return json({ ok: true });
-  } catch {
-    return json({ error: 'Bad request' }, 400);
-  }
-};
-
-function json(obj, status=200) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: { 'content-type': 'application/json' }
+export async function onRequestOptions() {
+  return new Response('', {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
   });
 }
-function esc(s='') {
-  return s.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[ch]));
+
+export async function onRequestPost({ request, env }) {
+  try {
+    const { name = '', email = '', message = '', turnstileToken = '' } = await request.json();
+
+    // Basic validation
+    if (!name.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !message.trim()) {
+      return json({ error: 'Invalid input' }, 400);
+    }
+
+    // Optional Turnstile verification (only if you defined TURNSTILE_SECRET in Pages > Settings > Environment Variables)
+    if (env.TURNSTILE_SECRET) {
+      if (!turnstileToken) return json({ error: 'Missing verification token' }, 400);
+
+      const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: env.TURNSTILE_SECRET,
+          response: turnstileToken,
+          remoteip: request.headers.get('CF-Connecting-IP') || undefined,
+        }),
+      }).then(r => r.json());
+
+      if (!verify.success) {
+        return json({ error: 'Verification failed', detail: verify['error-codes'] }, 403);
+      }
+    }
+
+    // Build MailChannels payload
+    const text = `New contact form submission:
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}`;
+
+    const html = `
+      <div style="font-family:Arial,Helvetica,sans-serif;line-height:1.5">
+        <h2 style="margin:0 0 12px">New contact form submission</h2>
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <hr style="border:none;border-top:1px solid #ddd;margin:12px 0">
+        <pre style="white-space:pre-wrap;font:inherit">${escapeHtml(message)}</pre>
+      </div>`;
+
+    const payload = {
+      personalizations: [{
+        to: [{ email: 'info@geoconsultants.eu', name: 'GeoConsultants' }],
+        reply_to: [{ email, name }],
+      }],
+      from: { email: 'info@geoconsultants.eu', name: 'GeoConsultants Website' },
+      subject: `New message from ${name}`,
+      content: [
+        { type: 'text/plain', value: text },
+        { type: 'text/html',  value: html },
+      ],
+    };
+
+    const mcRes = await fetch('https://api.mailchannels.net/tx/v1/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const bodyText = await mcRes.text();
+
+    if (!mcRes.ok) {
+      // Return MailChannels error to the browser so we can see what's wrong in DevTools
+      return json({ error: 'Mail send failed', detail: bodyText }, 502);
+    }
+
+    return json({ success: true });
+  } catch (e) {
+    return json({ error: e.message || String(e) }, 500);
+  }
+}
+
+function json(obj, status = 200) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

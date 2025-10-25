@@ -25,6 +25,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- Turnstile (NEW) -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+
   <!-- ========== Styles ========== -->
   <style>
     :root{
@@ -470,6 +473,13 @@
               <input id="consent" name="consent" type="checkbox" required aria-describedby="consentText">
               <label id="consentText" for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
             </div>
+
+            <!-- Turnstile widget (NEW) -->
+            <div class="cf-turnstile"
+                 data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol"
+                 data-theme="light"
+                 data-callback="tsDone"></div>
+
             <div style="margin-top:14px">
               <button class="btn" id="submitBtn" type="submit">Send Request</button>
             </div>
@@ -548,6 +558,10 @@
       observer.observe(el);
     });
 
+    // Turnstile token storage (NEW)
+    window.__tsToken = '';
+    function tsDone(token){ window.__tsToken = token; }
+
     // Contact form: validate + submit to /api/contact
     const form = document.getElementById('contact-form');
     if (form) {
@@ -571,7 +585,9 @@
           email: document.getElementById('email').value.trim(),
           phone: document.getElementById('phone').value.trim(),
           service: document.getElementById('service').value,
-          message: document.getElementById('message').value.trim()
+          message: document.getElementById('message').value.trim(),
+          // include Turnstile token (may be empty if widget was removed)
+          turnstileToken: window.__tsToken || ''
         };
 
         try {
@@ -584,12 +600,16 @@
           if (res.ok) {
             form.reset();
             statusEl.textContent = 'Thank you — your request has been sent.';
+            // reset Turnstile to get a fresh token next time
+            if (window.turnstile) { turnstile.reset(); window.__tsToken = ''; }
           } else {
             const t = await res.text();
             statusEl.textContent = 'Sorry, something went wrong. Email us directly: info@geoconsultants.eu (' + t.slice(0,160) + '...)';
+            if (window.turnstile) { turnstile.reset(); window.__tsToken = ''; }
           }
         } catch (err) {
           statusEl.textContent = 'Network error. Please try again or email us directly.';
+          if (window.turnstile) { turnstile.reset(); window.__tsToken = ''; }
         } finally {
           btn.removeAttribute('disabled');
         }
