@@ -6,7 +6,6 @@
   <title>Contact — GeoConsultants</title>
   <link rel="stylesheet" href="/site/site.css">
   <link rel="icon" href="/favicon.ico">
-  <!-- Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </head>
 <body>
@@ -19,19 +18,17 @@
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-
-        <!-- Turnstile widget -->
         <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol" data-theme="dark"></div>
-
         <button id="sendBtn" type="submit">Send Message</button>
         <p id="formMessage" aria-live="polite"></p>
       </form>
     </section>
 
-    <!-- Toast -->
-    <div id="toast" style="position:fixed;left:50%;bottom:30px;transform:translateX(-50%) scale(0.98);
-      background:#151515;border:1px solid rgba(255,214,107,.3);color:#ffd66b;padding:12px 16px;border-radius:10px;
-      opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:50;"></div>
+    <div id="toast"
+      style="position:fixed;left:50%;bottom:30px;transform:translateX(-50%) scale(0.98);
+      background:#151515;border:1px solid rgba(255,214,107,.3);color:#ffd66b;
+      padding:12px 16px;border-radius:10px;opacity:0;pointer-events:none;
+      transition:opacity .25s, transform .25s;z-index:50;"></div>
   </main>
 
   <div data-include="/partials/footer.html"></div>
@@ -58,14 +55,11 @@
 
     const btn = document.getElementById('sendBtn');
     const msg = document.getElementById('formMessage');
-
-    // Loading state
     btn.disabled = true;
     const oldText = btn.textContent;
     btn.textContent = 'Sending…';
     btn.style.opacity = '.7';
 
-    // Turnstile token is placed in a hidden input named "cf-turnstile-response"
     const tokenInput = document.querySelector('input[name="cf-turnstile-response"]');
     const turnstileToken = tokenInput ? tokenInput.value : '';
 
@@ -92,13 +86,11 @@
         msg.style.color = '#50fa7b';
         showToast('Message delivered ✔︎', true);
         form.reset();
-        // Reset Turnstile after successful submit
         if (window.turnstile) turnstile.reset();
       } else {
         msg.textContent = '❌ ' + (out.error || 'Error sending message.');
         msg.style.color = '#ff5555';
         showToast('Send failed', false);
-        // Reset Turnstile so user can try again
         if (window.turnstile) turnstile.reset();
       }
     } catch (err) {
