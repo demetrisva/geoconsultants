@@ -22,7 +22,7 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- ========== Styles ========== -->
   <style>
@@ -105,17 +105,32 @@
 
     /* ===== Hero (with large logo block) ===== */
     .hero{padding:64px 0 32px}
+
+    /* Seamless logo block: same color as page background */
     .logo-plate{
       margin:0 auto 22px; max-width:920px;
-      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
-      border:1px solid rgba(199,161,87,.30);
-      border-radius:20px; padding:18px; box-shadow:var(--shadow); text-align:center;
+      background:var(--cream); /* SAME as page */
+      border:none;
+      border-radius:0;
+      padding:0;
+      box-shadow:none;
+      text-align:center;
     }
-    .logo-plate img{width:min(560px,92vw);margin:0 auto;filter:drop-shadow(0 10px 26px rgba(0,0,0,.12));border-radius:12px}
+    .logo-plate img{
+      width:min(560px,92vw);
+      margin:0 auto;
+      border-radius:0;
+      filter:none;
+      background:var(--cream); /* ensures no edge halo */
+    }
+
     .h-eyebrow{color:var(--gold);font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-align:center}
     .h-title{
       font-family:"Playfair Display", serif; font-size:46px; line-height:1.15; text-align:center; margin:10px 0 10px; color:var(--ink)
     }
+    /* Simple ampersand */
+    .h-title .amp{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-weight:800; letter-spacing:-.02em}
+
     .lead{color:var(--muted);text-align:center;max-width:70ch;margin:0 auto 16px;font-size:18px}
     .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
     .btn-outline{background:#fff;border:1px solid #E6DFD1;color:var(--ink)}
@@ -166,7 +181,7 @@
 
     /* Contact */
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    form{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    form{background:#fff;border:1.5px solid #EEE6D6;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     label{display:block;font-weight:700;margin-top:10px;color:var(--ink)}
     input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1.5px solid #E6DFD1;border-radius:10px;font:inherit;background:#fff}
     input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:#CFB174}
@@ -248,7 +263,7 @@
           <img src="logo-optimized.png" alt="GeoConsultants wordmark" />
         </div>
         <div class="h-eyebrow">Nicosia • Cyprus • EU</div>
-        <h1 class="h-title">Legal & Corporate Advisors You Can Rely On</h1>
+        <h1 class="h-title">Legal <span class="amp">&amp;</span> Corporate Advisors You Can Rely On</h1>
         <p class="lead">We combine legal precision with practical insight to help founders, investors, and international companies operate confidently across Cyprus and the EU.</p>
         <p class="lead">Responsive, discreet, and solution-driven support — from fast company formation to audit-ready compliance.</p>
         <div class="hero-cta">
