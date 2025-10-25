@@ -3,155 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GeoConsultants — Legal & Corporate Advisors</title>
-
-  <!-- Brand Meta -->
-  <meta name="description" content="Cyprus-based legal and corporate consultancy in Nicosia delivering clear, practical, compliant solutions across Cyprus and the EU."/>
-  <meta property="og:title" content="GeoConsultants — Legal & Corporate Advisors"/>
-  <meta property="og:description" content="Clear, practical, and compliant legal & corporate solutions across Cyprus and the EU."/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://www.geoconsultants.eu/"/>
-  <meta property="og:image" content="https://www.geoconsultants.eu/logo-optimized.png"/>
-  <meta name="theme-color" content="#2E3138"/>
-
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/logo-optimized.png">
+  <title>GeoConsultants - Legal & Corporate Advisors</title>
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    *{margin:0;padding:0;box-sizing:border-box}
 
     :root{
-      /* GeoConsultants palette */
-      --primary:#C7A157;     /* gold */
-      --secondary:#A78953;   /* deep gold */
-      --accent:#2E3138;      /* charcoal */
+      /* Keep the exact structure/animations of your TaxInfo template */
+      --primary-color:#2563eb;
+      --secondary-color:#1e40af;
+      --accent-color:#3b82f6;
       --text-dark:#1f2937;
       --text-light:#6b7280;
       --bg-light:#f9fafb;
       --white:#ffffff;
-
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --shadow-hover:0 15px 40px rgba(0,0,0,.14);
+      --shadow:0 10px 30px rgba(0,0,0,.1);
+      --shadow-hover:0 15px 40px rgba(0,0,0,.15);
     }
 
-    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; line-height:1.6; color:var(--text-dark); overflow-x:hidden; background:#fff; }
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:var(--text-dark);overflow-x:hidden}
 
-    /* Animated Background (subtle gold fabric) */
+    /* Animated Background — same effect, fixed bugged data URI */
     .animated-bg{
-      position:fixed; inset:0; z-index:-1; opacity:.06;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      opacity:.05;
     }
     .animated-bg::before{
-      content:""; position:absolute; inset:0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C7A157' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      content:'';position:absolute;inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232563eb' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       animation:bgMove 60s linear infinite;
     }
-    @keyframes bgMove { 0%{transform:translate(0,0)} 100%{transform:translate(60px,60px)} }
+    @keyframes bgMove{0%{transform:translate(0,0)}100%{transform:translate(60px,60px)}}
 
-    /* Header */
-    header{ background:var(--white); box-shadow:0 2px 10px rgba(0,0,0,.05); position:sticky; top:0; z-index:1000; animation:slideDown .5s ease-out; }
-    @keyframes slideDown { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+    /* Header (same layout/animation) */
+    header{background:var(--white);box-shadow:0 2px 10px rgba(0,0,0,.05);position:sticky;top:0;z-index:1000;animation:slideDown .5s ease-out}
+    @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+    nav{max-width:1200px;margin:0 auto;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center}
 
-    nav{ max-width:1200px; margin:0 auto; padding:1.2rem 2rem; display:flex; justify-content:space-between; align-items:center; }
-    .brand{ display:flex; align-items:center; gap:14px; text-decoration:none; }
-    .brand img{ height:44px; width:auto; display:block; border-radius:8px; box-shadow:var(--shadow); }
-    .brand-name{ font-size:1.1rem; font-weight:700; color:var(--accent); letter-spacing:.04em; }
+    /* Brand swapped to your raster logo */
+    .brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+    .brand img{height:40px;width:auto;display:block;border-radius:8px;box-shadow:var(--shadow);transition:transform .3s ease}
+    .brand:hover img{transform:scale(1.03)}
+    .brand-name{font-size:1.25rem;font-weight:700;color:var(--primary-color);letter-spacing:.02em}
 
-    .nav-links{ display:flex; gap:2rem; list-style:none; }
-    .nav-links a{ color:var(--text-dark); text-decoration:none; font-weight:600; position:relative; }
-    .nav-links a::after{ content:""; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:var(--primary); transition:width .25s ease; }
-    .nav-links a:hover{ color:var(--accent); }
-    .nav-links a:hover::after{ width:100%; }
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:var(--text-dark);text-decoration:none;font-weight:500;transition:color .3s ease;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--primary-color);transition:width .3s ease}
+    .nav-links a:hover{color:var(--primary-color)}
+    .nav-links a:hover::after{width:100%}
 
-    /* Hero */
-    .hero{ max-width:1200px; margin:0 auto; padding:5rem 2rem 4rem; text-align:center; animation:fadeInUp .8s ease-out; }
-    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    /* Hero (same structure/animations) */
+    .hero{max-width:1200px;margin:0 auto;padding:5rem 2rem;text-align:center;animation:fadeInUp .8s ease-out}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .hero h1{font-size:3.5rem;color:var(--text-dark);margin-bottom:1.5rem;line-height:1.2}
+    .hero .highlight{color:var(--primary-color);position:relative;display:inline-block}
+    .hero p{font-size:1.25rem;color:var(--text-light);max-width:700px;margin:0 auto 2rem}
+    .cta-button{display:inline-block;background:var(--primary-color);color:var(--white);padding:1rem 2.5rem;border-radius:50px;text-decoration:none;font-weight:600;transition:all .3s ease;box-shadow:0 5px 15px rgba(37,99,235,.3)}
+    .cta-button:hover{background:var(--secondary-color);transform:translateY(-3px);box-shadow:0 8px 20px rgba(37,99,235,.4)}
 
-    .hero h1{ font-size:3rem; color:var(--accent); margin-bottom:1rem; line-height:1.2; }
-    .highlight{ color:var(--primary); position:relative; display:inline-block; }
-    .highlight::after{ content:""; position:absolute; left:0; bottom:-6px; width:100%; height:6px; background:linear-gradient(90deg, rgba(199,161,87,.35), rgba(167,137,83,.1)); border-radius:3px; }
+    /* Services (same) */
+    .services{background:var(--bg-light);padding:5rem 2rem}
+    .container{max-width:1200px;margin:0 auto}
+    .section-title{text-align:center;font-size:2.5rem;color:var(--text-dark);margin-bottom:3rem}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+    .service-card{background:var(--white);padding:2.5rem;border-radius:15px;box-shadow:var(--shadow);transition:all .3s ease;animation:fadeIn .6s ease-out backwards;border:1px solid #eef2f7}
+    .service-card:nth-child(1){animation-delay:.1s}.service-card:nth-child(2){animation-delay:.2s}.service-card:nth-child(3){animation-delay:.3s}.service-card:nth-child(4){animation-delay:.4s}.service-card:nth-child(5){animation-delay:.5s}.service-card:nth-child(6){animation-delay:.6s}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .service-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-hover)}
+    .service-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--primary-color),var(--accent-color));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.75rem;color:#fff}
+    .service-card h3{font-size:1.5rem;margin-bottom:1rem;color:var(--text-dark)}
+    .service-card p{color:var(--text-light);line-height:1.7}
 
-    .hero p{ font-size:1.2rem; color:var(--text-light); max-width:760px; margin:0 auto 2rem; }
-    .cta-button{
-      display:inline-block; background:var(--accent); color:#fff; padding:1rem 2.4rem; border-radius:50px;
-      text-decoration:none; font-weight:700; letter-spacing:.02em; transition:all .3s ease; box-shadow:0 5px 15px rgba(46,49,56,.28);
-    }
-    .cta-button:hover{ background:#1f2228; transform:translateY(-3px); box-shadow:0 8px 20px rgba(46,49,56,.36); }
+    /* Contact (same) */
+    .contact{padding:5rem 2rem}
+    .form-container{max-width:600px;margin:0 auto;background:var(--white);padding:3rem;border-radius:20px;box-shadow:var(--shadow)}
+    .form-group{margin-bottom:1.5rem;animation:slideIn .5s ease-out backwards}
+    .form-group:nth-child(1){animation-delay:.1s}.form-group:nth-child(2){animation-delay:.2s}.form-group:nth-child(3){animation-delay:.3s}.form-group:nth-child(4){animation-delay:.4s}.form-group:nth-child(5){animation-delay:.5s}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+    .form-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text-dark)}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:1rem;border:2px solid #e5e7eb;border-radius:10px;font-size:1rem;transition:all .3s ease;font-family:inherit}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary-color);box-shadow:0 0 0 4px rgba(37,99,235,.1);transform:translateY(-2px)}
+    .form-group textarea{resize:vertical;min-height:120px}
+    .submit-btn{width:100%;padding:1rem;background:var(--primary-color);color:var(--white);border:none;border-radius:10px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all .3s ease}
+    .submit-btn:hover{background:var(--secondary-color);transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.3)}
+    .submit-btn:active{transform:translateY(0)}
+    .loading{display:none;text-align:center;margin-top:1rem}
+    .spinner{border:3px solid #f3f3f3;border-top:3px solid var(--primary-color);border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite;margin:0 auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .success-message{display:none;background:#10b981;color:#fff;padding:1rem;border-radius:10px;margin-top:1rem;text-align:center}
 
-    /* Services */
-    .services{ background:var(--bg-light); padding:5rem 2rem; }
-    .container{ max-width:1200px; margin:0 auto; }
-    .section-title{ text-align:center; font-size:2.2rem; color:var(--accent); margin-bottom:3rem; }
-    .services-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:2rem; }
-
-    .service-card{
-      background:var(--white); padding:2.2rem; border-radius:16px; box-shadow:var(--shadow);
-      transition:all .3s ease; animation:fadeIn .6s ease-out backwards; border:1px solid #edf1f6;
-    }
-    .service-card:nth-child(1){ animation-delay:.1s } .service-card:nth-child(2){ animation-delay:.2s }
-    .service-card:nth-child(3){ animation-delay:.3s } .service-card:nth-child(4){ animation-delay:.4s }
-    .service-card:nth-child(5){ animation-delay:.5s } .service-card:nth-child(6){ animation-delay:.6s }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    .service-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow-hover); }
-
-    .service-icon{
-      width:60px; height:60px; border-radius:14px; display:flex; align-items:center; justify-content:center;
-      margin-bottom:1.2rem; font-size:1.6rem; color:#fff; background:linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow:0 6px 16px rgba(199,161,87,.25);
-    }
-    .service-card h3{ font-size:1.35rem; margin-bottom:.6rem; color:var(--accent); }
-    .service-card p{ color:var(--text-light); line-height:1.7; }
-
-    /* Contact */
-    .contact{ padding:5rem 2rem; }
-    .form-container{
-      max-width:640px; margin:0 auto; background:var(--white); padding:3rem; border-radius:20px; box-shadow:var(--shadow); border:1px solid #edf1f6;
-    }
-    .form-group{ margin-bottom:1.3rem; animation:slideIn .5s ease-out backwards; }
-    .form-group:nth-child(1){ animation-delay:.1s } .form-group:nth-child(2){ animation-delay:.2s }
-    .form-group:nth-child(3){ animation-delay:.3s } .form-group:nth-child(4){ animation-delay:.4s }
-    .form-group:nth-child(5){ animation-delay:.5s }
-    @keyframes slideIn { from{opacity:0;transform:translateX(-18px)} to{opacity:1;transform:translateX(0)} }
-
-    label{ display:block; margin-bottom:.5rem; font-weight:700; color:var(--accent); letter-spacing:.02em; }
-    input, textarea, select{
-      width:100%; padding:1rem; border:2px solid #e5e7eb; border-radius:10px; font-size:1rem; transition:all .25s ease; font-family:inherit;
-    }
-    input:focus, textarea:focus, select:focus{
-      outline:none; border-color:var(--primary); box-shadow:0 0 0 4px rgba(199,161,87,.15); transform:translateY(-1px);
-    }
-    textarea{ resize:vertical; min-height:120px; }
-
-    .submit-btn{
-      width:100%; padding:1rem; background:var(--accent); color:#fff; border:none; border-radius:10px; font-size:1.08rem; font-weight:700; cursor:pointer; transition:all .3s ease;
-    }
-    .submit-btn:hover{ background:#1f2228; transform:translateY(-2px); box-shadow:0 8px 20px rgba(46,49,56,.3); }
-    .loading{ display:none; text-align:center; margin-top:1rem; }
-    .spinner{ border:3px solid #f3f3f3; border-top:3px solid var(--accent); border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto; }
-    @keyframes spin { to{ transform:rotate(360deg) } }
-    .success-message{ display:none; background:#10b981; color:#fff; padding:1rem; border-radius:10px; margin-top:1rem; text-align:center; }
-
-    /* Footer */
-    footer{ background:var(--accent); color:#e5e9f2; padding:3rem 2rem; text-align:center; }
-    .footer-content{ max-width:1200px; margin:0 auto; }
-    .footer-brand{ display:flex; align-items:center; gap:12px; justify-content:center; margin-bottom:1rem; }
-    .footer-brand img{ height:36px; width:auto; border-radius:8px; }
-    .footer-links{ display:flex; justify-content:center; gap:2rem; margin:1rem 0 1.4rem; flex-wrap:wrap; }
-    .footer-links a{ color:#e5e9f2; text-decoration:none; }
-    .footer-links a:hover{ color:var(--primary); }
+    /* Footer (same) */
+    footer{background:var(--text-dark);color:var(--white);padding:3rem 2rem;text-align:center}
+    .footer-content{max-width:1200px;margin:0 auto}
+    .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .footer-links a{color:var(--white);text-decoration:none;transition:color .3s ease}
+    .footer-links a:hover{color:var(--accent-color)}
 
     /* Responsive */
     @media (max-width:768px){
-      .hero h1{ font-size:2.4rem; }
-      .nav-links{ gap:1rem; }
-      .form-container{ padding:2rem; }
+      .hero h1{font-size:2.5rem}
+      .nav-links{gap:1rem}
+      .services-grid{grid-template-columns:1fr}
+      .form-container{padding:2rem}
     }
   </style>
 </head>
 <body>
   <div class="animated-bg"></div>
 
+  <!-- Header / Nav (same structure as template) -->
   <header>
     <nav>
       <a href="#home" class="brand" aria-label="GeoConsultants">
@@ -167,12 +128,14 @@
     </nav>
   </header>
 
+  <!-- HERO (mirrors your TaxInfo hero) -->
   <section id="home" class="hero">
-    <h1>Trusted <span class="highlight">Legal & Corporate</span> Advisors</h1>
-    <p>Clear, practical, and compliant solutions for company formation, governance, contracts, IP, and cross-border needs across Cyprus and the EU.</p>
-    <a href="#contact" class="cta-button">Free Consultation</a>
+    <h1>Professional <span class="highlight">Legal & Corporate</span> Services</h1>
+    <p>Clear, practical, and compliant advisory for company formation, governance, contracts, IP, banking/KYC, and cross-border matters across Cyprus and the EU.</p>
+    <a href="#contact" class="cta-button">Get Started Today</a>
   </section>
 
+  <!-- SERVICES (same grid/cards, GC content) -->
   <section id="services" class="services">
     <div class="container">
       <h2 class="section-title">Our Services</h2>
@@ -180,60 +143,62 @@
         <div class="service-card">
           <div class="service-icon">⚖️</div>
           <h3>Corporate & Commercial</h3>
-          <p>Company formation, directorship & secretarial, filings, registrar procedures, restructurings, mergers & acquisitions.</p>
+          <p>Company formation, directorship/secretarial, filings & registrar procedures, restructurings, mergers & acquisitions.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">🧩</div>
-          <h3>Compliance & AML</h3>
-          <p>Policies, manuals, risk assessments, and advisory for Cyprus/EU obligations aligned with best-practice frameworks.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">📜</div>
+          <div class="service-icon">🧾</div>
           <h3>Contracts & Agreements</h3>
-          <p>Drafting, review, and negotiation of commercial agreements; trademarks and brand protection guidance.</p>
+          <p>Drafting, review, and negotiation of commercial agreements. Guidance on trademarks and brand protection.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">🏛️</div>
-          <h3>Inheritance & Real Estate</h3>
-          <p>Estate planning, wills, probate assistance, property transfers (sale or donation), and contract review.</p>
+          <div class="service-icon">🛡️</div>
+          <h3>Compliance & AML</h3>
+          <p>Policies, manuals, and AML advisory aligned with Cyprus/EU obligations. Practical, audit-ready documentation.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">💼</div>
+          <div class="service-icon">🏠</div>
+          <h3>Real Estate & Inheritance</h3>
+          <p>Estate planning, wills, probate, and property transfers (sale or donation), including contract drafting and review.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👥</div>
           <h3>Employment Law</h3>
-          <p>Employment contracts, HR policies, benefits & pension registrations, regulatory advice for employers.</p>
+          <p>Employment contracts, HR policies, pension/benefits registrations, and employer compliance advisory.</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">🌐</div>
+          <div class="service-icon">🏦</div>
           <h3>Banking & Cross-Border</h3>
-          <p>Corporate/personal accounts (banks & EMIs), KYC/AML compliance, and offshore company setup where suitable.</p>
+          <p>Corporate/personal accounts (banks/EMIs), KYC/AML procedures, and offshore structures when appropriate.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ABOUT (kept lightweight; same sectioning) -->
   <section id="about" class="services" style="background:#fff;">
     <div class="container">
-      <h2 class="section-title">About Us</h2>
-      <div class="services-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
-        <div class="service-card">
-          <div class="service-icon">🎯</div>
-          <h3>Our Approach</h3>
-          <p>Clarity, integrity, and efficiency. We focus on practical outcomes and measured results, with personal attention from start to finish.</p>
-        </div>
+      <h2 class="section-title">About GeoConsultants</h2>
+      <div class="services-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
         <div class="service-card">
           <div class="service-icon">📍</div>
-          <h3>Based in Nicosia</h3>
-          <p>Cyprus-based with EU reach. We handle local procedures with an international outlook for entrepreneurs and companies.</p>
+          <h3>Nicosia • Cyprus • EU</h3>
+          <p>Based in Nicosia with EU reach, we combine local know-how and international perspective for individuals and companies.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Approach</h3>
+          <p>Clarity, integrity, and efficiency. You get solution-driven advice, responsive communication, and measurable results.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🔐</div>
-          <h3>Discreet & Professional</h3>
-          <p>We operate with discretion and reliable communication, safeguarding your interests and data at every step.</p>
+          <h3>Professional & Discreet</h3>
+          <p>We operate with discretion and safeguard your interests and data at every step of the engagement.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CONTACT (same form and UX) -->
   <section id="contact" class="contact">
     <div class="container">
       <h2 class="section-title">Get In Touch</h2>
@@ -241,15 +206,15 @@
         <form id="contactForm">
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            <input id="name" name="name" type="text" required placeholder="Enter your full name">
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="info@geoconsultants.eu">
+            <input id="email" name="email" type="email" required placeholder="info@geoconsultants.eu">
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+357 ...">
+            <input id="phone" name="phone" type="tel" placeholder="+357 ...">
           </div>
           <div class="form-group">
             <label for="service">Service Interested In</label>
@@ -258,7 +223,7 @@
               <option>Corporate & Commercial</option>
               <option>Compliance & AML</option>
               <option>Contracts & Agreements</option>
-              <option>Inheritance & Real Estate</option>
+              <option>Real Estate & Inheritance</option>
               <option>Employment Law</option>
               <option>Banking & Cross-Border</option>
               <option>Other</option>
@@ -270,22 +235,18 @@
           </div>
           <button type="submit" class="submit-btn">Send Message</button>
           <div class="loading"><div class="spinner"></div></div>
-          <div class="success-message">Thank you! Your message has been recorded.</div>
+          <div class="success-message">Thank you! Your message has been sent successfully.</div>
         </form>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER (same layout) -->
   <footer>
     <div class="footer-content">
-      <div class="footer-brand">
-        <img src="logo-optimized.png" alt="GeoConsultants logo">
-        <strong>GeoConsultants</strong>
-      </div>
       <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
         <a href="#contact">Contact</a>
         <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a>
       </div>
@@ -295,44 +256,53 @@
 
   <script>
     // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href');
-        if(id.length>1){
-          e.preventDefault();
-          const el=document.querySelector(id);
-          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-        }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+      anchor.addEventListener('click',function(e){
+        const target=document.querySelector(this.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
       });
     });
 
-    // Contact form demo submit
-    const form=document.getElementById('contactForm');
-    if(form){
+    // Contact form handling (same UX)
+    document.getElementById('contactForm').addEventListener('submit',function(e){
+      e.preventDefault();
       const loading=document.querySelector('.loading');
       const success=document.querySelector('.success-message');
-      const btn=form.querySelector('.submit-btn');
-      form.addEventListener('submit',e=>{
-        e.preventDefault();
-        btn.disabled=true; loading.style.display='block'; success.style.display='none';
-        setTimeout(()=>{
-          loading.style.display='none'; success.style.display='block'; btn.disabled=false; form.reset();
-          setTimeout(()=>{ success.style.display='none'; }, 5000);
-        }, 1200);
-      });
-    }
+      const btn=document.querySelector('.submit-btn');
+      btn.disabled=true; loading.style.display='block'; success.style.display='none';
+      setTimeout(()=>{ // simulate submit
+        loading.style.display='none'; success.style.display='block'; btn.disabled=false; this.reset();
+        setTimeout(()=>{ success.style.display='none'; }, 5000);
+      }, 2000);
+    });
 
-    // Parallax fade for hero text
-    window.addEventListener('scroll', ()=>{
+    // Parallax effect (same as template)
+    window.addEventListener('scroll',()=>{
       const scrolled=window.pageYOffset;
       const hero=document.querySelector('.hero');
       if(hero){
-        hero.style.transform=`translateY(${scrolled*0.15}px)`;
-        hero.style.opacity = Math.max(0, 1 - scrolled/700);
+        hero.style.transform=`translateY(${scrolled*0.3}px)`;
+        hero.style.opacity=1 - scrolled/600;
       }
     });
 
-    // Current year
+    // Intersection Observer for card fade-ins
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.style.opacity='1';
+          entry.target.style.transform='translateY(0)';
+        }
+      });
+    },{threshold:.1,rootMargin:'0px 0px -100px 0px'});
+
+    document.querySelectorAll('.service-card').forEach(card=>{
+      card.style.opacity='0';
+      card.style.transform='translateY(20px)';
+      observer.observe(card);
+    });
+
+    // Year
     document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
