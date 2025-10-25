@@ -6,11 +6,9 @@
   --gold: #d1a954;
   --gold-soft: #b89045;
   --dark-0: #0c0c0c;
-  --dark-1: #111;
   --dark-2: #1a1a1a;
   --text: #e6e6e6;
   --muted: #b8b8b8;
-  --card: #151515;
   --border: rgba(255,255,255,.08);
   --radius: 16px;
   --shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -22,7 +20,7 @@ html,body{
   min-height: 100%;
   background: linear-gradient(135deg, var(--dark-0), var(--dark-2));
   color: var(--text);
-  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, Arial, sans-serif;
   line-height: 1.6;
 }
 img{ display:block; max-width:100%; height:auto; }
@@ -40,7 +38,6 @@ img{ display:block; max-width:100%; height:auto; }
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* layered radial “particles” */
   background-image:
     radial-gradient(8px 8px at 10% 20%, rgba(209,169,84,.18), transparent 60%),
     radial-gradient(6px 6px at 80% 30%, rgba(209,169,84,.15), transparent 60%),
@@ -54,8 +51,6 @@ img{ display:block; max-width:100%; height:auto; }
   50%{ background-position: 40px 30px, -30px 20px, 25px -20px, -20px -30px, 0 0; }
   100%{ background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
 }
-
-/* subtle top shimmer */
 .animated-bg::before{
   content:"";
   position:absolute; inset:0;
@@ -69,7 +64,7 @@ img{ display:block; max-width:100%; height:auto; }
   50%{ opacity:.15; }
 }
 
-/* ===== Header (works with your partial OR the noscript fallback) ===== */
+/* ===== Header ===== */
 .site-header{
   position: sticky; top:0; z-index: 999;
   background: rgba(0,0,0,.75);
@@ -80,7 +75,6 @@ img{ display:block; max-width:100%; height:auto; }
   display:flex; align-items:center; justify-content:space-between;
   padding: 16px 0;
 }
-
 .brand{
   font-size: 1.4rem;
   font-weight: 700;
@@ -90,10 +84,7 @@ img{ display:block; max-width:100%; height:auto; }
   transition: color var(--t);
 }
 .brand:hover{ color:#fff; }
-
-.nav{
-  display:flex; gap: 22px; position: relative;
-}
+.nav{ display:flex; gap: 22px; position: relative; }
 .nav a{
   position: relative;
   color:#fff;
@@ -104,12 +95,10 @@ img{ display:block; max-width:100%; height:auto; }
   transition: color var(--t);
 }
 .nav a:hover{ color: var(--gold); }
-
 /* Gold underline animation */
 .nav a::after{
   content:"";
-  position:absolute;
-  left:0; bottom:-2px;
+  position:absolute; left:0; bottom:-2px;
   height:2px; width:100%;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   transform: scaleX(0);
@@ -118,8 +107,7 @@ img{ display:block; max-width:100%; height:auto; }
   opacity:.9;
 }
 .nav a:hover::after{ transform: scaleX(1); }
-
-/* Optional active state if you add .active via JS */
+/* Active state */
 .nav a.active,
 .nav a[aria-current="page"]{
   color: var(--gold);
@@ -128,8 +116,7 @@ img{ display:block; max-width:100%; height:auto; }
 .nav a[aria-current="page"]::after{
   transform: scaleX(1);
 }
-
-/* Mobile toggle button */
+/* Mobile toggle */
 .nav-toggle{
   display:none;
   font-size: 1.8rem;
@@ -142,10 +129,7 @@ img{ display:block; max-width:100%; height:auto; }
 .nav-toggle.open{ transform: rotate(90deg); }
 
 /* ===== Hero / Banner ===== */
-.hero{
-  padding: 56px 0 28px;
-  position: relative;
-}
+.hero{ padding: 56px 0 28px; position: relative; }
 .hero-inner{ text-align:center; }
 .logo-banner{
   width: clamp(220px, 35vw, 420px);
@@ -157,6 +141,7 @@ img{ display:block; max-width:100%; height:auto; }
   0%,100%{ transform: translateY(0); }
   50%{ transform: translateY(-10px); }
 }
+/* Heading with tuned ampersand */
 .hero h1{
   font-size: clamp(1.6rem, 2.6vw, 2.4rem);
   line-height: 1.25;
@@ -165,13 +150,21 @@ img{ display:block; max-width:100%; height:auto; }
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
+/* Ampersand optics: same font, weight, slight spacing & baseline tweak */
+.amp{
+  display:inline-block;
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: .02em;
+  transform: translateY(.02em);
+}
 .hero p{
   max-width: 760px;
   margin: 10px auto 18px;
   color: var(--muted);
 }
 
-/* CTA buttons */
+/* ===== Buttons ===== */
 .cta{ display:flex; gap:12px; justify-content:center; margin-top:10px; }
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
@@ -190,13 +183,10 @@ img{ display:block; max-width:100%; height:auto; }
   border-color: transparent;
 }
 .btn-primary:hover{ filter: brightness(1.05); }
-.btn-ghost{
-  background: transparent;
-  color: #fff;
-}
+.btn-ghost{ background: transparent; color: #fff; }
 .btn-ghost:hover{ border-color: rgba(255,255,255,.25); }
 
-/* ===== Section Title ===== */
+/* ===== Sections ===== */
 .section-title{
   text-align:center;
   color: var(--gold);
@@ -204,8 +194,6 @@ img{ display:block; max-width:100%; height:auto; }
   font-size: 1.4rem;
   letter-spacing:.6px;
 }
-
-/* ===== Cards ===== */
 .cards{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -226,23 +214,17 @@ img{ display:block; max-width:100%; height:auto; }
   border-color: rgba(209,169,84,.35);
   background: linear-gradient(180deg, rgba(209,169,84,.06), rgba(255,255,255,.02));
 }
-.card h3{
-  color: #fff;
-  margin-bottom: 8px;
-  font-size: 1.05rem;
-}
+.card h3{ color: #fff; margin-bottom: 8px; font-size: 1.05rem; }
 .card p{ color: var(--muted); }
 
-/* ===== Contact Strip ===== */
+/* ===== Contact Strip (no location) ===== */
 .contact-strip{
   border-top: 1px solid var(--border);
   padding: 28px 0 40px;
   text-align:center;
   background: rgba(0,0,0,.35);
 }
-.contact-strip h2{
-  color:#fff; margin-bottom:6px; font-size:1.25rem;
-}
+.contact-strip h2{ color:#fff; margin-bottom:6px; font-size:1.25rem; }
 .contact-strip p{ color: var(--muted); margin: 0 auto 12px; }
 .contact-strip a{ color: var(--gold); text-decoration:none; }
 .contact-strip a:hover{ text-decoration: underline; }
@@ -274,9 +256,6 @@ img{ display:block; max-width:100%; height:auto; }
 }
 .site-footer a:hover{ color: #fff; }
 
-/* ===== Utilities ===== */
-.hidden{ display:none !important; }
-
 /* ===== Responsive ===== */
 @media (max-width: 960px){
   .cards{ grid-template-columns: 1fr 1fr; }
@@ -303,11 +282,7 @@ img{ display:block; max-width:100%; height:auto; }
     pointer-events: auto;
     transform: translateY(0);
   }
-  .nav a{
-    display: block;
-    margin: 8px 0;
-    text-align: right;
-  }
+  .nav a{ display: block; margin: 8px 0; text-align: right; }
   .cards{ grid-template-columns: 1fr; }
   .hero{ padding-top: 46px; }
 }
