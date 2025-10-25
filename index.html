@@ -1,563 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ========== Meta ========== -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GeoConsultants — Legal & Corporate Advisors in Cyprus & EU</title>
-  <meta name="description" content="GeoConsultants provides practical, compliant legal & corporate advisory in Cyprus & the EU: company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC." />
-  <meta name="theme-color" content="#2E3138" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoConsultants - Professional Legal & Corporate Services</title>
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="GeoConsultants — Legal & Corporate Advisors" />
-  <meta property="og:description" content="Clear, practical, compliant support for companies and individuals across Cyprus & the EU." />
-  <meta property="og:image" content="https://www.geoconsultants.eu/logo-optimized.png" />
-  <meta property="og:url" content="https://www.geoconsultants.eu/" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Icons -->
-  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/logo-optimized.png">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- ========== Styles ========== -->
   <style>
+    /* ---------- RESET / TOKENS ---------- */
+    *{margin:0;padding:0;box-sizing:border-box}
     :root{
-      /* Brand palette (tuned to your logo) */
-      --gold:#C7A157;
-      --gold-2:#A78953;
-      --char:#2E3138;
-      --ink:#1D2128;
-      --muted:#6E7A88;
-      --cream:#F7F4ED;
-      --panel:#FFFFFF;
+      /* GOLD / CHARCOAL, aligned to your logo */
+      --primary-color:#C7A157;   /* gold */
+      --secondary-color:#A78953; /* deep gold */
+      --accent-color:#2E3138;    /* charcoal */
+      --text-dark:#2E3138;
+      --text-light:#6E7A88;
+      --bg-cream:#F7F4ED;
+      --white:#ffffff;
 
-      --radius:14px;
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --shadow-2:0 18px 44px rgba(0,0,0,.14);
-      --ring:0 0 0 4px rgba(199,161,87,.18);
-
-      --container:1180px;
-      --gap:26px;
+      --shadow:0 10px 30px rgba(0,0,0,.10);
+      --shadow-hover:0 15px 40px rgba(0,0,0,.16);
     }
-
-    *{box-sizing:border-box}
-    html,body{margin:0}
     body{
-      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--char);
-      background:var(--cream);
-      line-height:1.6;
-      overflow-x:hidden;
-      text-rendering:optimizeLegibility;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height:1.6; color:var(--text-dark); overflow-x:hidden;
+      background:var(--bg-cream);
     }
-    img{max-width:100%;height:auto;display:block}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* ===== Background Motif ===== */
-    .bg{
-      position:fixed; inset:0; z-index:-3;
-      background:
-        radial-gradient(1200px 700px at 90% -10%, rgba(199,161,87,.20), transparent 65%),
-        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.00) 40%),
-        var(--cream);
+    /* ---------- ANIMATED BACKGROUND (keeps template’s moving backdrop) ---------- */
+    .animated-bg{
+      position:fixed; inset:0; z-index:-1; opacity:.08;
+      background:linear-gradient(135deg, #f2e6cf 0%, #fff 100%);
     }
-    .bg:after{
-      content:"";
-      position:absolute; inset:0; opacity:.12;
-      background-image:url("data:image/svg+xml;utf8,\
-      <svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'>\
-        <g fill='none' stroke='%23C7A157' stroke-width='1'>\
-          <path d='M10 30 v30 a16 16 0 0 0 16 16 h30'/>\
-          <path d='M70 14 v22 M58 24 h24'/>\
-        </g>\
-      </svg>");
-      background-size:90px 90px;
-      animation:float 60s linear infinite;
+    .animated-bg::before{
+      content:'';
+      position:absolute; inset:0;
+      /* geometric gold motif */
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23C7A157' stroke-opacity='0.5' stroke-width='1'%3E%3Cpath d='M0 48 L16 32 L32 48 L48 32 L64 48'/%3E%3Cpath d='M0 16 L16 0 L32 16 L48 0 L64 16'/%3E%3C/g%3E%3C/svg%3E");
+      background-size:64px 64px;
+      animation:bgMove 60s linear infinite;
     }
-    @keyframes float{0%{transform:translate(0,0)}100%{transform:translate(90px,90px)}}
+    @keyframes bgMove{0%{transform:translate(0,0)}100%{transform:translate(64px,64px)}}
 
-    /* ===== Header ===== */
+    /* ---------- HEADER (same layout/animation) ---------- */
     header{
-      position:sticky; top:0; z-index:50;
       background:rgba(255,255,255,.96);
-      backdrop-filter:saturate(180%) blur(8px);
-      border-bottom:1px solid rgba(0,0,0,.06);
+      backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid rgba(46,49,56,.08);
+      position:sticky; top:0; z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,.05);
+      animation:slideDown .5s ease-out;
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:40px;width:auto;border-radius:10px;box-shadow:var(--shadow)}
-    .brand-name{font-weight:800;letter-spacing:.02em;color:var(--ink)}
-    .menu{display:flex;gap:18px;align-items:center}
-    .menu a{padding:8px 12px;border-radius:10px;color:#5A636F;font-weight:600}
-    .menu a:hover{background:#F2EEE5;color:var(--ink)}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);font-weight:700}
-    .btn:hover{filter:brightness(.98);transform:translateY(-1px)}
-    .menu-toggle{display:none;border:1px solid #E6DFD1;border-radius:10px;padding:6px 10px;font-size:18px;background:#fff}
+    @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
 
-    /* ===== Hero (with large logo block) ===== */
-    .hero{padding:64px 0 32px}
-    .logo-plate{
-      margin:0 auto 22px; max-width:920px;
+    nav{
+      max-width:1200px; margin:0 auto; padding:1.5rem 2rem;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+
+    /* brand with small logo (header) */
+    .logo{display:flex; align-items:center; gap:.75rem; text-decoration:none}
+    .logo img{height:40px; width:auto; border-radius:8px; box-shadow:var(--shadow); transition:transform .3s ease}
+    .logo:hover img{transform:scale(1.04)}
+    .logo span{font-size:1.2rem; font-weight:800; color:var(--accent-color); letter-spacing:.04em}
+
+    .nav-links{display:flex; gap:2rem; list-style:none}
+    .nav-links a{
+      color:var(--text-dark); text-decoration:none; font-weight:600; position:relative;
+      transition:color .3s ease;
+    }
+    .nav-links a::after{
+      content:''; position:absolute; left:0; bottom:-6px; width:0; height:2px;
+      background:linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition:width .3s ease;
+    }
+    .nav-links a:hover{color:var(--accent-color)}
+    .nav-links a:hover::after{width:100%}
+
+    /* ---------- HERO (same structure/animations) with LARGE BANNER LOGO ---------- */
+    .hero{
+      max-width:1200px; margin:0 auto; padding:4.5rem 2rem 4rem; text-align:center;
+      animation:fadeInUp .8s ease-out;
+    }
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+    .banner-logo{
+      /* big logo banner directly under header */
+      max-width:980px; margin:0 auto 24px; padding:18px;
       background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
-      border:1px solid rgba(199,161,87,.30);
-      border-radius:20px; padding:18px; box-shadow:var(--shadow); text-align:center;
+      border:1px solid rgba(199,161,87,.32);
+      border-radius:20px; box-shadow:var(--shadow);
     }
-    .logo-plate img{width:min(560px,92vw);margin:0 auto;filter:drop-shadow(0 10px 26px rgba(0,0,0,.12));border-radius:12px}
-    .h-eyebrow{color:var(--gold);font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-align:center}
-    .h-title{
-      font-family:"Playfair Display", serif; font-size:46px; line-height:1.15; text-align:center; margin:10px 0 10px; color:var(--ink)
-    }
-    .lead{color:var(--muted);text-align:center;max-width:70ch;margin:0 auto 16px;font-size:18px}
-    .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
-    .btn-outline{background:#fff;border:1px solid #E6DFD1;color:var(--ink)}
-    .btn-outline:hover{border-color:#DBC79F;background:#fff}
-
-    /* ===== Section scaffolding ===== */
-    section{scroll-margin-top:96px}
-    .section{padding:76px 0}
-    .alt{background:rgba(255,255,255,.72);border-top:1px solid #EFE9DC;border-bottom:1px solid #EFE9DC}
-    .sh{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-    .sh .line{width:44px;height:3px;background:var(--gold);border-radius:2px}
-    .sh h2{font-family:"Playfair Display", serif;font-size:34px;margin:0;color:var(--ink)}
-
-    /* ===== Grids, cards ===== */
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .card{
-      background:var(--panel);border:1px solid #EEE6D6;border-radius:var(--radius);padding:22px;
-      box-shadow:var(--shadow);
-      transition:transform .18s ease, box-shadow .18s ease
-    }
-    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
-    .card h3{margin:0 0 6px;font-size:18px;color:var(--ink)}
-    .muted{color:var(--muted)}
-    .ic{display:flex;gap:12px}
-    .ic .i{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--gold),var(--gold-2));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;margin-top:3px}
-
-    /* KPIs */
-    .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
-    .k{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:16px;text-align:center}
-    .k strong{display:block;font-size:22px}
-
-    /* Process timeline */
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
-    .step{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:18px;position:relative}
-    .badge{position:absolute;top:-12px;left:-12px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;border-radius:999px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:var(--shadow)}
-
-    /* Testimonials */
-    .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .quote{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:20px;font-style:italic;position:relative}
-    .quote:before{content:"“";position:absolute;left:14px;top:-12px;color:var(--gold);font-size:44px;line-height:1}
-
-    /* FAQ */
-    details{background:#fff;border:1px solid #EEE6D6;border-radius:12px;padding:14px 16px}
-    details + details{margin-top:12px}
-    summary{cursor:pointer;font-weight:700;color:var(--ink)}
-    details[open]{box-shadow:var(--shadow)}
-
-    /* Contact */
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    form{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-    label{display:block;font-weight:700;margin-top:10px;color:var(--ink)}
-    input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1.5px solid #E6DFD1;border-radius:10px;font:inherit;background:#fff}
-    input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:#CFB174}
-    textarea{min-height:120px;resize:vertical}
-    .consent{display:flex;align-items:flex-start;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .consent input[type="checkbox"]{margin-top:3px}
-    .btn[disabled]{opacity:.7;cursor:not-allowed}
-
-    /* Footer */
-    footer{background:var(--char);color:#D9E1ED}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:28px 0;flex-wrap:wrap}
-    .foot a{color:#D9E1ED}
-    .foot .mini{display:flex;align-items:center;gap:10px}
-
-    /* Back to top button */
-    .top{position:fixed;right:16px;bottom:16px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;border:none;border-radius:999px;width:44px;height:44px;display:none;align-items:center;justify-content:center;box-shadow:var(--shadow);cursor:pointer}
-
-    /* Responsive */
-    @media (max-width:1080px){.hero .cols,.cols{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.kpi{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.quotes{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}}
-    @media (max-width:720px){
-      .cards{grid-template-columns:1fr}
-      .quotes{grid-template-columns:1fr}
-      .menu-toggle{display:block}
-      .menu{position:fixed;top:64px;right:16px;background:#fff;border:1px solid #EEE6D6;border-radius:14px;padding:14px;flex-direction:column;gap:10px;box-shadow:var(--shadow);transform:translateY(-8px) scale(.98);opacity:0;pointer-events:none;transition:.18s}
-      .menu.open{transform:none;opacity:1;pointer-events:auto}
-      .h-title{font-size:36px}
+    .banner-logo img{
+      width:min(620px, 92vw); height:auto; display:block; margin:0 auto;
+      filter:drop-shadow(0 10px 24px rgba(0,0,0,.12)); border-radius:12px;
     }
 
-    /* Motion respect */
-    @media (prefers-reduced-motion:reduce){
-      *,*:before,*:after{animation:none !important;transition:none !important}
+    .hero h1{
+      font-size:3.2rem; color:var(--accent-color); line-height:1.2; margin:12px 0 12px;
+    }
+    .highlight{color:var(--primary-color); position:relative; display:inline-block}
+    .highlight::after{
+      content:''; position:absolute; left:0; right:0; bottom:-6px; height:6px;
+      background:linear-gradient(90deg, rgba(199,161,87,.35), rgba(167,137,83,.15)); border-radius:3px;
+    }
+    .hero p{font-size:1.2rem; color:var(--text-light); max-width:780px; margin:0 auto 22px}
+    .cta-button{
+      display:inline-block; text-decoration:none; font-weight:700; letter-spacing:.02em;
+      color:#fff; padding:1rem 2.5rem; border-radius:50px;
+      background:linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      box-shadow:0 6px 18px rgba(199,161,87,.35);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .cta-button:hover{transform:translateY(-3px); box-shadow:0 10px 28px rgba(199,161,87,.45)}
+
+    /* ---------- SERVICES (same grid/cards) ---------- */
+    .services{background:rgba(255,255,255,.8); padding:5rem 2rem}
+    .container{max-width:1200px; margin:0 auto}
+    .section-title{text-align:center; font-size:2.5rem; color:var(--accent-color); margin-bottom:3rem}
+
+    .services-grid{
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:2rem;
+    }
+    .service-card{
+      background:var(--white); padding:2.5rem; border-radius:16px;
+      border:1px solid rgba(199,161,87,.28);
+      box-shadow:var(--shadow); transition:all .3s ease; animation:cardIn .6s ease-out both;
+    }
+    @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .service-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-hover)}
+
+    .service-icon{
+      width:60px; height:60px; border-radius:14px; margin-bottom:1.2rem; color:#fff; font-size:1.6rem;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      box-shadow:0 6px 16px rgba(199,161,87,.28);
+    }
+    .service-card h3{font-size:1.45rem; margin-bottom:.7rem; color:var(--accent-color)}
+    .service-card p{color:var(--text-light); line-height:1.7}
+
+    /* ---------- CONTACT (same UX) ---------- */
+    .contact{padding:5rem 2rem}
+    .form-container{
+      max-width:640px; margin:0 auto; background:var(--white); padding:3rem;
+      border-radius:20px; box-shadow:var(--shadow); border:1px solid rgba(199,161,87,.28);
+    }
+    .form-group{margin-bottom:1.5rem}
+    .form-group label{display:block; margin-bottom:.5rem; font-weight:700; color:var(--accent-color)}
+    .form-group input,.form-group textarea,.form-group select{
+      width:100%; padding:1rem; border:2px solid #E8E2D6; border-radius:10px; font-size:1rem;
+      transition:all .25s ease; font-family:inherit; background:#fff;
+    }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+      outline:none; border-color:var(--primary-color);
+      box-shadow:0 0 0 4px rgba(199,161,87,.15);
+      transform:translateY(-1px);
+    }
+    .form-group textarea{resize:vertical; min-height:120px}
+
+    .submit-btn{
+      width:100%; padding:1rem; border:none; border-radius:10px;
+      background:linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color:#fff; font-size:1.08rem; font-weight:800; cursor:pointer;
+      transition:transform .25s ease, box-shadow .25s ease;
+      box-shadow:0 8px 20px rgba(199,161,87,.3);
+    }
+    .submit-btn:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(199,161,87,.38)}
+    .loading{display:none; text-align:center; margin-top:1rem}
+    .spinner{border:3px solid #f3f3f3; border-top:3px solid var(--secondary-color); border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .success-message{display:none; background:#10b981; color:#fff; padding:1rem; border-radius:10px; margin-top:1rem; text-align:center}
+
+    /* ---------- FOOTER (same structure) ---------- */
+    footer{
+      background:var(--accent-color); color:#E8ECF4; padding:3rem 2rem; text-align:center; margin-top:60px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .footer-content{max-width:1200px; margin:0 auto}
+    .footer-links{display:flex; justify-content:center; gap:2rem; margin-bottom:1.5rem; flex-wrap:wrap}
+    .footer-links a{color:#E8ECF4; text-decoration:none}
+    .footer-links a:hover{color:var(--primary-color)}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:768px){
+      .hero h1{font-size:2.4rem}
+      .nav-links{gap:1rem}
+      .form-container{padding:2rem}
     }
   </style>
-
-  <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ProfessionalService",
-    "name":"GeoConsultants",
-    "image":"https://www.geoconsultants.eu/logo-optimized.png",
-    "url":"https://www.geoconsultants.eu/",
-    "address":{"@type":"PostalAddress","addressLocality":"Nicosia","addressCountry":"CY"},
-    "areaServed":"EU",
-    "telephone":"+357",
-    "email":"info@geoconsultants.eu",
-    "description":"Legal & corporate advisors offering company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC in Cyprus & the EU."
-  }
-  </script>
 </head>
 <body>
-  <a class="sr-only" href="#main">Skip to content</a>
-  <div class="bg" aria-hidden="true"></div>
+  <div class="animated-bg"></div>
 
-  <!-- ===== Header ===== -->
+  <!-- Header / Nav (unchanged layout) -->
   <header>
-    <div class="container nav">
-      <a href="#home" class="brand" aria-label="GeoConsultants">
+    <nav>
+      <a href="#home" class="logo" aria-label="GeoConsultants">
         <img src="logo-optimized.png" alt="GeoConsultants logo">
-        <span class="brand-name">GeoConsultants</span>
+        <span>GeoConsultants</span>
       </a>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <nav class="menu" aria-label="Primary">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#why">Why Cyprus</a>
-        <a href="#cases">Case Studies</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact" class="btn">Free Consultation</a>
-      </nav>
-    </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="main">
-    <!-- ===== Hero ===== -->
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="logo-plate" aria-label="GeoConsultants">
-          <img src="logo-optimized.png" alt="GeoConsultants wordmark" />
+  <!-- HERO with LARGE BANNER LOGO under header -->
+  <section id="home" class="hero">
+    <div class="banner-logo">
+      <img src="logo-optimized.png" alt="GeoConsultants">
+    </div>
+
+    <h1>Professional <span class="highlight">Legal & Corporate</span> Services</h1>
+    <p>Clear, practical, and compliant advisory for company formation, governance, contracts, IP, banking/KYC, and cross-border matters across Cyprus and the EU.</p>
+    <a href="#contact" class="cta-button">Get Started Today</a>
+  </section>
+
+  <!-- SERVICES (same interactions) -->
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">⚖️</div>
+          <h3>Corporate & Commercial</h3>
+          <p>Company formation, directorship/secretarial, filings & registrar procedures, restructurings, mergers & acquisitions.</p>
         </div>
-        <div class="h-eyebrow">Nicosia • Cyprus • EU</div>
-        <h1 class="h-title">Legal & Corporate Advisors You Can Rely On</h1>
-        <p class="lead">We combine legal precision with practical insight to help founders, investors, and international companies operate confidently across Cyprus and the EU.</p>
-        <p class="lead">Responsive, discreet, and solution-driven support — from fast company formation to audit-ready compliance.</p>
-        <div class="hero-cta">
-          <a class="btn" href="#contact">Schedule a Free Consultation</a>
-          <a class="btn btn-outline" href="#services">Explore Services</a>
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3>Compliance & AML</h3>
+          <p>Policies, manuals, and AML advisory aligned with Cyprus/EU obligations. Practical, audit-ready documentation.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== Services ===== -->
-    <section id="services" class="section alt">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Services</h2></div>
-
-        <div class="cards">
-          <article class="card ic">
-            <div class="i">⚖️</div>
-            <div>
-              <h3>Corporate & Commercial</h3>
-              <p class="muted">Company formation (Cyprus Companies Law), directorship, secretarial, registered office, minutes & filings, Registrar procedures.</p>
-            </div>
-          </article>
-
-          <article class="card ic">
-            <div class="i">🛡️</div>
-            <div>
-              <h3>Compliance & AML</h3>
-              <p class="muted">Policies & procedures, risk assessments, internal manuals, AML program setup and ongoing advisory tailored to Cyprus/EU obligations.</p>
-            </div>
-          </article>
-
-          <article class="card ic">
-            <div class="i">📜</div>
-            <div>
-              <h3>Contracts & Agreements</h3>
-              <p class="muted">Drafting, review, and negotiation. Guidance on trademarks, brand protection, and licensing across CY/EU/international.</p>
-            </div>
-          </article>
-
-          <article class="card ic">
-            <div class="i">🏠</div>
-            <div>
-              <h3>Real Estate & Inheritance</h3>
-              <p class="muted">Wills & probate, administration and distribution, property transfers (sale or donation), contract drafting and review.</p>
-            </div>
-          </article>
-
-          <article class="card ic">
-            <div class="i">👥</div>
-            <div>
-              <h3>Employment Law</h3>
-              <p class="muted">Employment contracts, HR policies, benefits & pension registrations, employer compliance and dispute guidance.</p>
-            </div>
-          </article>
-
-          <article class="card ic">
-            <div class="i">🏦</div>
-            <div>
-              <h3>Banking & Cross-Border</h3>
-              <p class="muted">Corporate/personal accounts (banks & EMIs), KYC/AML procedures, offshore entities (HK/SG/Seychelles) where suitable.</p>
-            </div>
-          </article>
+        <div class="service-card">
+          <div class="service-icon">📜</div>
+          <h3>Contracts & Agreements</h3>
+          <p>Drafting, review, and negotiation of commercial agreements; guidance on trademarks and brand protection.</p>
         </div>
-
-        <!-- KPIs -->
-        <div class="kpi" style="margin-top:22px">
-          <div class="k"><strong>Cyprus/EU</strong><span class="muted">Compliance Focus</span></div>
-          <div class="k"><strong>Responsive</strong><span class="muted">Personal Communication</span></div>
-          <div class="k"><strong>Discreet</strong><span class="muted">Professional Support</span></div>
-          <div class="k"><strong>Results</strong><span class="muted">Solution-Driven Advice</span></div>
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>Real Estate & Inheritance</h3>
+          <p>Estate planning, wills, probate assistance, and property transfers (sale or donation), including contract review.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👥</div>
+          <h3>Employment Law</h3>
+          <p>Employment contracts, HR policies, benefits & pension registrations, and employer compliance advisory.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏦</div>
+          <h3>Banking & Cross-Border</h3>
+          <p>Corporate/personal accounts (banks & EMIs), KYC/AML procedures, and offshore company setup where suitable.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== Why Cyprus ===== -->
-    <section id="why" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
-        <div class="cols">
-          <div>
-            <h3>Business Hub</h3>
-            <p>Strategic location, modern legal framework, double-tax treaties, and English-speaking professional ecosystem position Cyprus as a reliable European business hub.</p>
+  <!-- ABOUT (kept simple; same section rhythm) -->
+  <section id="about" class="services" style="background:rgba(255,255,255,.9);">
+    <div class="container">
+      <h2 class="section-title">About GeoConsultants</h2>
+      <div class="services-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+        <div class="service-card">
+          <div class="service-icon">📍</div>
+          <h3>Nicosia • Cyprus • EU</h3>
+          <p>Cyprus-based with EU reach. We combine local know-how and international perspective for individuals and companies.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Approach</h3>
+          <p>Clarity, integrity, and efficiency. You get solution-driven advice, responsive communication, and measurable results.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔐</div>
+          <h3>Professional & Discreet</h3>
+          <p>We operate with discretion and safeguard your interests and data at every step of the engagement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <h3>Tax Advantages</h3>
-            <ul class="muted" style="margin:8px 0 0 18px">
-              <li>Corporate tax 12.5% (rising to 15% in 2026, remaining competitive).</li>
-              <li>Dividend exemptions where >50% active income and ≥6.25% effective tax.</li>
-              <li>No withholding on intra-EU dividends; capital gains exemptions for shares/securities.</li>
-            </ul>
+  <!-- CONTACT (same UX and animations) -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="form-container">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" required placeholder="Enter your full name">
           </div>
-          <div>
-            <h3>Infrastructure</h3>
-            <p>High-quality professional services, fast incorporation timelines, modern banking and digital government services.</p>
-
-            <h3>Quality of Life</h3>
-            <p>Excellent infrastructure, favorable relocation programs, and a Mediterranean lifestyle attractive to entrepreneurs and families.</p>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email" required placeholder="info@geoconsultants.eu">
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Process ===== -->
-    <section class="section alt">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>How We Work</h2></div>
-        <div class="steps">
-          <div class="step">
-            <div class="badge">1</div>
-            <h3>Discovery</h3>
-            <p class="muted">Brief call to map your objectives, timelines, and constraints. We agree the scope and next steps.</p>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+357 ...">
           </div>
-          <div class="step">
-            <div class="badge">2</div>
-            <h3>Plan</h3>
-            <p class="muted">We propose a clear route with documents, fees, and compliance requirements — no surprises.</p>
+          <div class="form-group">
+            <label for="service">Service Interested In</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service...</option>
+              <option>Corporate & Commercial</option>
+              <option>Compliance & AML</option>
+              <option>Contracts & Agreements</option>
+              <option>Real Estate & Inheritance</option>
+              <option>Employment Law</option>
+              <option>Banking & Cross-Border</option>
+              <option>Other</option>
+            </select>
           </div>
-          <div class="step">
-            <div class="badge">3</div>
-            <h3>Execute</h3>
-            <p class="muted">We handle drafting, filings, liaison with authorities, banks, and counterparties end-to-end.</p>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell us about your matter..."></textarea>
           </div>
-          <div class="step">
-            <div class="badge">4</div>
-            <h3>Support</h3>
-            <p class="muted">Ongoing advisory, updates, and maintenance to keep your structure compliant and efficient.</p>
-          </div>
-        </div>
+
+          <button type="submit" class="submit-btn">Send Message</button>
+          <div class="loading"><div class="spinner"></div></div>
+          <div class="success-message">Thank you! Your message has been sent successfully.</div>
+        </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== Case Studies / Testimonials ===== -->
-    <section id="cases" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Client Feedback</h2></div>
-        <div class="quotes">
-          <blockquote class="quote">Efficient and discreet. Incorporation completed faster than expected, with clear guidance at each step. <br><strong>— Founder, SaaS</strong></blockquote>
-          <blockquote class="quote">Their AML framework passed scrutiny without issues. Practical templates saved us weeks. <br><strong>— Director, FinTech</strong></blockquote>
-          <blockquote class="quote">Solid contract review and trademark strategy. Transparent fees and professional communication. <br><strong>— CEO, Consumer Brand</strong></blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== FAQ ===== -->
-    <section id="faq" class="section alt">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>FAQ</h2></div>
-        <details>
-          <summary>How quickly can we incorporate a Cyprus company?</summary>
-          <p class="muted">Name approval is typically fast; incorporation can often be completed in days subject to KYC and document readiness.</p>
-        </details>
-        <details>
-          <summary>Do you provide registered office and secretarial?</summary>
-          <p class="muted">Yes. We can provide registered office, secretarial, minutes, and annual filings with the Registrar.</p>
-        </details>
-        <details>
-          <summary>Can you assist with banking and EMI onboarding?</summary>
-          <p class="muted">We prepare documentation packages and guide you through the KYC/AML process with banks and EMIs.</p>
-        </details>
-        <details>
-          <summary>Do you work with international shareholders?</summary>
-          <p class="muted">Yes. We routinely support cross-border shareholders and directors and coordinate multi-jurisdictional documentation.</p>
-        </details>
-      </div>
-    </section>
-
-    <!-- ===== Contact ===== -->
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Contact Us</h2></div>
-        <div class="contact-grid">
-          <form id="contact-form" action="#" method="POST" novalidate>
-            <div class="group">
-              <label for="name">Full name</label>
-              <input id="name" name="name" type="text" placeholder="Full name" required>
-            </div>
-            <div class="group">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="name@example.com" required>
-            </div>
-            <div class="group">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" placeholder="+357 ...">
-            </div>
-            <div class="group">
-              <label for="service">Service of interest</label>
-              <select id="service" name="service">
-                <option>Corporate & Commercial</option>
-                <option>Compliance & AML</option>
-                <option>Contracts & Agreements</option>
-                <option>Real Estate & Inheritance</option>
-                <option>Employment Law</option>
-                <option>Banking & Cross-Border</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Briefly describe your matter..." required></textarea>
-            </div>
-            <div class="consent">
-              <input id="consent" name="consent" type="checkbox" required aria-describedby="consentText">
-              <label id="consentText" for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
-            </div>
-            <div style="margin-top:14px">
-              <button class="btn" id="submitBtn" type="submit">Send Request</button>
-            </div>
-            <p id="formStatus" class="muted" style="margin-top:10px"></p>
-          </form>
-
-          <aside class="card">
-            <h3>Get in Touch</h3>
-            <p><strong>Phone:</strong> <a href="tel:+357">+357</a></p>
-            <p><strong>Email:</strong> <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
-            <p><strong>Location:</strong> Nicosia, Cyprus</p>
-            <p>Business hours: Mon–Fri, 09:00–18:00 EEST</p>
-            <p>Free initial consultation by appointment.</p>
-            <div style="margin-top:16px;display:flex;align-items:center;gap:10px">
-              <img src="logo-optimized.png" alt="GeoConsultants mark" style="height:34px;width:auto;border-radius:8px">
-              <span class="muted">GeoConsultants</span>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ===== Footer ===== -->
+  <!-- FOOTER (same layout) -->
   <footer>
-    <div class="container foot">
-      <div class="mini">
-        <img src="logo-optimized.png" alt="" style="width:24px;height:24px;border-radius:6px">
-        <span>© <span id="year"></span> GeoConsultants</span>
-      </div>
-      <div class="menu">
+    <div class="footer-content">
+      <div class="footer-links">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
-        <a href="#why">Why Cyprus</a>
-        <a href="#cases">Case Studies</a>
-        <a href="#faq">FAQ</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a>
       </div>
+      <p>&copy; <span id="year"></span> GeoConsultants. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Back to top -->
-  <button class="top" id="toTop" aria-label="Back to top">↑</button>
-
-  <!-- ========== Scripts ========== -->
   <script>
-    // Mobile menu toggle
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
-
-    // Smooth scroll for hash links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href');
-        if(id && id.length>1){
-          const el = document.querySelector(id);
-          if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
-        }
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+      anchor.addEventListener('click',e=>{
+        const target=document.querySelector(anchor.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
       });
     });
 
-    // Reveal on scroll
-    const observer = new IntersectionObserver((entries)=>{
+    // Form UX (demo)
+    document.getElementById('contactForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      const loading=document.querySelector('.loading');
+      const success=document.querySelector('.success-message');
+      const btn=document.querySelector('.submit-btn');
+      btn.disabled=true; loading.style.display='block'; success.style.display='none';
+      setTimeout(()=>{
+        loading.style.display='none'; success.style.display='block'; btn.disabled=false; this.reset();
+        setTimeout(()=>{ success.style.display='none'; }, 5000);
+      }, 1500);
+    });
+
+    // Parallax-ish text fade (kept from template)
+    window.addEventListener('scroll',()=>{
+      const y=window.pageYOffset, hero=document.querySelector('.hero');
+      if(hero){
+        hero.style.transform=`translateY(${y*0.2}px)`;
+        hero.style.opacity=Math.max(0, 1 - y/700);
+      }
+    });
+
+    // Reveal cards on view
+    const obs=new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
-          entry.target.style.transform = 'translateY(0)';
-          entry.target.style.opacity = '1';
+          entry.target.style.opacity='1';
+          entry.target.style.transform='translateY(0)';
         }
       });
-    },{threshold:.12, rootMargin:'0px 0px -80px 0px'});
-
-    document.querySelectorAll('.card,.step,.quote').forEach(el=>{
-      el.style.transform = 'translateY(14px)';
-      el.style.opacity = '0';
-      observer.observe(el);
+    },{threshold:.1, rootMargin:'0px 0px -80px 0px'});
+    document.querySelectorAll('.service-card').forEach(c=>{
+      c.style.opacity='0'; c.style.transform='translateY(20px)'; obs.observe(c);
     });
-
-    // Contact form UX
-    const form = document.getElementById('contact-form');
-    if (form) {
-      const statusEl = document.getElementById('formStatus');
-      const btn = document.getElementById('submitBtn');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if(!form.reportValidity()) return;
-        btn.setAttribute('disabled', 'true');
-        statusEl.textContent = 'Submitting...';
-        setTimeout(() => {
-          statusEl.textContent = 'Thanks — your request has been recorded.';
-          btn.removeAttribute('disabled');
-          form.reset();
-        }, 900);
-      });
-    }
-
-    // Back to top visibility
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', ()=>{
-      const y = window.scrollY;
-      toTop.style.display = y > 600 ? 'flex' : 'none';
-    });
-    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
     // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
