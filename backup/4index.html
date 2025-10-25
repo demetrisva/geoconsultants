@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GeoConsultants — Legal & Corporate Advisory</title>
+
+  <!-- Favicon + Styles -->
+  <link rel="icon" type="image/x-icon" href="assets/site/favicon.ico" />
+  <link rel="stylesheet" href="assets/site/site.css" />
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="animated-bg" aria-hidden="true"></div>
+
+  <!-- Header (loaded from partial) -->
+  <div data-include="partials/header.html"></div>
+
+  <!-- HERO / BANNER -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <img class="logo-banner" src="assets/images/logo.png" alt="GeoConsultants logo" />
+      <h1>Professional Legal & Corporate Advisory</h1>
+      <p>
+        Delivering expert consulting, corporate governance, and compliance services across Europe and beyond.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="contact.html">Contact Us</a>
+        <a class="btn btn-ghost" href="#services">Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <main class="container" id="services">
+    <h2 class="section-title">What We Do</h2>
+    <div class="cards">
+      <article class="card">
+        <h3>Corporate Governance</h3>
+        <p>Board advisory, policies, and frameworks aligned to international best practices.</p>
+      </article>
+      <article class="card">
+        <h3>Regulatory Compliance</h3>
+        <p>Risk-based compliance programs, AML/KYC, and continuous monitoring.</p>
+      </article>
+      <article class="card">
+        <h3>Legal Advisory</h3>
+        <p>Contracts, corporate matters, and transaction support with pragmatic solutions.</p>
+      </article>
+    </div>
+  </main>
+
+  <!-- CONTACT STRIP -->
+  <section class="contact-strip">
+    <div class="container">
+      <h2>Let’s talk about your project</h2>
+      <p>
+        Email us at <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a>
+        and we’ll respond promptly.
+      </p>
+      <a class="btn btn-primary" href="contact.html">Start a Conversation</a>
+    </div>
+  </section>
+
+  <!-- Footer (loaded from partial) -->
+  <div data-include="partials/footer.html"></div>
+
+  <!-- Layout include script -->
+  <script src="assets/js/include-layout.js"></script>
+
+  <!-- No-JS fallback header/footer (only shows if JS is disabled) -->
+  <noscript>
+    <header class="fallback-header">
+      <div class="navbar container">
+        <a class="brand" href="index.html">GeoConsultants</a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <footer class="fallback-footer">
+      <div class="container">
+        © <span id="year">2025</span> GeoConsultants — All rights reserved.
+      </div>
+    </footer>
+  </noscript>
+</body>
+</html>
