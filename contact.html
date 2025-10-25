@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — GeoConsultants</title>
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/site/site.css">
+  <link rel="icon" href="/favicon.ico">
+  <!-- Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </head>
 <body>
   <div data-include="/partials/header.html"></div>
@@ -16,65 +19,97 @@
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-        <p id="formMessage"></p>
+
+        <!-- Turnstile widget -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol" data-theme="dark"></div>
+
+        <button id="sendBtn" type="submit">Send Message</button>
+        <p id="formMessage" aria-live="polite"></p>
       </form>
     </section>
+
+    <!-- Toast -->
+    <div id="toast" style="position:fixed;left:50%;bottom:30px;transform:translateX(-50%) scale(0.98);
+      background:#151515;border:1px solid rgba(255,214,107,.3);color:#ffd66b;padding:12px 16px;border-radius:10px;
+      opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:50;"></div>
   </main>
 
   <div data-include="/partials/footer.html"></div>
 
-  <!-- Include loader + active nav highlighter -->
+  <script src="/assets/js/include-layout.js" defer></script>
   <script>
-  (async function () {
-    const parts = document.querySelectorAll('[data-include]');
-    await Promise.all([...parts].map(async el => {
-      const url = el.getAttribute('data-include');
-      const res = await fetch(url, { cache: 'no-cache' });
-      el.innerHTML = await res.text();
-    }));
-    const path = location.pathname.replace(/\/+$/, '') || '/index.html';
-    const current = path.endsWith('/contact.html') ? 'contact' : 'home';
-    document.querySelectorAll('[data-nav]').forEach(a => {
-      if (a.dataset.nav === current) a.classList.add('active');
-    });
-  })();
+  function showToast(text, ok = true) {
+    const t = document.getElementById('toast');
+    t.textContent = text;
+    t.style.color = ok ? '#0f0' : '#ff7777';
+    t.style.borderColor = ok ? 'rgba(80,250,123,.35)' : 'rgba(255,119,119,.35)';
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) scale(1)';
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) scale(0.98)';
+    }, 2600);
+  }
 
-  // Contact form submit handler
   document.addEventListener('submit', async (e) => {
     const form = e.target;
     if (form.id !== 'contactForm') return;
     e.preventDefault();
 
-    const data = {
+    const btn = document.getElementById('sendBtn');
+    const msg = document.getElementById('formMessage');
+
+    // Loading state
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.style.opacity = '.7';
+
+    // Turnstile token is placed in a hidden input named "cf-turnstile-response"
+    const tokenInput = document.querySelector('input[name="cf-turnstile-response"]');
+    const turnstileToken = tokenInput ? tokenInput.value : '';
+
+    const payload = {
       name: form.name.value.trim(),
       email: form.email.value.trim(),
-      message: form.message.value.trim()
+      message: form.message.value.trim(),
+      turnstileToken
     };
 
-    const msg = document.getElementById('formMessage');
     msg.textContent = '⏳ Sending...';
     msg.style.color = '#ccc';
 
     try {
-      const response = await fetch('https://send-contact-form.valakosd.workers.dev', {
+      const res = await fetch('https://send-contact-form.valakosd.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
       });
-      const result = await response.json();
+      const out = await res.json();
 
-      if (result.success) {
+      if (out.success) {
         msg.textContent = '✅ Message sent successfully!';
         msg.style.color = '#50fa7b';
+        showToast('Message delivered ✔︎', true);
         form.reset();
+        // Reset Turnstile after successful submit
+        if (window.turnstile) turnstile.reset();
       } else {
-        msg.textContent = '❌ Error sending message. Please try again later.';
+        msg.textContent = '❌ ' + (out.error || 'Error sending message.');
         msg.style.color = '#ff5555';
+        showToast('Send failed', false);
+        // Reset Turnstile so user can try again
+        if (window.turnstile) turnstile.reset();
       }
     } catch (err) {
       msg.textContent = '⚠️ Network error. Please try again later.';
       msg.style.color = '#ff5555';
+      showToast('Network error', false);
+      if (window.turnstile) turnstile.reset();
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldText;
+      btn.style.opacity = '1';
     }
   });
   </script>

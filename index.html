@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GeoConsultants — Legal & Corporate Advisory</title>
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/site/site.css">
+  <link rel="icon" href="/favicon.ico">
 </head>
 <body>
   <div data-include="/partials/header.html"></div>
@@ -19,21 +20,6 @@
 
   <div data-include="/partials/footer.html"></div>
 
-  <!-- Include loader + active nav highlighter -->
-  <script>
-  (async function () {
-    const includeTargets = document.querySelectorAll('[data-include]');
-    await Promise.all([...includeTargets].map(async el => {
-      const url = el.getAttribute('data-include');
-      const res = await fetch(url, { cache: 'no-cache' });
-      el.innerHTML = await res.text();
-    }));
-    const path = location.pathname.replace(/\/+$/, '') || '/index.html';
-    const current = path.endsWith('/contact.html') ? 'contact' : 'home';
-    document.querySelectorAll('[data-nav]').forEach(a => {
-      if (a.dataset.nav === current) a.classList.add('active');
-    });
-  })();
-  </script>
+  <script src="/assets/js/include-layout.js" defer></script>
 </body>
 </html>
