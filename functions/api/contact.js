@@ -1,107 +1,62 @@
-// Cloudflare Pages Function: /api/contact
-// Sends email via MailChannels. Optional Turnstile verification if env.TURNSTILE_SECRET is set.
+<form id="contact-form">
+  <input type="text" name="name" placeholder="Full name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="subject" placeholder="Subject" />
+  <textarea name="message" placeholder="How can we help?" required></textarea>
 
-export async function onRequestOptions() {
-  return new Response('', {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
-}
+  <!-- Cloudflare Turnstile widget -->
+  <div id="cf-box"
+       class="cf-turnstile"
+       data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol"
+       data-callback="onTurnstileDone">
+  </div>
 
-export async function onRequestPost({ request, env }) {
-  try {
-    const { name = '', email = '', message = '', turnstileToken = '' } = await request.json();
+  <button type="submit">Send</button>
+  <p id="form-status" hidden></p>
+</form>
 
-    // Basic validation
-    if (!name.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !message.trim()) {
-      return json({ error: 'Invalid input' }, 400);
-    }
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  let widgetId = null;
+  window.onloadTurnstileCallback = function () {
+    // If you want to manually render, but the data-sitekey above auto-renders already.
+  };
+  function onTurnstileDone() { /* optional: called when token ready */ }
 
-    // Optional Turnstile verification (only if you defined TURNSTILE_SECRET in Pages > Settings > Environment Variables)
-    if (env.TURNSTILE_SECRET) {
-      if (!turnstileToken) return json({ error: 'Missing verification token' }, 400);
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    status.hidden = false;
+    status.textContent = 'Sending…';
 
-      const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: env.TURNSTILE_SECRET,
-          response: turnstileToken,
-          remoteip: request.headers.get('CF-Connecting-IP') || undefined,
-        }),
-      }).then(r => r.json());
-
-      if (!verify.success) {
-        return json({ error: 'Verification failed', detail: verify['error-codes'] }, 403);
-      }
-    }
-
-    // Build MailChannels payload
-    const text = `New contact form submission:
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}`;
-
-    const html = `
-      <div style="font-family:Arial,Helvetica,sans-serif;line-height:1.5">
-        <h2 style="margin:0 0 12px">New contact form submission</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <hr style="border:none;border-top:1px solid #ddd;margin:12px 0">
-        <pre style="white-space:pre-wrap;font:inherit">${escapeHtml(message)}</pre>
-      </div>`;
-
+    // Grab fields
+    const form = e.target;
     const payload = {
-      personalizations: [{
-        to: [{ email: 'info@geoconsultants.eu', name: 'GeoConsultants' }],
-        reply_to: [{ email, name }],
-      }],
-      from: { email: 'info@geoconsultants.eu', name: 'GeoConsultants Website' },
-      subject: `New message from ${name}`,
-      content: [
-        { type: 'text/plain', value: text },
-        { type: 'text/html',  value: html },
-      ],
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim() || 'Website contact',
+      message: form.message.value.trim(),
+      token: turnstile.getResponse(document.querySelector('.cf-turnstile')) // Turnstile token
     };
 
-    const mcRes = await fetch('https://api.mailchannels.net/tx/v1/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    const bodyText = await mcRes.text();
-
-    if (!mcRes.ok) {
-      // Return MailChannels error to the browser so we can see what's wrong in DevTools
-      return json({ error: 'Mail send failed', detail: bodyText }, 502);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if (res.ok) {
+        status.textContent = 'Thank you! Your message has been sent.';
+        form.reset();
+        turnstile.reset(document.querySelector('.cf-turnstile'));
+      } else {
+        status.textContent = json.error || 'Could not send message. Please try again.';
+        turnstile.reset(document.querySelector('.cf-turnstile'));
+      }
+    } catch (err) {
+      status.textContent = 'Network error. Please try again.';
+      turnstile.reset(document.querySelector('.cf-turnstile'));
     }
-
-    return json({ success: true });
-  } catch (e) {
-    return json({ error: e.message || String(e) }, 500);
-  }
-}
-
-function json(obj, status = 200) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
   });
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+</script>
