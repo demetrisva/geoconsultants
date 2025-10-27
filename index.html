@@ -12,20 +12,20 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="GeoConsultants — Legal & Corporate Advisors" />
   <meta property="og:description" content="Clear, practical, compliant support for companies and individuals across Cyprus and the EU." />
-  <meta property="og:image" content="https://www.geoconsultants.eu/logo-optimized.png" />
+  <meta property="og:image" content="https://www.geoconsultants.eu/assets/images/logo.png" />
   <meta property="og:url" content="https://www.geoconsultants.eu/" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Icons -->
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/logo-optimized.png">
+  <link rel="apple-touch-icon" href="/assets/images/logo.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- ========== Styles (unchanged from your version) ========== -->
+  <!-- ========== Styles ========== -->
   <style>
     :root{
       --gold:#C7A157; --gold-2:#A78953; --char:#2E3138; --ink:#1D2128; --muted:#6E7A88;
@@ -39,7 +39,7 @@
     .container{max-width:var(--container);margin:0 auto;padding:0 20px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(1200px 700px at 90% -10%, rgba(199,161,87,.20), transparent 65%),linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.00) 40%),var(--cream)}
-    .bg:after{content:"";position:absolute;inset:0;opacity:.12;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><g fill='none' stroke='%23C7A157' stroke-width='1'><path d='M10 30 v30 a16 16 0 0 0 16 16 h30'/><path d='M70 14 v22 M58 24 h24'/></g></svg>");background-size:90px 90px;animation:float 60s linear infinite}
+    .bg:after{content:"";position:absolute;inset:0;opacity:.12;background-image:url("image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><g fill='none' stroke='%23C7A157' stroke-width='1'><path d='M10 30 v30 a16 16 0 0 0 16 16 h30'/><path d='M70 14 v22 M58 24 h24'/></g></svg>");background-size:90px 90px;animation:float 60s linear infinite}
     @keyframes float{0%{transform:translate(0,0)}100%{transform:translate(90px,90px)}}
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid rgba(0,0,0,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
@@ -49,10 +49,10 @@
     .menu{display:flex;gap:18px;align-items:center}
     .menu a{padding:8px 12px;border-radius:10px;color:#5A636F;font-weight:600}
     .menu a:hover{background:#F2EEE5;color:var(--ink)}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);font-weight:700}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);font-weight:700;border:none;cursor:pointer}
     .btn:hover{filter:brightness(.98);transform:translateY(-1px)} .btn[disabled]{opacity:.7;cursor:not-allowed}
     .btn-outline{background:#fff;border:1px solid #E6DFD1;color:var(--ink)} .btn-outline:hover{border-color:#DBC79F;background:#fff}
-    .menu-toggle{display:none;border:1px solid #E6DFD1;border-radius:10px;padding:6px 10px;font-size:18px;background:#fff}
+    .menu-toggle{display:none;border:1px solid #E6DFD1;border-radius:10px;padding:6px 10px;font-size:18px;background:#fff;cursor:pointer}
     .hero{padding:64px 0 32px} .logo-plate{margin:0 auto 22px;max-width:920px;background:var(--cream);border:none;border-radius:0;padding:0;box-shadow:none;text-align:center}
     .logo-plate img{width:min(560px,92vw);margin:0 auto;border-radius:0;filter:none;background:var(--cream)}
     .h-title{font-family:"Playfair Display",serif;font-size:46px;line-height:1.15;text-align:center;margin:10px 0 10px;color:var(--ink)} .h-title .amp{font-family:Inter;font-weight:800;letter-spacing:.02em;transform:translateY(.02em);display:inline-block}
@@ -70,9 +70,9 @@
     .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)} .step{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:18px;position:relative}
     .badge{position:absolute;top:-12px;left:-12px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;border-radius:999px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:var(--shadow)}
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)} .quote{background:#fff;border:1px solid #EEE6D6;border-radius:var(--radius);padding:20px;font-style:italic;position:relative}
-    .quote:before{content:"“";position:absolute;left:14px;top:-12px;color:var(--gold);font-size:44px;line-height:1}
+    .quote:before{content:""";position:absolute;left:14px;top:-12px;color:var(--gold);font-size:44px;line-height:1}
     details{background:#fff;border:1px solid #EEE6D6;border-radius:12px;padding:14px 16px} details+details{margin-top:12px} summary{cursor:pointer;font-weight:700;color:var(--ink)} details[open]{box-shadow:var(--shadow)}
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
     form{background:#fff;border:1.5px solid #EEE6D6;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     label{display:block;font-weight:700;margin-top:10px;color:var(--ink)}
     input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1.5px solid #E6DFD1;border-radius:10px;font:inherit;background:#fff}
@@ -80,6 +80,7 @@
     textarea{min-height:120px;resize:vertical}
     footer{background:var(--char);color:#D9E1ED}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:28px 0;flex-wrap:wrap}
+    .foot a{color:#D9E1ED}
     .top{position:fixed;right:16px;bottom:16px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;border:none;border-radius:999px;width:44px;height:44px;display:none;align-items:center;justify-content:center;box-shadow:var(--shadow);cursor:pointer}
     @media (max-width:1080px){.hero .cols,.cols{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.kpi{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.quotes{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}}
     @media (max-width:720px){.cards{grid-template-columns:1fr}.quotes{grid-template-columns:1fr}.menu-toggle{display:block}.menu{position:fixed;top:64px;right:16px;background:#fff;border:1px solid #EEE6D6;border-radius:14px;padding:14px;flex-direction:column;gap:10px;box-shadow:var(--shadow);transform:translateY(-8px) scale(.98);opacity:0;pointer-events:none;transition:.18s}.menu.open{transform:none;opacity:1;pointer-events:auto}.h-title{font-size:36px}}
@@ -88,7 +89,7 @@
 
   <!-- Schema.org -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ProfessionalService","name":"GeoConsultants","image":"https://www.geoconsultants.eu/logo-optimized.png","url":"https://www.geoconsultants.eu/","address":{"@type":"PostalAddress","addressLocality":"Nicosia","addressCountry":"CY"},"areaServed":"EU","telephone":"+357","email":"info@geoconsultants.eu","description":"Legal & corporate advisors offering company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC in Cyprus & the EU."}
+  {"@context":"https://schema.org","@type":"ProfessionalService","name":"GeoConsultants","image":"https://www.geoconsultants.eu/assets/images/logo.png","url":"https://www.geoconsultants.eu/","address":{"@type":"PostalAddress","addressLocality":"Nicosia","addressCountry":"CY"},"areaServed":"EU","telephone":"+357","email":"info@geoconsultants.eu","description":"Legal & corporate advisors offering company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC in Cyprus & the EU."}
   </script>
 </head>
 <body>
@@ -104,7 +105,11 @@
       </a>
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
       <nav class="menu" aria-label="Primary">
-        <a href="#home">Home</a><a href="#services">Services</a><a href="#why">Why Cyprus</a><a href="#cases">Case Studies</a><a href="#faq">FAQ</a>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why Cyprus</a>
+        <a href="#cases">Case Studies</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact" class="btn">Free Consultation</a>
       </nav>
     </div>
@@ -127,35 +132,167 @@
       </div>
     </section>
 
-    <!-- ===== Services (…unchanged content omitted for brevity) ===== -->
+    <!-- ===== Services ===== -->
     <section id="services" class="section alt">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>Services</h2></div>
-        <!-- … your cards here (kept same as you sent) … -->
+        <div class="cards">
+          <article class="card ic">
+            <div class="i">⚖️</div>
+            <div>
+              <h3>Corporate & Commercial</h3>
+              <p class="muted">Company formation (Cyprus Companies Law), directorship, secretarial, registered office, minutes & filings, Registrar procedures.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🛡️</div>
+            <div>
+              <h3>Compliance & AML</h3>
+              <p class="muted">Policies & procedures, risk assessments, internal manuals, AML program setup and ongoing advisory tailored to Cyprus/EU obligations.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">📜</div>
+            <div>
+              <h3>Intellectual Property Services</h3>
+              <p class="muted">Drafting, review, and negotiation. Guidance on trademarks, brand protection, and licensing across CY/EU/international.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🏠</div>
+            <div>
+              <h3>Real Estate & Inheritance</h3>
+              <p class="muted">Wills & probate, administration and distribution, property transfers (sale or donation), contract drafting and review.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">👥</div>
+            <div>
+              <h3>Employment Law</h3>
+              <p class="muted">Employment contracts, HR policies, benefits & pension registrations, employer compliance and dispute guidance.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🏦</div>
+            <div>
+              <h3>Banking & Cross-Border</h3>
+              <p class="muted">Corporate/personal accounts (banks & EMIs), KYC/AML procedures, offshore entities (HK/SG/Seychelles) where suitable.</p>
+            </div>
+          </article>
+        </div>
+        <div class="kpi" style="margin-top:22px">
+          <div class="k"><strong>Cyprus/EU</strong><span class="muted">Compliance Focus</span></div>
+          <div class="k"><strong>Responsive</strong><span class="muted">Personal Communication</span></div>
+          <div class="k"><strong>Discreet</strong><span class="muted">Professional Support</span></div>
+          <div class="k"><strong>Results</strong><span class="muted">Solution-Driven Advice</span></div>
+        </div>
       </div>
     </section>
 
-    <!-- ===== FAQ (…unchanged) ===== -->
+    <!-- ===== Why Cyprus ===== -->
+    <section id="why" class="section">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
+        <div class="cols">
+          <div>
+            <h3>Business Hub</h3>
+            <p>Strategic location, modern legal framework, double-tax treaties, and English-speaking professional ecosystem position Cyprus as a reliable European business hub.</p>
+            <h3>Tax Advantages</h3>
+            <ul class="muted" style="margin:8px 0 0 18px">
+              <li>Corporate tax 12.5% (rising to 15% in 2026, remaining competitive).</li>
+              <li>Dividend exemptions where >50% active income and ≥6.25% effective tax.</li>
+              <li>No withholding on intra-EU dividends; capital gains exemptions for shares/securities.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Infrastructure</h3>
+            <p>High-quality professional services, fast incorporation timelines, modern banking and digital government services.</p>
+            <h3>Quality of Life</h3>
+            <p>Excellent infrastructure, favorable relocation programs, and a Mediterranean lifestyle attractive to entrepreneurs and families.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Process ===== -->
+    <section class="section alt">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>How We Work</h2></div>
+        <div class="steps">
+          <div class="step">
+            <div class="badge">1</div>
+            <h3>Discovery</h3>
+            <p class="muted">Brief call to map your objectives, timelines, and constraints. We agree the scope and next steps.</p>
+          </div>
+          <div class="step">
+            <div class="badge">2</div>
+            <h3>Plan</h3>
+            <p class="muted">We propose a clear route with documents, fees, and compliance requirements — no surprises.</p>
+          </div>
+          <div class="step">
+            <div class="badge">3</div>
+            <h3>Execute</h3>
+            <p class="muted">We handle drafting, filings, liaison with authorities, banks, and counterparties end-to-end.</p>
+          </div>
+          <div class="step">
+            <div class="badge">4</div>
+            <h3>Support</h3>
+            <p class="muted">Ongoing advisory, updates, and maintenance to keep your structure compliant and efficient.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Case Studies / Testimonials ===== -->
+    <section id="cases" class="section">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Client Feedback</h2></div>
+        <div class="quotes">
+          <blockquote class="quote">Efficient and discreet. Incorporation completed faster than expected, with clear guidance at each step. <br><strong>— Founder, SaaS</strong></blockquote>
+          <blockquote class="quote">Their AML framework passed scrutiny without issues. Practical templates saved us weeks. <br><strong>— Director, FinTech</strong></blockquote>
+          <blockquote class="quote">Solid contract review and trademark strategy. Transparent fees and professional communication. <br><strong>— CEO, Consumer Brand</strong></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="section alt">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>FAQ</h2></div>
+        <details>
+          <summary>How quickly can we incorporate a Cyprus company?</summary>
+          <p class="muted">Name approval is typically fast; incorporation can often be completed in days subject to KYC and document readiness.</p>
+        </details>
+        <details>
+          <summary>Do you provide registered office and secretarial?</summary>
+          <p class="muted">Yes. We can provide registered office, secretarial, minutes, and annual filings with the Registrar.</p>
+        </details>
+        <details>
+          <summary>Can you assist with banking and EMI onboarding?</summary>
+          <p class="muted">We prepare documentation packages and guide you through the KYC/AML process with banks and EMIs.</p>
+        </details>
+        <details>
+          <summary>Do you work with international shareholders?</summary>
+          <p class="muted">Yes. We routinely support cross-border shareholders and directors and coordinate multi-jurisdictional documentation.</p>
+        </details>
+      </div>
+    </section>
 
     <!-- ===== Contact ===== -->
     <section id="contact" class="section">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>Contact</h2></div>
-
         <form id="contact-form" aria-label="Contact form">
-          <input type="text"   name="name"    placeholder="Full name" required />
-          <input type="email"  name="email"   placeholder="Email"     required />
-          <input type="text"   name="subject" placeholder="Subject" />
+          <input type="text" name="name" placeholder="Full name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="subject" placeholder="Subject" />
           <textarea name="message" placeholder="How can we help?" required></textarea>
 
-          <!-- Cloudflare Turnstile widget (ONE instance only) -->
-          <div id="turnstile-widget"
-               class="cf-turnstile"
-               data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do"
-               data-callback="onTurnstileDone"></div>
+          <!-- Cloudflare Turnstile widget -->
+          <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do" style="margin-top:12px"></div>
 
-          <button type="submit" id="submitBtn">Send</button>
-          <p id="form-status" hidden></p>
+          <button type="submit" id="submitBtn" style="margin-top:12px;width:100%">Send</button>
+          <p id="form-status" style="margin-top:12px;display:none"></p>
         </form>
       </div>
     </section>
@@ -164,13 +301,17 @@
   <!-- ===== Footer ===== -->
   <footer>
     <div class="container foot">
-      <div class="mini">
-        <img src="logo-optimized.png" alt="" style="width:24px;height:24px;border-radius:6px">
+      <div class="mini" style="display:flex;align-items:center;gap:10px">
+        <img src="assets/images/logo.png" alt="" style="width:24px;height:24px;border-radius:6px">
         <span>© <span id="year"></span> GeoConsultants</span>
       </div>
       <div class="menu">
-        <a href="#home">Home</a><a href="#services">Services</a><a href="#why">Why Cyprus</a>
-        <a href="#cases">Case Studies</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why Cyprus</a>
+        <a href="#cases">Case Studies</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </footer>
@@ -178,87 +319,118 @@
   <!-- Back to top -->
   <button class="top" id="toTop" aria-label="Back to top">↑</button>
 
-  <!-- ========== Scripts ========== -->
+  <!-- Load Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <!-- Scripts -->
   <script>
     // Mobile menu toggle
-    const toggle=document.querySelector('.menu-toggle');const menu=document.querySelector('.menu');
-    if(toggle) toggle.addEventListener('click',()=>menu.classList.toggle('open'));
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
 
     // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href'); if(id&&id.length>1){
-          const el=document.querySelector(id); if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id && id.length > 1) {
+          const el = document.querySelector(id);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (menu) menu.classList.remove('open');
+          }
         }
       });
     });
 
     // Reveal on scroll
-    const observer=new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.style.transform='translateY(0)'; entry.target.style.opacity='1'; }});
-    },{threshold:.12,rootMargin:'0px 0px -80px 0px'});
-    document.querySelectorAll('.card,.step,.quote').forEach(el=>{
-      el.style.transform='translateY(14px)'; el.style.opacity='0'; observer.observe(el);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.opacity = '1';
+        }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -80px 0px' });
+
+    document.querySelectorAll('.card,.step,.quote').forEach(el => {
+      el.style.transform = 'translateY(14px)';
+      el.style.opacity = '0';
+      el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+      observer.observe(el);
     });
 
     // Back to top visibility
-    const toTop=document.getElementById('toTop');
-    window.addEventListener('scroll',()=>{ toTop.style.display=window.scrollY>600?'flex':'none'; });
-    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      toTop.style.display = window.scrollY > 600 ? 'flex' : 'none';
+    });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // Year
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  <!-- Load Turnstile ONCE (keep this single tag) -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    // Contact form handler
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contact-form");
+      const btn = document.getElementById("submitBtn");
+      const statusEl = document.getElementById("form-status");
+      const widget = document.getElementById("turnstile-widget");
 
-  <!-- Robust contact form handler -->
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contact-form");
-    const btn = document.getElementById("submitBtn");
-    const statusEl = document.getElementById("form-status");
-    const widget = document.getElementById("turnstile-widget");
-
-    function disableButton(disable=true){ if(btn) btn.disabled = disable; }
-    function showStatus(msg){ if(statusEl){ statusEl.hidden=false; statusEl.textContent=msg; } }
-
-    async function handleSubmit(e){
-      e.preventDefault();
-      disableButton(true); showStatus("Sending…");
-
-      // Get Turnstile token safely
-      const token = (window.turnstile && widget) ? turnstile.getResponse(widget) : "";
-      if(!token){ showStatus("Security check failed. Please refresh and try again."); disableButton(false); return; }
-
-      const payload = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        subject: form.subject.value.trim() || "Website contact",
-        message: form.message.value.trim(),
-        token
-      };
-
-      try{
-        const res = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json().catch(()=> ({}));
-        if(res.ok){ showStatus("✅ Thank you! Your message has been sent."); form.reset(); }
-        else{ showStatus(`⚠️ ${data.error || "Message failed. Please try again."}`); }
-      }catch{
-        showStatus("⚠️ Network error. Please try again.");
-      }finally{
-        try{ if(window.turnstile && widget) turnstile.reset(widget); }catch{}
-        disableButton(false);
+      function showStatus(msg) {
+        if (statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.textContent = msg;
+        }
       }
-    }
 
-    if(form) form.addEventListener("submit", handleSubmit);
-  });
+      async function handleSubmit(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        showStatus("Sending…");
+
+        const token = window.turnstile && widget ? turnstile.getResponse(widget) : "";
+        if (!token) {
+          showStatus("Security check failed. Please refresh and try again.");
+          btn.disabled = false;
+          return;
+        }
+
+        const payload = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          subject: form.subject.value.trim() || "Website contact",
+          message: form.message.value.trim(),
+          token
+        };
+
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (res.ok) {
+            showStatus("✅ Thank you! Your message has been sent.");
+            form.reset();
+          } else {
+            showStatus(`⚠️ ${data.error || "Message failed. Please try again."}`);
+          }
+        } catch {
+          showStatus("⚠️ Network error. Please try again.");
+        } finally {
+          try {
+            if (window.turnstile && widget) turnstile.reset(widget);
+          } catch {}
+          btn.disabled = false;
+        }
+      }
+
+      if (form) form.addEventListener("submit", handleSubmit);
+    });
   </script>
 </body>
 </html>
