@@ -120,7 +120,7 @@ export const onRequestPost = async ({ request, env }) => {
 
   const mailPayload = {
     personalizations: [{ to: [{ email: env.MAIL_TO }] }],
-    from: { email: env.MAIL_FROM, name: "noreply@geoconsultants.eu" },
+    from: { email: env.MAIL_FROM, name: "GeoConsultants Website" },
     subject: clip(`Contact Form: ${subject}`, 200),
     content: [{ type: "text/plain", value: textBody }],
     reply_to: { email, name }
