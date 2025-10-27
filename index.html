@@ -440,11 +440,12 @@
   <textarea name="message" placeholder="How can we help?" required></textarea>
 
   <!-- Cloudflare Turnstile widget -->
-  <div id="cf-box"
-       class="cf-turnstile"
-       data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do"
-       data-callback="onTurnstileDone">
-  </div>
+<div
+  id="turnstile-widget"
+  class="cf-turnstile"
+  data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do"
+  data-callback="onTurnstileDone"
+></div>
 
   <button type="submit">Send</button>
   <p id="form-status" hidden></p>
@@ -452,50 +453,73 @@
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-  let widgetId = null;
-  window.onloadTurnstileCallback = function () {
-    // If you want to manually render, but the data-sitekey above auto-renders already.
-  };
-  function onTurnstileDone() { /* optional: called when token ready */ }
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact-form");
+  const btn = form?.querySelector('button[type="submit"]');
+  const statusEl = document.getElementById("form-status");
+  const widget = document.getElementById("turnstile-widget");
 
-  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  function disableButton(disable = true) {
+    if (btn) btn.disabled = disable;
+  }
+
+  function showStatus(msg) {
+    if (statusEl) {
+      statusEl.hidden = false;
+      statusEl.textContent = msg;
+    }
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    const status = document.getElementById('form-status');
-    status.hidden = false;
-    status.textContent = 'Sending…';
+    disableButton(true);
+    showStatus("Sending…");
 
-    // Grab fields
-    const form = e.target;
+    const token = window.turnstile
+      ? turnstile.getResponse(widget)
+      : "";
+
+    if (!token) {
+      showStatus("Security check failed. Please refresh and try again.");
+      disableButton(false);
+      return;
+    }
+
     const payload = {
       name: form.name.value.trim(),
       email: form.email.value.trim(),
-      subject: form.subject.value.trim() || 'Website contact',
+      subject: form.subject.value.trim() || "Website contact",
       message: form.message.value.trim(),
-      token: turnstile.getResponse(document.querySelector('.cf-turnstile')) // Turnstile token
+      token
     };
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const json = await res.json();
-      if (res.ok) {
-        status.textContent = 'Thank you! Your message has been sent.';
-        form.reset();
-        turnstile.reset(document.querySelector('.cf-turnstile'));
-      } else {
-        status.textContent = json.error || 'Could not send message. Please try again.';
-        turnstile.reset(document.querySelector('.cf-turnstile'));
-      }
-    } catch (err) {
-      status.textContent = 'Network error. Please try again.';
-      turnstile.reset(document.querySelector('.cf-turnstile'));
-    }
-  });
-</script>
+      const data = await res.json().catch(() => ({}));
 
+      if (res.ok) {
+        showStatus("✅ Thank you! Your message has been sent.");
+        form.reset();
+      } else {
+        showStatus(`⚠️ ${data.error || "Message failed. Please try again."}`);
+      }
+    } catch {
+      showStatus("⚠️ Network error. Please try again.");
+    } finally {
+      try {
+        if (window.turnstile && widget) turnstile.reset(widget);
+      } catch {}
+      disableButton(false);
+    }
+  }
+
+  if (form) form.addEventListener("submit", handleSubmit);
+});
+</script>
 
   <!-- ===== Footer ===== -->
   <footer>
