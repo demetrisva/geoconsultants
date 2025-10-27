@@ -7,11 +7,7 @@ export async function onRequest(context) {
   if (request.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
+      headers: corsHeaders()
     });
   }
   
@@ -50,61 +46,55 @@ export async function onRequest(context) {
   }
   
   // Check env vars
-  if (!env.MAIL_FROM || !env.MAIL_TO) {
-    console.error("Missing environment variables");
+  if (!env.RESEND_API_KEY) {
+    console.error("Missing RESEND_API_KEY");
     return jsonResponse({ error: "Server configuration error" }, 500);
   }
   
-  console.log("Preparing email for MailChannels");
+  console.log("Preparing email for Resend");
   
-  // Build email
-  const mailData = {
-    personalizations: [{
-      to: [{ email: env.MAIL_TO }]
-    }],
-    from: {
-      email: env.MAIL_FROM,
-      name: "GeoConsultants Contact Form"
-    },
+  // Build email payload
+  const emailData = {
+    from: "GeoConsultants <noreply@geoconsultants.eu>",
+    to: ["info@geoconsultants.eu"],
+    reply_to: email,
     subject: `Contact Form: ${subject}`,
-    content: [{
-      type: "text/plain",
-      value: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    }],
-    reply_to: {
-      email: email,
-      name: name
-    }
+    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
   };
   
-  // Send via MailChannels
+  // Send via Resend
   try {
-    console.log("Calling MailChannels API");
+    console.log("Calling Resend API");
     
-    const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
+    const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`
       },
-      body: JSON.stringify(mailData)
+      body: JSON.stringify(emailData)
     });
     
-    console.log("MailChannels response status:", mailResponse.status);
+    const result = await response.json();
+    console.log("Resend response status:", response.status);
     
-    if (!mailResponse.ok) {
-      const errorText = await mailResponse.text();
-      console.error("MailChannels error:", errorText);
+    if (!response.ok) {
+      console.error("Resend error:", result);
       return jsonResponse({
         error: "Failed to send email",
-        details: errorText.substring(0, 200)
-      }, 502);
+        details: result.message || "Unknown error"
+      }, response.status);
     }
     
-    console.log("Email sent successfully");
-    return jsonResponse({ success: true, message: "Email sent successfully" }, 200);
+    console.log("Email sent successfully, ID:", result.id);
+    return jsonResponse({ 
+      success: true, 
+      message: "Email sent successfully",
+      id: result.id 
+    }, 200);
     
   } catch (err) {
-    console.error("MailChannels fetch error:", err.message);
+    console.error("Resend fetch error:", err.message);
     return jsonResponse({
       error: "Network error",
       message: err.message
@@ -112,14 +102,20 @@ export async function onRequest(context) {
   }
 }
 
+function corsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  };
+}
+
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status: status,
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
+      ...corsHeaders()
     }
   });
 }
