@@ -1,105 +1,125 @@
 // functions/api/contact.js
-const ALLOWED_ORIGINS = [
-  "https://www.geoconsultants.eu",
-  "https://geoconsultants.eu",
-  "https://geoconsultants.pages.dev"
-];
 
-const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
-
-function corsHeaders(origin) {
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
-    return {
-      "Access-Control-Allow-Origin": origin,
-      "Vary": "Origin",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
-    };
-  }
-  return {};
-}
-
-export const onRequestOptions = async ({ request }) => {
-  const origin = request.headers.get("Origin") || "";
-  return new Response(null, { status: 204, headers: corsHeaders(origin) });
-};
-
-export const onRequestPost = async ({ request, env }) => {
-  const origin = request.headers.get("Origin") || "";
+export async function onRequest(context) {
+  const { request, env } = context;
   
+  // Handle OPTIONS (CORS preflight)
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    });
+  }
+  
+  // Only allow POST
+  if (request.method !== "POST") {
+    return jsonResponse({ error: "Method not allowed" }, 405);
+  }
+  
+  console.log("Contact form submission started");
+  
+  // Parse body
   let body;
-  try { 
-    body = await request.json(); 
-  } catch { 
-    return respond(400, { error: "Invalid JSON" }, origin); 
+  try {
+    body = await request.json();
+  } catch (err) {
+    console.error("JSON parse error:", err.message);
+    return jsonResponse({ error: "Invalid JSON" }, 400);
   }
   
-  const name = trim(body.name);
-  const email = trim(body.email);
-  const subject = trim(body.subject) || "Website contact";
-  const message = trim(body.message);
+  const name = String(body.name || "").trim();
+  const email = String(body.email || "").trim();
+  const subject = String(body.subject || "Website contact").trim();
+  const message = String(body.message || "").trim();
   
+  console.log("Form data:", { name, email, subject, hasMessage: !!message });
+  
+  // Validate
   if (!name || !email || !message) {
-    return respond(400, { error: "Missing required fields" }, origin);
+    console.log("Validation failed: missing fields");
+    return jsonResponse({ error: "Missing required fields" }, 400);
   }
   
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return respond(400, { error: "Invalid email" }, origin);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    console.log("Validation failed: invalid email");
+    return jsonResponse({ error: "Invalid email address" }, 400);
   }
   
+  // Check env vars
   if (!env.MAIL_FROM || !env.MAIL_TO) {
-    return respond(500, { error: "Server configuration error" }, origin);
+    console.error("Missing environment variables");
+    return jsonResponse({ error: "Server configuration error" }, 500);
   }
   
-  const ip = request.headers.get("CF-Connecting-IP") || "";
-  const textBody = [
-    "New website enquiry",
-    "",
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `IP: ${ip}`,
-    "",
-    "Message:",
-    message
-  ].join("\n");
+  console.log("Preparing email for MailChannels");
   
-  const mailPayload = {
-    personalizations: [{ to: [{ email: env.MAIL_TO }] }],
-    from: { email: env.MAIL_FROM, name: "GeoConsultants Website" },
-    subject: subject,
-    content: [{ type: "text/plain", value: textBody }],
-    reply_to: { email: email, name: name }
+  // Build email
+  const mailData = {
+    personalizations: [{
+      to: [{ email: env.MAIL_TO }]
+    }],
+    from: {
+      email: env.MAIL_FROM,
+      name: "GeoConsultants Contact Form"
+    },
+    subject: `Contact Form: ${subject}`,
+    content: [{
+      type: "text/plain",
+      value: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    }],
+    reply_to: {
+      email: email,
+      name: name
+    }
   };
   
+  // Send via MailChannels
   try {
-    const res = await fetch("https://api.mailchannels.net/tx/v1/send", {
+    console.log("Calling MailChannels API");
+    
+    const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mailPayload)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(mailData)
     });
     
-    if (!res.ok) {
-      const errorText = await res.text().catch(() => "Unknown error");
-      return respond(502, { 
-        error: "Failed to send email", 
-        status: res.status,
-        details: errorText.substring(0, 500)
-      }, origin);
+    console.log("MailChannels response status:", mailResponse.status);
+    
+    if (!mailResponse.ok) {
+      const errorText = await mailResponse.text();
+      console.error("MailChannels error:", errorText);
+      return jsonResponse({
+        error: "Failed to send email",
+        details: errorText.substring(0, 200)
+      }, 502);
     }
+    
+    console.log("Email sent successfully");
+    return jsonResponse({ success: true, message: "Email sent successfully" }, 200);
+    
   } catch (err) {
-    return respond(502, { error: "Network error", message: String(err) }, origin);
+    console.error("MailChannels fetch error:", err.message);
+    return jsonResponse({
+      error: "Network error",
+      message: err.message
+    }, 502);
   }
-  
-  return respond(200, { ok: true, message: "Email sent successfully" }, origin);
-};
-
-function trim(val) {
-  return typeof val === "string" ? val.trim() : "";
 }
 
-function respond(status, obj, origin) {
-  return new Response(JSON.stringify(obj), { 
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
     status: status,
-    headers: { ...JSON_HEADERS, ...corsHeaders(origin) }
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
   });
 }
