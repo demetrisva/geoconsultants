@@ -1,5 +1,4 @@
 // functions/api/contact.js
-
 const ALLOWED_ORIGINS = [
   "https://www.geoconsultants.eu",
   "https://geoconsultants.eu",
@@ -27,12 +26,15 @@ export const onRequestOptions = async ({ request }) => {
 
 export const onRequestPost = async ({ request, env }) => {
   const origin = request.headers.get("Origin") || "";
-
+  
   // Parse JSON
   let body;
-  try { body = await request.json(); }
-  catch { return respond(400, { error: "Invalid JSON" }, origin); }
-
+  try { 
+    body = await request.json(); 
+  } catch { 
+    return respond(400, { error: "Invalid JSON" }, origin); 
+  }
+  
   // Accept both payload shapes
   const name = s(body.name);
   const email = s(body.email);
@@ -40,16 +42,16 @@ export const onRequestPost = async ({ request, env }) => {
   const message = s(body.message);
   const phone = s(body.phone);
   const token = s(body.token) || s(body.turnstileToken);
-
+  
   if (!name || !email || !message || !token)
     return respond(400, { error: "Missing required fields (name, email, message, token)" }, origin);
-
+  
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
     return respond(400, { error: "Invalid email" }, origin);
-
+  
   if (!env.TURNSTILE_SECRET || !env.MAIL_FROM || !env.MAIL_TO)
     return respond(500, { error: "Server misconfiguration: missing env vars" }, origin);
-
+  
   // Verify Turnstile
   const ip = request.headers.get("CF-Connecting-IP") || "";
   let verify;
@@ -62,6 +64,7 @@ export const onRequestPost = async ({ request, env }) => {
   } catch {
     return respond(502, { error: "Turnstile verification error" }, origin);
   }
+  
   if (!verify?.success) {
     return respond(403, {
       error: "Turnstile verification failed",
@@ -69,7 +72,7 @@ export const onRequestPost = async ({ request, env }) => {
       hostname: verify?.hostname || null
     }, origin);
   }
-
+  
   // Build email (plain text)
   const textBody = [
     "New website enquiry", "",
@@ -79,7 +82,7 @@ export const onRequestPost = async ({ request, env }) => {
     `IP: ${ip}`, "",
     "Message:", message
   ].filter(Boolean).join("\n");
-
+  
   const mailPayload = {
     personalizations: [{ to: [{ email: env.MAIL_TO }] }],
     from: { email: env.MAIL_FROM, name: "GeoConsultants Website" },
@@ -87,7 +90,7 @@ export const onRequestPost = async ({ request, env }) => {
     content: [{ type: "text/plain", value: textBody }],
     reply_to: { email, name }
   };
-
+  
   // Send via MailChannels with detailed error reporting
   try {
     const m = await fetch("https://api.mailchannels.net/tx/v1/send", {
@@ -95,7 +98,7 @@ export const onRequestPost = async ({ request, env }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(mailPayload)
     });
-
+    
     if (!m.ok) {
       const detail = await m.text().catch(() => "");
       return respond(502, {
@@ -107,13 +110,17 @@ export const onRequestPost = async ({ request, env }) => {
   } catch (e) {
     return respond(502, { error: "Mail send error", exception: String(e) }, origin);
   }
-
+  
   return respond(200, { ok: true }, origin);
 };
 
 // helpers
 const s = (v) => (typeof v === "string" ? v.trim() : "");
 const clip = (str, n) => (str && str.length > n ? str.slice(0, n) : str);
+
 function respond(status, obj, origin) {
-  return new Response(JSON.stringify(obj), { status, headers: { ...JSON_HEADERS, ...corsHeaders(origin) } });
+  return new Response(JSON.stringify(obj), { 
+    status, 
+    headers: { ...JSON_HEADERS, ...corsHeaders(origin) } 
+  });
 }
