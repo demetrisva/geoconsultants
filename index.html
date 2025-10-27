@@ -433,75 +433,69 @@
     </section>
 
     <!-- ===== Contact ===== -->
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Contact Us</h2></div>
-        <div class="contact-grid">
-          <form id="contact-form" method="POST" novalidate>
-            <!-- Honeypot -->
-            <input type="text" name="website" id="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+    <form id="contact-form">
+  <input type="text" name="name" placeholder="Full name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="subject" placeholder="Subject" />
+  <textarea name="message" placeholder="How can we help?" required></textarea>
 
-            <div class="group">
-              <label for="name">Full name</label>
-              <input id="name" name="name" type="text" placeholder="Full name" required maxlength="120">
-            </div>
-            <div class="group">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="name@example.com" required maxlength="160">
-            </div>
-            <div class="group">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" placeholder="+357 ..." maxlength="40">
-            </div>
-            <div class="group">
-              <label for="service">Service of interest</label>
-              <select id="service" name="service">
-                <option>Corporate & Commercial</option>
-                <option>Compliance & AML</option>
-                <option>Intellectual Property Services</option>
-                <option>Real Estate & Inheritance</option>
-                <option>Employment Law</option>
-                <option>Banking & Cross-Border</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Briefly describe your matter..." required maxlength="5000"></textarea>
-            </div>
-            <div class="consent">
-              <input id="consent" name="consent" type="checkbox" required aria-describedby="consentText">
-              <label id="consentText" for="consent">I agree to the processing of my data in line with the Privacy Policy.</label>
-            </div>
+  <!-- Cloudflare Turnstile widget -->
+  <div id="cf-box"
+       class="cf-turnstile"
+       data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol"
+       data-callback="onTurnstileDone">
+  </div>
 
-            <!-- Turnstile widget (NEW) -->
-            <div class="cf-turnstile"
-                 data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol"
-                 data-theme="light"
-                 data-callback="tsDone"></div>
+  <button type="submit">Send</button>
+  <p id="form-status" hidden></p>
+</form>
 
-            <div style="margin-top:14px">
-              <button class="btn" id="submitBtn" type="submit">Send Request</button>
-            </div>
-            <p id="formStatus" class="muted" style="margin-top:10px"></p>
-          </form>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  let widgetId = null;
+  window.onloadTurnstileCallback = function () {
+    // If you want to manually render, but the data-sitekey above auto-renders already.
+  };
+  function onTurnstileDone() { /* optional: called when token ready */ }
 
-          <aside class="card">
-            <h3>Get in Touch</h3>
-            <p><strong>Phone:</strong> <a href="tel:+35796046167">+357 96046167</a></p>
-            <p><strong>Email:</strong> <a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
-            <p><strong>Location:</strong> Nicosia, Cyprus</p>
-            <p>Business hours: Mon–Fri, 09:00–18:00 EEST</p>
-            <p>Free initial consultation by appointment.</p>
-            <div style="margin-top:16px;display:flex;align-items:center;gap:10px">
-              <img src="assets/images/logo.png" alt="GeoConsultants mark" style="height:34px;width:auto;border-radius:8px">
-              <span class="muted">GeoConsultants</span>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-  </main>
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    status.hidden = false;
+    status.textContent = 'Sending…';
+
+    // Grab fields
+    const form = e.target;
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim() || 'Website contact',
+      message: form.message.value.trim(),
+      token: turnstile.getResponse(document.querySelector('.cf-turnstile')) // Turnstile token
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if (res.ok) {
+        status.textContent = 'Thank you! Your message has been sent.';
+        form.reset();
+        turnstile.reset(document.querySelector('.cf-turnstile'));
+      } else {
+        status.textContent = json.error || 'Could not send message. Please try again.';
+        turnstile.reset(document.querySelector('.cf-turnstile'));
+      }
+    } catch (err) {
+      status.textContent = 'Network error. Please try again.';
+      turnstile.reset(document.querySelector('.cf-turnstile'));
+    }
+  });
+</script>
+
 
   <!-- ===== Footer ===== -->
   <footer>

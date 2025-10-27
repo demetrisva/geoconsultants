@@ -1,59 +1,86 @@
-<div>
-  <form id="contact-form">
-    <input type="text" name="name" placeholder="Full name" required />
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="text" name="subject" placeholder="Subject" />
-    <textarea name="message" placeholder="How can we help?" required></textarea>
+export const onRequestPost = async (context) => {
+  const { request, env } = context;
 
-    {/* Cloudflare Turnstile widget */}
-    <div id="cf-box"
-      class="cf-turnstile"
-      data-sitekey="0x4AAAAAAB8nNFBp5UdYGwol"
-      data-callback="onTurnstileDone">
-    </div>
+  // CORS (optional: restrict to your domain)
+  const cors = {
+    'Access-Control-Allow-Origin': 'https://www.geoconsultants.eu',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { headers: cors });
+  }
 
-    <button type="submit">Send</button>
-    <p id="form-status" hidden></p>
-  </form>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script>
-    let widgetId = null;
-    window.onloadTurnstileCallback = function () {
-      // If you want to manually render, but the data-sitekey above auto-renders already.
-    };
-    document.getElementById('contact-form').addEventListener('submit', async (e) ={">"} {
-      e.preventDefault();
-      const status = document.getElementById('form-status');
-      status.hidden = false;
-      status.textContent = 'Sending…';
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return json({ error: 'Invalid JSON' }, 400, cors);
+  }
 
-      // Grab fields
-      const form = e.target;
-      const payload = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        subject: form.subject.value.trim() || 'Website contact',
-        message: form.message.value.trim(),
-        token: turnstile.getResponse(document.querySelector('.cf-turnstile')) // Turnstile token
-      {"}"};
+  const { name = '', email = '', subject = 'Website contact', message = '', token = '' } = data;
 
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' {"}"},
-          body: JSON.stringify(payload)
-        {"}"});
-    const json = await res.json();
-    if (res.ok) {status.textContent = 'Thank you! Your message has been sent.'};
-    form.reset();
-    turnstile.reset(document.querySelector('.cf-turnstile'));
-        {"}"} else {status.textContent = json.error || 'Could not send message. Please try again.'};
-    turnstile.reset(document.querySelector('.cf-turnstile'));
-        {"}"}
-      {"}"} catch (err) {status.textContent = 'Network error. Please try again.'};
-    turnstile.reset(document.querySelector('.cf-turnstile'));
-      {"}"}
-    {"}"});
-  </script>
-</div>;
+  if (!name || !email || !message || !token) {
+    return json({ error: 'Missing required fields' }, 400, cors);
+  }
 
+  // 1) Verify Turnstile
+  const ip = request.headers.get('CF-Connecting-IP') || '';
+  const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: env.TURNSTILE_SECRET,
+      response: token,
+      remoteip: ip
+    })
+  });
+  const verify = await verifyRes.json();
+  if (!verify.success) {
+    return json({ error: 'Turnstile verification failed' }, 403, cors);
+  }
+
+  // 2) Send mail via MailChannels
+  const toEmail = env.MAIL_TO;         // e.g., "info@geoconsultants.eu"
+  const fromEmail = env.MAIL_FROM;     // e.g., "noreply@geoconsultants.eu"
+  const bodyText =
+`New website enquiry:
+
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+
+IP: ${ip}`;
+
+  const mail = {
+    personalizations: [{ to: [{ email: toEmail }] }],
+    from: { email: fromEmail, name: 'GeoConsultants Website' },
+    subject: `Contact Form: ${subject}`.slice(0, 200),
+    content: [
+      { type: 'text/plain', value: bodyText }
+    ],
+    reply_to: { email, name }
+  };
+
+  const mailRes = await fetch('https://api.mailchannels.net/tx/v1/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(mail)
+  });
+
+  if (!mailRes.ok) {
+    const errTxt = await mailRes.text();
+    return json({ error: 'Mail provider error', details: errTxt }, 502, cors);
+  }
+
+  return json({ ok: true }, 200, cors);
+};
+
+function json(obj, status = 200, headers = {}) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...headers }
+  });
+}
