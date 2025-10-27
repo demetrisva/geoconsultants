@@ -369,6 +369,83 @@
       transition:none !important;
     }
   }
+/* Contact Section Enhancements */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.contact-info-box {
+  background: #fff;
+  border: 1.5px solid #E6DFD1;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+
+.contact-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 14px;
+  background: rgba(199, 161, 87, 0.04);
+  border-radius: 10px;
+  border-left: 3px solid var(--gold);
+}
+
+.contact-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.contact-item strong {
+  display: block;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+form label {
+  display: block;
+  font-weight: 600;
+  margin-top: 12px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 11px 14px;
+  border: 1.5px solid #E6DFD1;
+  border-radius: 10px;
+  font: inherit;
+  background: #fff;
+  font-size: 15px;
+}
+
+form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#form-status {
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 </style>
 
   <!-- ========== End Styles ========== -->
@@ -568,14 +645,76 @@
     </section>
 
     <!-- ===== Contact ===== -->
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="sh"><div class="line"></div><h2>Contact</h2></div>
+<section id="contact" class="section">
+  <div class="container">
+    <div class="sh"><div class="line"></div><h2>Contact</h2></div>
+    
+    <div class="contact-grid">
+      <!-- Left Column: Contact Form -->
+      <div>
         <form id="contact-form" aria-label="Contact form">
-          <input type="text" name="name" placeholder="Full name" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="text" name="subject" placeholder="Subject" />
-          <textarea name="message" placeholder="How can we help?" required></textarea>
+          <label for="name">Full Name <span style="color:var(--gold)">*</span></label>
+          <input type="text" id="name" name="name" required />
+          
+          <label for="email">Email Address <span style="color:var(--gold)">*</span></label>
+          <input type="email" id="email" name="email" required />
+          
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Optional" />
+          
+          <label for="message">Message <span style="color:var(--gold)">*</span></label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <!-- Cloudflare Turnstile widget -->
+          <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do" style="margin-top:14px"></div>
+
+          <button type="submit" id="submitBtn" class="btn" style="margin-top:14px;width:100%">Send Message</button>
+          <p id="form-status" style="margin-top:12px;display:none;font-weight:600"></p>
+        </form>
+      </div>
+
+      <!-- Right Column: Contact Information -->
+      <div>
+        <div class="contact-info-box">
+          <h3 style="margin-top:0">Get in Touch</h3>
+          <p class="muted">We're here to help. Reach out for a free consultation or to discuss how we can support your business.</p>
+          
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <strong>Email</strong>
+              <p class="muted" style="margin:4px 0 0"><a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <strong>Location</strong>
+              <p class="muted" style="margin:4px 0 0">Nicosia, Cyprus</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <strong>Business Hours</strong>
+              <p class="muted" style="margin:4px 0 0">Monday - Friday: 9:00 AM - 5:00 PM</p>
+            </div>
+          </div>
+
+          <div style="margin-top:26px;padding-top:22px;border-top:1px solid #E6DFD1">
+            <p style="font-size:14px;color:var(--muted);margin:0">
+              By submitting this form, you agree to our <a href="/privacy.html" style="color:var(--gold)">Privacy Policy</a>. 
+              All information is treated confidentially in accordance with GDPR.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
           <!-- Cloudflare Turnstile widget -->
           <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do" style="margin-top:12px"></div>
