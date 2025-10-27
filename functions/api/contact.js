@@ -13,14 +13,17 @@ const isAllowed = (origin) => origin && ALLOWED_ORIGINS.includes(origin);
 
 // CORS helper
 function corsHeaders(origin) {
-  return isAllowed(origin)
-    ? {
-        "Access-Control-Allow-Origin": origin,
-        "Vary": "Origin",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
-    : {};
+  if (isAllowed(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Vary": "Origin",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
+  } else {
+    // Fallback: For dev/vercel preview or unknown, use strict CORS denial or a clear error.
+    return {};
+  }
 }
 
 // OPTIONS preflight
