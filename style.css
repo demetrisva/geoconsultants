@@ -1,8 +1,6 @@
 /* ===============================================
    GeoConsultants - Original Theme Stylesheet
-   - All original styles from HTML files
-   - Re-themed Cookie Banner
-   - Styles for new/updated content (v2)
+   - V3: Modern Mobile Navigation & Responsive Fixes
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -36,6 +34,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
+}
+
+/* This class is added by JS to prevent scrolling when the mobile menu is open */
+body.nav-is-open {
+  overflow: hidden;
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -89,6 +92,8 @@ header {
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 40px; width: auto; border-radius: 10px; box-shadow: var(--shadow); }
 .brand-name { font-weight: 800; letter-spacing: .02em; color: var(--ink); }
+
+/* ----- Desktop Menu ----- */
 .menu { display: flex; gap: 18px; align-items: center; }
 .menu a { padding: 8px 12px; border-radius: 10px; color: #5A636F; font-weight: 600; }
 .menu a:hover { background: #F2EEE5; color: var(--ink); }
@@ -101,7 +106,7 @@ header {
   background: linear-gradient(135deg, var(--gold), var(--gold-2));
   color: #fff;
   padding: 10px 16px;
-  border-radius: 999px; /* Original rounded */
+  border-radius: 999px;
   box-shadow: var(--shadow);
   font-weight: 700;
   border: none;
@@ -111,15 +116,24 @@ header {
 .btn[disabled] { opacity: .7; cursor: not-allowed; }
 .btn-outline { background: #fff; border: 1px solid #E6DFD1; color: var(--ink); }
 .btn-outline:hover { border-color: #DBC79F; background: #fff; }
+
+/* ----- NEW Mobile Menu Toggle Button ----- */
 .menu-toggle {
-  display: none;
+  display: none; /* Hidden by default */
   border: 1px solid #E6DFD1;
   border-radius: 10px;
-  padding: 6px 10px;
+  padding: 8px;
   font-size: 18px;
   background: #fff;
   cursor: pointer;
+  z-index: 1001; /* Above mobile menu */
+  color: var(--ink);
 }
+.menu-toggle .icon-close { display: none; }
+.menu-toggle .icon-hamburger { display: block; }
+
+.nav-is-open .menu-toggle .icon-close { display: block; }
+.nav-is-open .menu-toggle .icon-hamburger { display: none; }
 
 /* ----- Hero Section ----- */
 .hero { padding: 64px 0 32px; }
@@ -148,12 +162,11 @@ header {
   margin: 10px 0 10px;
   color: var(--ink);
 }
-/* UPDATED AMPERSAND STYLE */
 .h-title .amp {
-  font-family: "Playfair Display", serif; /* Match title font */
-  font-weight: 600; /* Match title weight */
-  font-style: italic; /* Make it elegant */
-  color: var(--gold); /* Use accent color */
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--gold);
   display: inline-block;
 }
 .lead {
@@ -214,7 +227,7 @@ section { scroll-margin-top: 96px; }
 .k strong { display: block; font-size: 22px; }
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
 .step { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 18px; position: relative; }
-.step h3 { margin: 0; } /* Style for new 'How We Work' */
+.step h3 { margin: 0; }
 .badge {
   position: absolute;
   top: -12px;
@@ -238,7 +251,7 @@ details + details { margin-top: 12px; }
 summary { cursor: pointer; font-weight: 700; color: var(--ink); }
 details[open] { box-shadow: var(--shadow); }
 
-/* ----- NEW "ABOUT US" STYLES ----- */
+/* ----- "About Us" Styles ----- */
 .about-us-content p {
     color: var(--muted);
     font-size: 1.05rem;
@@ -258,7 +271,7 @@ details[open] { box-shadow: var(--shadow); }
     color: var(--ink);
 }
 
-/* ----- NEW "SERVICES ACCORDION" STYLES ----- */
+/* ----- "Services Accordion" Styles ----- */
 .services-accordion {
     display: grid;
     gap: 1rem;
@@ -413,8 +426,8 @@ footer { background: var(--char); color: #D9E1ED; }
   cursor: pointer;
 }
 
-/* ----- Legal Pages (from original files) ----- */
-.legal-page-container { /* Added a wrapper for legal pages */
+/* ----- Legal Pages ----- */
+.legal-page-container {
   max-width: var(--container);
   margin: 0 auto;
   padding: 40px 20px;
@@ -435,13 +448,13 @@ footer { background: var(--char); color: #D9E1ED; }
 .legal-page a { color: var(--gold); text-decoration: none; }
 .legal-page a:hover { text-decoration: underline; }
 .back-link { display: inline-block; margin-bottom: 20px; color: var(--gold); font-weight: 600; }
-footer.legal-footer { /* Specific footer for legal pages */
+footer.legal-footer {
   background: var(--char);
   color: #D9E1ED;
   padding: 28px 0;
   margin-top: 60px;
 }
-.legal-foot { /* Specific footer for legal pages */
+.legal-foot {
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 20px;
@@ -454,15 +467,15 @@ footer.legal-footer { /* Specific footer for legal pages */
     bottom: 0;
     left: 0;
     width: 100%;
-    background: var(--char); /* Original Theme Color */
+    background: var(--char);
     color: var(--white);
     padding: 1.5rem 2rem;
     z-index: 2000;
-    display: none; /* Hidden by default */
+    display: none;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
-    border-top: 3px solid var(--gold); /* Original Theme Color */
+    border-top: 3px solid var(--gold);
     transform: translateY(100%);
     transition: transform 0.5s ease-in-out;
 }
@@ -475,13 +488,13 @@ footer.legal-footer { /* Specific footer for legal pages */
 .cookie-banner a:hover { color: var(--white); }
 .cookie-buttons { display: flex; gap: 1rem; flex-shrink: 0; }
 .cookie-btn {
-    background: var(--gold); /* Original Theme Color */
+    background: var(--gold);
     color: var(--white);
     border: none;
     padding: 0.8rem 1.5rem;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 999px; /* Original Theme Rounded */
+    border-radius: 999px;
     transition: background 0.3s ease, color 0.3s ease, transform .18s ease;
 }
 .cookie-btn:hover {
@@ -499,47 +512,105 @@ footer.legal-footer { /* Specific footer for legal pages */
     color: var(--white);
 }
 
-/* ----- Responsive ----- */
-@media (max-width: 1080px) {
-  .hero .cols, .cols { grid-template-columns: 1fr; }
-  .cards { grid-template-columns: repeat(2, 1fr); }
-  .kpi { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .quotes { grid-template-columns: 1fr 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-}
+/* ===============================================
+   NEW Responsive & Modern Mobile Styles
+=============================================== */
 
-@media (max-width: 720px) {
-  .cards { grid-template-columns: 1fr; }
-  .quotes { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: 1fr; }
-  .menu-toggle { display: block; }
+@media (max-width: 900px) { /* Changed from 1080px */
+  .cols, .contact-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .steps { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .quotes { 
+    grid-template-columns: 1fr; /* Stack quotes on tablet */
+  }
+
+  /* --- Modern Mobile Menu --- */
+  .brand-name {
+    display: none; /* Hide long text on mobile */
+  }
+  .menu-toggle {
+    display: block; /* Show hamburger */
+  }
   .menu {
     position: fixed;
-    top: 64px;
-    right: 16px;
-    background: #fff;
-    border: 1px solid #EEE6D6;
-    border-radius: var(--radius);
-    padding: 14px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--cream);
     flex-direction: column;
-    gap: 10px;
-    box-shadow: var(--shadow);
-    transform: translateY(-8px) scale(.98);
+    gap: 1.5rem;
+    padding: 6rem 2rem 2rem;
+    align-items: flex-start;
+    z-index: 1000;
+    
+    /* Animation */
     opacity: 0;
+    transform: translateY(-100%);
     pointer-events: none;
-    transition: .18s;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  .menu.open {
-    transform: none;
+  .menu.is-open {
     opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
   }
-  .h-title { font-size: 36px; }
-  .legal-page { padding: 24px; }
-  .legal-page h1 { font-size: 28px; }
-  .legal-page h2 { font-size: 20px; }
+  .menu a {
+    font-size: 1.75rem; /* Bigger, tap-friendly text */
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .menu .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.25rem;
+  }
+  /* --- End Mobile Menu --- */
+
+  .section {
+    padding: 48px 0; /* Tighter padding on mobile */
+  }
+  .h-title { 
+    font-size: 2.25rem; /* Smaller hero title */
+  }
+  .lead {
+    font-size: 1rem; /* Smaller lead text */
+  }
+  .sh h2 {
+    font-size: 2rem; /* Smaller section heads */
+  }
+}
+
+@media (max-width: 600px) {
+  .steps {
+    grid-template-columns: 1fr; /* Stack steps on small mobile */
+  }
+  .foot {
+    flex-direction: column; /* Stack footer */
+    gap: 20px;
+    text-align: center;
+  }
+  .foot .menu {
+    position: static; /* Footer menu items */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: transparent;
+    padding: 0;
+    gap: 10px;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .foot .menu a {
+    font-size: 0.9rem;
+    color: #D9E1ED;
+  }
   
   .cookie-banner,
   .cookie-banner.show {

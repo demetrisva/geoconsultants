@@ -1,9 +1,28 @@
 // ===== GeoConsultants Main Script =====
 
-// Mobile menu toggle
-const toggle = document.querySelector('.menu-toggle');
-const menu = document.querySelector('.menu');
-if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
+// UPDATED Mobile menu toggle
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    const menuLinks = document.querySelectorAll('.menu a');
+
+    if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('is-open');
+            document.body.classList.toggle('nav-is-open', isOpen);
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Add click listener to all menu links to close the menu
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('is-open');
+                document.body.classList.remove('nav-is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+});
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -14,7 +33,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       if (el) {
         e.preventDefault();
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (menu) menu.classList.remove('open');
+        // The menu close logic is now handled in the DOMContentLoaded block
       }
     }
   });
@@ -65,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statusEl) {
       statusEl.style.display = 'block';
       statusEl.textContent = msg;
-      // Re-themed status colors
       statusEl.style.color = isError ? '#D9534F' : '#3D8B6C'; // Red / Green
       statusEl.style.background = isError ? 'rgba(217, 83, 79, 0.1)' : 'rgba(61, 139, 108, 0.1)';
       statusEl.style.border = isError ? '1px solid #D9534F' : '1px solid #3D8B6C';
@@ -121,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) form.addEventListener("submit", handleSubmit);
 });
 
-// ===== NEW COOKIE BANNER SCRIPT =====
+// ===== COOKIE BANNER SCRIPT =====
 document.addEventListener("DOMContentLoaded", () => {
     const consentBanner = document.getElementById("cookie-consent-banner");
     const acceptBtn = document.getElementById("cookie-accept");
