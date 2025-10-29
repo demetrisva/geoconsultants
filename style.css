@@ -1,6 +1,6 @@
 /* ===============================================
    GeoConsultants - Original Theme Stylesheet
-   - V3: Modern Mobile Navigation & Responsive Fixes
+   - V4: Reverted to Original "Small Box" Mobile Menu
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -35,11 +35,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
 }
-
-/* This class is added by JS to prevent scrolling when the mobile menu is open */
-body.nav-is-open {
-  overflow: hidden;
-}
+/* body.nav-is-open is no longer needed */
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -117,7 +113,7 @@ header {
 .btn-outline { background: #fff; border: 1px solid #E6DFD1; color: var(--ink); }
 .btn-outline:hover { border-color: #DBC79F; background: #fff; }
 
-/* ----- NEW Mobile Menu Toggle Button ----- */
+/* ----- Mobile Menu Toggle Button ----- */
 .menu-toggle {
   display: none; /* Hidden by default */
   border: 1px solid #E6DFD1;
@@ -126,14 +122,15 @@ header {
   font-size: 18px;
   background: #fff;
   cursor: pointer;
-  z-index: 1001; /* Above mobile menu */
+  z-index: 1001; 
   color: var(--ink);
 }
+/* Swapping the icon based on the .open class on the MENU */
 .menu-toggle .icon-close { display: none; }
 .menu-toggle .icon-hamburger { display: block; }
+.menu.open + .menu-toggle .icon-close { display: block; }
+.menu.open + .menu-toggle .icon-hamburger { display: none; }
 
-.nav-is-open .menu-toggle .icon-close { display: block; }
-.nav-is-open .menu-toggle .icon-hamburger { display: none; }
 
 /* ----- Hero Section ----- */
 .hero { padding: 64px 0 32px; }
@@ -513,21 +510,24 @@ footer.legal-footer {
 }
 
 /* ===============================================
-   NEW Responsive & Modern Mobile Styles
+   REVERTED Responsive & Mobile Styles
 =============================================== */
 
-@media (max-width: 900px) { /* Changed from 1080px */
-  .cols, .contact-grid { 
-    grid-template-columns: 1fr; 
-  }
-  .steps { 
-    grid-template-columns: repeat(2, 1fr); 
-  }
-  .quotes { 
-    grid-template-columns: 1fr; /* Stack quotes on tablet */
-  }
+@media (max-width: 1080px) {
+  .hero .cols, .cols { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .kpi { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .quotes { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .service-list-container { grid-template-columns: 1fr; }
+}
 
-  /* --- Modern Mobile Menu --- */
+@media (max-width: 720px) { /* Original breakpoint */
+  .cards { grid-template-columns: 1fr; }
+  .quotes { grid-template-columns: 1fr; }
+  
+  /* --- Reverted "Small Box" Mobile Menu --- */
   .brand-name {
     display: none; /* Hide long text on mobile */
   }
@@ -536,39 +536,34 @@ footer.legal-footer {
   }
   .menu {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--cream);
+    top: 64px; /* Position below header */
+    right: 16px; /* Align to the right */
+    background: var(--panel); /* Solid white */
+    border: 1px solid #EEE6D6;
+    border-radius: var(--radius);
+    padding: 14px;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 6rem 2rem 2rem;
-    align-items: flex-start;
-    z-index: 1000;
+    gap: 10px;
+    box-shadow: var(--shadow);
     
     /* Animation */
+    transform: translateY(-8px) scale(.98);
     opacity: 0;
-    transform: translateY(-100%);
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: .18s;
   }
-  .menu.is-open {
+  
+  .menu.open { /* This class is toggled by JS */
+    transform: none;
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
   }
   .menu a {
-    font-size: 1.75rem; /* Bigger, tap-friendly text */
-    font-weight: 700;
-    color: var(--ink);
+    width: 100%;
   }
   .menu .btn {
     width: 100%;
-    text-align: center;
     justify-content: center;
-    padding: 1rem;
-    font-size: 1.25rem;
   }
   /* --- End Mobile Menu --- */
 
@@ -576,27 +571,29 @@ footer.legal-footer {
     padding: 48px 0; /* Tighter padding on mobile */
   }
   .h-title { 
-    font-size: 2.25rem; /* Smaller hero title */
+    font-size: 36px; /* Original mobile hero title */
   }
   .lead {
-    font-size: 1rem; /* Smaller lead text */
+    font-size: 1rem;
   }
   .sh h2 {
-    font-size: 2rem; /* Smaller section heads */
+    font-size: 2rem;
   }
-}
-
-@media (max-width: 600px) {
   .steps {
     grid-template-columns: 1fr; /* Stack steps on small mobile */
   }
+  
+  .legal-page { padding: 24px; }
+  .legal-page h1 { font-size: 28px; }
+  .legal-page h2 { font-size: 20px; }
+  
   .foot {
     flex-direction: column; /* Stack footer */
     gap: 20px;
     text-align: center;
   }
   .foot .menu {
-    position: static; /* Footer menu items */
+    position: static;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -606,10 +603,13 @@ footer.legal-footer {
     opacity: 1;
     transform: none;
     pointer-events: auto;
+    box-shadow: none;
+    border: none;
   }
   .foot .menu a {
     font-size: 0.9rem;
     color: #D9E1ED;
+    width: auto;
   }
   
   .cookie-banner,
