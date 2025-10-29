@@ -20,7 +20,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Reveal on scroll (Existing animation)
+// Reveal on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -31,10 +31,12 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: .12, rootMargin: '0px 0px -80px 0px' });
 
 document.querySelectorAll('.card,.step,.quote').forEach(el => {
-  el.style.transform = 'translateY(14px)';
-  el.style.opacity = '0';
-  el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-  observer.observe(el);
+  if(el) { // Check if element exists
+    el.style.transform = 'translateY(14px)';
+    el.style.opacity = '0';
+    el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+    observer.observe(el);
+  }
 });
 
 // Back to top visibility
@@ -63,18 +65,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statusEl) {
       statusEl.style.display = 'block';
       statusEl.textContent = msg;
-      statusEl.style.color = isError ? '#D9534F' : '#3D8B6C'; // Red for error, green for success
+      // Re-themed status colors
+      statusEl.style.color = isError ? '#D9534F' : '#3D8B6C'; // Red / Green
       statusEl.style.background = isError ? 'rgba(217, 83, 79, 0.1)' : 'rgba(61, 139, 108, 0.1)';
       statusEl.style.border = isError ? '1px solid #D9534F' : '1px solid #3D8B6C';
+      statusEl.style.borderRadius = '8px'; // Back to rounded
     }
   }
 
   async function handleSubmit(e) {
+    if (!form || !btn || !statusEl || !widget) return; // Safety check
     e.preventDefault();
     btn.disabled = true;
     showStatus("Sending…");
 
-    const token = window.turnstile && widget ? turnstile.getResponse(widget) : "";
+    const token = window.turnstile ? turnstile.getResponse(widget) : "";
     if (!token) {
       showStatus("Security check failed. Please refresh and try again.", true);
       btn.disabled = false;
@@ -107,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showStatus("⚠️ Network error. Please try again.", true);
     } finally {
       try {
-        if (window.turnstile && widget) turnstile.reset(widget);
+        if (window.turnstile) turnstile.reset(widget);
       } catch {}
       btn.disabled = false;
     }
@@ -122,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const acceptBtn = document.getElementById("cookie-accept");
     const declineBtn = document.getElementById("cookie-decline");
 
-    if (!consentBanner || !acceptBtn || !declineBtn) return;
+    if (!consentBanner || !acceptBtn || !declineBtn) return; // Safety check
 
     // Helper functions for cookies
     function setCookie(name, value, days) {
