@@ -2,7 +2,7 @@
    GeoConsultants - Original Theme Stylesheet
    - All original styles from HTML files
    - Re-themed Cookie Banner
-   - Styles for new/updated content
+   - Styles for new/updated content (v2)
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -148,11 +148,12 @@ header {
   margin: 10px 0 10px;
   color: var(--ink);
 }
+/* UPDATED AMPERSAND STYLE */
 .h-title .amp {
-  font-family: Inter;
-  font-weight: 800;
-  letter-spacing: .02em;
-  transform: translateY(.02em);
+  font-family: "Playfair Display", serif; /* Match title font */
+  font-weight: 600; /* Match title weight */
+  font-style: italic; /* Make it elegant */
+  color: var(--gold); /* Use accent color */
   display: inline-block;
 }
 .lead {
@@ -213,6 +214,7 @@ section { scroll-margin-top: 96px; }
 .k strong { display: block; font-size: 22px; }
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
 .step { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 18px; position: relative; }
+.step h3 { margin: 0; } /* Style for new 'How We Work' */
 .badge {
   position: absolute;
   top: -12px;
@@ -236,55 +238,82 @@ details + details { margin-top: 12px; }
 summary { cursor: pointer; font-weight: 700; color: var(--ink); }
 details[open] { box-shadow: var(--shadow); }
 
-/* ----- NEW "OUR TEAM" STYLES ----- */
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--gap);
+/* ----- NEW "ABOUT US" STYLES ----- */
+.about-us-content p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
 }
-.team-member {
-    background: var(--panel);
-    border: 1px solid #EEE6D6;
+.mission-vision {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #fff;
     border-radius: var(--radius);
-    padding: 22px;
+    border-left: 4px solid var(--gold);
     box-shadow: var(--shadow);
 }
-.team-member h3 { margin: 0 0 6px; font-size: 18px; color: var(--ink); }
-
-/* ----- NEW "SERVICES LIST" STYLES ----- */
-.service-list-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    gap: 2.5rem;
+.mission-vision h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    color: var(--ink);
 }
-.service-list-item {
+
+/* ----- NEW "SERVICES ACCORDION" STYLES ----- */
+.services-accordion {
+    display: grid;
+    gap: 1rem;
+}
+.service-item {
     background: #fff;
     border: 1px solid #EEE6D6;
     border-radius: var(--radius);
-    padding: 22px;
+    transition: box-shadow .18s ease;
+}
+.service-item[open] {
     box-shadow: var(--shadow);
 }
-.service-list-item h3 {
-    font-family: "Playfair Display", serif;
-    font-size: 20px;
+.service-item summary {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--ink);
-    margin: 0 0 10px;
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.service-list-item p {
-    color: var(--char);
-    margin: 0 0 1rem;
+.service-item summary::marker {
+    content: ''; /* Remove default marker */
 }
-.service-list-item ul {
-    margin: 10px 0;
-    padding-left: 20px;
+.service-toggle {
+    font-size: 1.5rem;
+    color: var(--gold);
+    transition: transform 0.2s ease;
+}
+.service-item[open] .service-toggle {
+    transform: rotate(45deg);
+}
+.service-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--muted);
+    border-top: 1px solid #EEE6D6;
+}
+.service-content ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
     color: var(--muted);
 }
-.service-list-item li {
-    margin: 6px 0;
+.service-content li {
+    margin-bottom: 0.5rem;
 }
-
+.service-content p {
+    margin: 1rem 0 0;
+    color: var(--char);
+    font-weight: 500;
+}
+.service-content p + ul {
+    margin-top: 0.5rem;
+}
 
 /* ----- Contact Form ----- */
 .contact-grid {
@@ -479,7 +508,6 @@ footer.legal-footer { /* Specific footer for legal pages */
   .quotes { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .service-list-container { grid-template-columns: 1fr; } /* Services stack on tablet */
 }
 
 @media (max-width: 720px) {
