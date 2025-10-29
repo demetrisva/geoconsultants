@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ========== Meta ========== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GeoConsultants — Legal & Corporate Advisors in Cyprus & EU</title>
   <meta name="description" content="GeoConsultants provides practical, compliant legal & corporate advisory in Cyprus & the EU: company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC." />
   <meta name="theme-color" content="#2E3138" />
 
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="GeoConsultants — Legal & Corporate Advisors" />
   <meta property="og:description" content="Clear, practical, compliant support for companies and individuals across Cyprus and the EU." />
@@ -16,470 +14,15 @@
   <meta property="og:url" content="https://www.geoconsultants.eu/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Icons -->
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon">
   <link rel="apple-touch-icon" href="/assets/images/logo.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- ========== Styles ========== -->
-  <style>
-  :root {
-    --gold:#C7A157;
-    --gold-2:#A78953;
-    --char:#2E3138;
-    --ink:#1D2128;
-    --muted:#6E7A88;
-    --cream:#F7F4ED;
-    --panel:#FFFFFF;
-    --radius:14px;
-    --shadow:0 12px 30px rgba(0,0,0,.08);
-    --shadow-2:0 18px 44px rgba(0,0,0,.14);
-    --ring:0 0 0 4px rgba(199,161,87,.18);
-    --container:1180px;
-    --gap:26px;
-  }
-  
-  * { box-sizing:border-box; }
-  html, body { margin:0; }
-  
-  body {
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    color:var(--char);
-    background:var(--cream);
-    line-height:1.6;
-    overflow-x:hidden;
-    text-rendering:optimizeLegibility;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-  
-  img { max-width:100%; height:auto; display:block; }
-  a { color:inherit; text-decoration:none; }
-  
-  .container { max-width:var(--container); margin:0 auto; padding:0 20px; }
-  
-  .sr-only {
-    position:absolute;
-    width:1px;
-    height:1px;
-    padding:0;
-    margin:-1px;
-    overflow:hidden;
-    clip:rect(0,0,0,0);
-    white-space:nowrap;
-    border:0;
-  }
-  
-  .bg {
-    position:fixed;
-    inset:0;
-    z-index:-3;
-    background:radial-gradient(1200px 700px at 90% -10%, rgba(199,161,87,.20), transparent 65%),
-                linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.00) 40%),
-                var(--cream);
-  }
-  
-  .bg:after {
-    content:"";
-    position:absolute;
-    inset:0;
-    opacity:.12;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><g fill='none' stroke='%23C7A157' stroke-width='1'><path d='M10 30 v30 a16 16 0 0 0 16 16 h30'/><path d='M70 14 v22 M58 24 h24'/></g></svg>");
-    background-size:90px 90px;
-    animation:float 60s linear infinite;
-  }
-  
-  @keyframes float {
-    0% { transform:translate(0,0); }
-    100% { transform:translate(90px,90px); }
-  }
-  
-  header {
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:saturate(180%) blur(8px);
-    border-bottom:1px solid rgba(0,0,0,.06);
-  }
-  
-  .nav { display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
-  .brand { display:flex; align-items:center; gap:12px; }
-  .brand img { height:40px; width:auto; border-radius:10px; box-shadow:var(--shadow); }
-  .brand-name { font-weight:800; letter-spacing:.02em; color:var(--ink); }
-  .menu { display:flex; gap:18px; align-items:center; }
-  .menu a { padding:8px 12px; border-radius:10px; color:#5A636F; font-weight:600; }
-  .menu a:hover { background:#F2EEE5; color:var(--ink); }
-  
-  .btn {
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-2));
-    color:#fff;
-    padding:10px 16px;
-    border-radius:999px;
-    box-shadow:var(--shadow);
-    font-weight:700;
-    border:none;
-    cursor:pointer;
-  }
-  
-  .btn:hover { filter:brightness(.98); transform:translateY(-1px); }
-  .btn[disabled] { opacity:.7; cursor:not-allowed; }
-  .btn-outline { background:#fff; border:1px solid #E6DFD1; color:var(--ink); }
-  .btn-outline:hover { border-color:#DBC79F; background:#fff; }
-  
-  .menu-toggle {
-    display:none;
-    border:1px solid #E6DFD1;
-    border-radius:10px;
-    padding:6px 10px;
-    font-size:18px;
-    background:#fff;
-    cursor:pointer;
-  }
-  
-  .hero { padding:64px 0 32px; }
-  
-  .logo-plate {
-    margin:0 auto 22px;
-    max-width:920px;
-    background:var(--cream);
-    border:none;
-    border-radius:0;
-    padding:0;
-    box-shadow:none;
-    text-align:center;
-  }
-  
-  .logo-plate img {
-    width:min(560px,92vw);
-    margin:0 auto;
-    border-radius:0;
-    filter:none;
-    background:var(--cream);
-  }
-  
-  .h-title {
-    font-family:"Playfair Display",serif;
-    font-size:46px;
-    line-height:1.15;
-    text-align:center;
-    margin:10px 0 10px;
-    color:var(--ink);
-  }
-  
-  .h-title .amp {
-    font-family:Inter;
-    font-weight:800;
-    letter-spacing:.02em;
-    transform:translateY(.02em);
-    display:inline-block;
-  }
-  
-  .lead {
-    color:var(--muted);
-    text-align:center;
-    max-width:70ch;
-    margin:0 auto 16px;
-    font-size:18px;
-  }
-  
-  .hero-cta {
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:8px;
-  }
-  
-  section { scroll-margin-top:96px; }
-  .section { padding:76px 0; }
-  
-  .alt {
-    background:rgba(255,255,255,.72);
-    border-top:1px solid #EFE9DC;
-    border-bottom:1px solid #EFE9DC;
-  }
-  
-  .sh { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-  .sh .line { width:44px; height:3px; background:var(--gold); border-radius:2px; }
-  .sh h2 { font-family:"Playfair Display",serif; font-size:34px; margin:0; color:var(--ink); }
-  
-  .cols { display:grid; grid-template-columns:1fr 1fr; gap:var(--gap); }
-  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); }
-  
-  .card {
-    background:var(--panel);
-    border:1px solid #EEE6D6;
-    border-radius:var(--radius);
-    padding:22px;
-    box-shadow:var(--shadow);
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  
-  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow-2); }
-  .card h3 { margin:0 0 6px; font-size:18px; color:var(--ink); }
-  .muted { color:var(--muted); }
-  .ic { display:flex; gap:12px; }
-  
-  .ic .i {
-    width:22px;
-    height:22px;
-    border-radius:6px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-2));
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:12px;
-    margin-top:3px;
-  }
-  
-  .kpi { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--gap); }
-  .k { background:#fff; border:1px solid #EEE6D6; border-radius:var(--radius); padding:16px; text-align:center; }
-  .k strong { display:block; font-size:22px; }
-  
-  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--gap); }
-  .step { background:#fff; border:1px solid #EEE6D6; border-radius:var(--radius); padding:18px; position:relative; }
-  
-  .badge {
-    position:absolute;
-    top:-12px;
-    left:-12px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-2));
-    color:#fff;
-    border-radius:999px;
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-    box-shadow:var(--shadow);
-  }
-  
-  .quotes { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap); }
-  .quote { background:#fff; border:1px solid #EEE6D6; border-radius:var(--radius); padding:20px; font-style:italic; position:relative; }
-  .quote:before { content:"“"; position:absolute; left:14px; top:-12px; color:var(--gold); font-size:44px; line-height:1; }
-  details { background:#fff; border:1px solid #EEE6D6; border-radius:12px; padding:14px 16px; }
-  details + details { margin-top:12px; }
-  summary { cursor:pointer; font-weight:700; color:var(--ink); }
-  details[open] { box-shadow:var(--shadow); }
-  
-  .contact-grid { display:grid; grid-template-columns:1fr; gap:var(--gap); }
-  
-  form {
-    background:#fff;
-    border:1.5px solid #EEE6D6;
-    border-radius:var(--radius);
-    padding:22px;
-    box-shadow:var(--shadow);
-  }
-  
-  label { display:block; font-weight:700; margin-top:10px; color:var(--ink); }
-  
-  input, select, textarea {
-    width:100%;
-    margin-top:6px;
-    padding:12px;
-    border:1.5px solid #E6DFD1;
-    border-radius:10px;
-    font:inherit;
-    background:#fff;
-  }
-  
-  input:focus, select:focus, textarea:focus {
-    outline:none;
-    box-shadow:var(--ring);
-    border-color:#CFB174;
-  }
-  
-  textarea { min-height:120px; resize:vertical; }
-  
-  footer { background:var(--char); color:#D9E1ED; }
-  .foot { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:28px 0; flex-wrap:wrap; }
-  .foot a { color:#D9E1ED; }
-  
-  .top {
-    position:fixed;
-    right:16px;
-    bottom:16px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-2));
-    color:#fff;
-    border:none;
-    border-radius:999px;
-    width:44px;
-    height:44px;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    box-shadow:var(--shadow);
-    cursor:pointer;
-  }
-  
-  @media (max-width:1080px) {
-    .hero .cols, .cols { grid-template-columns:1fr; }
-    .cards { grid-template-columns:repeat(2,1fr); }
-    .kpi { grid-template-columns:repeat(2,1fr); }
-    .steps { grid-template-columns:repeat(2,1fr); }
-    .quotes { grid-template-columns:1fr 1fr; }
-    .contact-grid { grid-template-columns:1fr; }
-  }
-  
-  @media (max-width:720px) {
-    .cards { grid-template-columns:1fr; }
-    .quotes { grid-template-columns:1fr; }
-    .menu-toggle { display:block; }
-    
-    .menu {
-      position:fixed;
-      top:64px;
-      right:16px;
-      background:#fff;
-      border:1px solid #EEE6D6;
-      border-radius:14px;
-      padding:14px;
-      flex-direction:column;
-      gap:10px;
-      box-shadow:var(--shadow);
-      transform:translateY(-8px) scale(.98);
-      opacity:0;
-      pointer-events:none;
-      transition:.18s;
-    }
-    
-    .menu.open {
-      transform:none;
-      opacity:1;
-      pointer-events:auto;
-    }
-    
-    .h-title { font-size:36px; }
-  }
-  
-  @media (prefers-reduced-motion:reduce) {
-    *, *:before, *:after {
-      animation:none !important;
-      transition:none !important;
-    }
-  }
-/* Contact Section Enhancements */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: start;
-}
+  <link rel="stylesheet" href="style.css">
 
-.contact-info-box {
-  background: #fff;
-  border: 1.5px solid #E6DFD1;
-  border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: var(--shadow);
-  height: 100%;
-}
-
-.contact-item {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-top: 20px;
-  padding: 14px;
-  background: rgba(199, 161, 87, 0.04);
-  border-radius: 10px;
-  border-left: 3px solid var(--gold);
-}
-
-.contact-icon {
-  font-size: 24px;
-  line-height: 1;
-}
-
-.contact-item strong {
-  display: block;
-  color: var(--ink);
-  font-size: 16px;
-}
-
-form label {
-  display: block;
-  font-weight: 600;
-  margin-top: 12px;
-  color: var(--ink);
-  font-size: 14px;
-}
-
-form input,
-form textarea {
-  width: 100%;
-  margin-top: 6px;
-  padding: 11px 14px;
-  border: 1.5px solid #E6DFD1;
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-  font-size: 15px;
-}
-
-form textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-#form-status {
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-form select {
-  width: 100%;
-  margin-top: 6px;
-  padding: 11px 14px;
-  border: 1.5px solid #E6DFD1;
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-  font-size: 15px;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C7A157' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 18px;
-  padding-right: 40px;
-}
-
-form select:focus {
-  outline: none;
-  box-shadow: var(--ring);
-  border-color: #CFB174;
-}
-
-form textarea {
-  resize: none !important;
-}
-
-
-@media (max-width: 900px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-}
-
-</style>
-
-  <!-- ========== End Styles ========== -->
-
-  <!-- Schema.org -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"GeoConsultants","image":"https://www.geoconsultants.eu/assets/images/logo.png","url":"https://www.geoconsultants.eu/","address":{"@type":"PostalAddress","addressLocality":"Nicosia","addressCountry":"CY"},"areaServed":"EU","telephone":"+357","email":"info@geoconsultants.eu","description":"Legal & corporate advisors offering company formation, contracts, compliance/AML, IP, real estate, employment, and banking/KYC in Cyprus & the EU."}
   </script>
@@ -488,11 +31,10 @@ form textarea {
   <a class="sr-only" href="#main">Skip to content</a>
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- ===== Header ===== -->
   <header>
     <div class="container nav">
       <a href="#home" class="brand" aria-label="GeoConsultants">
-        <img src="assets/images/logo.png" alt="GeoConsultants logo">
+        <img src="assets/images/logo-geo.png" alt="GeoConsultants logo">
         <span class="brand-name">GeoConsultants</span>
       </a>
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -500,7 +42,7 @@ form textarea {
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#why">Why Cyprus</a>
-        <a href="#cases">Case Studies</a>
+        <a href="#cases">Client Feedback</a>
         <a href="#faq">FAQ</a>
         <a href="#contact" class="btn">Free Consultation</a>
       </nav>
@@ -508,11 +50,10 @@ form textarea {
   </header>
 
   <main id="main">
-    <!-- ===== Hero ===== -->
     <section id="home" class="hero">
       <div class="container">
         <div class="logo-plate" aria-label="GeoConsultants">
-          <img src="assets/images/logo.png" alt="GeoConsultants wordmark" />
+          <img src="assets/images/logo-geo.png" alt="GeoConsultants wordmark" />
         </div>
         <h1 class="h-title">Legal <span class="amp">&amp;</span> Corporate Advisors You Can Rely On</h1>
         <p class="lead">We combine legal precision with practical insight to help founders, investors, and international companies operate confidently across Cyprus and the EU.</p>
@@ -524,67 +65,63 @@ form textarea {
       </div>
     </section>
 
-    <!-- ===== Services ===== -->
-<section id="services" class="section alt">
-  <div class="container">
-    <div class="sh"><div class="line"></div><h2>Services</h2></div>
-    <div class="cards">
-      <article class="card ic">
-        <div class="i">⚖️</div>
-        <div>
-          <h3>Corporate & Commercial</h3>
-          <p class="muted">Company formation (Cyprus Companies Law), directorship, secretarial, registered office, minutes & filings, Registrar procedures.</p>
+    <section id="services" class="section alt">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Services</h2></div>
+        <div class="cards">
+          <article class="card ic">
+            <div class="i">⚖️</div>
+            <div>
+              <h3>Corporate & Commercial</h3>
+              <p class="muted">Company formation (Cyprus Companies Law), directorship, secretarial, registered office, minutes & filings, Registrar procedures.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">📋</div>
+            <div>
+              <h3>Corporate & Commercial Agreements</h3>
+              <p class="muted">Drafting, review, and negotiation of commercial and corporate agreements tailored to protect your interests and comply with Cypriot and international laws.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🛡️</div>
+            <div>
+              <h3>Compliance & AML</h3>
+              <p class="muted">Policies & procedures, risk assessments, internal manuals, AML program setup and ongoing advisory tailored to Cyprus/EU obligations.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">📜</div>
+            <div>
+              <h3>Intellectual Property Services</h3>
+              <p class="muted">Guidance on trademarks, brand protection, and licensing across CY/EU/international jurisdictions.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🏠</div>
+            <div>
+              <h3>Real Estate & Inheritance</h3>
+              <p class="muted">Wills & probate, administration and distribution, property transfers (sale or donation), contract drafting and review.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">👥</div>
+            <div>
+              <h3>Employment Law</h3>
+              <p class="muted">Employment contracts, HR policies, benefits & pension registrations, employer compliance and dispute guidance.</p>
+            </div>
+          </article>
+          <article class="card ic">
+            <div class="i">🏦</div>
+            <div>
+              <h3>Banking & Cross-Border</h3>
+              <p class="muted">Corporate/personal accounts (banks & EMIs), KYC/AML procedures, offshore entities (HK/SG/Seychelles) where suitable.</p>
+            </div>
+          </article>
         </div>
-      </article>
-      <article class="card ic">
-        <div class="i">📋</div>
-        <div>
-          <h3>Corporate & Commercial Agreements</h3>
-          <p class="muted">Drafting, review, and negotiation of commercial and corporate agreements tailored to protect your interests and comply with Cypriot and international laws.</p>
-        </div>
-      </article>
-      <article class="card ic">
-        <div class="i">🛡️</div>
-        <div>
-          <h3>Compliance & AML</h3>
-          <p class="muted">Policies & procedures, risk assessments, internal manuals, AML program setup and ongoing advisory tailored to Cyprus/EU obligations.</p>
-        </div>
-      </article>
-      <article class="card ic">
-        <div class="i">📜</div>
-        <div>
-          <h3>Intellectual Property Services</h3>
-          <p class="muted">Guidance on trademarks, brand protection, and licensing across CY/EU/international jurisdictions.</p>
-        </div>
-      </article>
-      <article class="card ic">
-        <div class="i">🏠</div>
-        <div>
-          <h3>Real Estate & Inheritance</h3>
-          <p class="muted">Wills & probate, administration and distribution, property transfers (sale or donation), contract drafting and review.</p>
-        </div>
-      </article>
-      <article class="card ic">
-        <div class="i">👥</div>
-        <div>
-          <h3>Employment Law</h3>
-          <p class="muted">Employment contracts, HR policies, benefits & pension registrations, employer compliance and dispute guidance.</p>
-        </div>
-      </article>
-      <article class="card ic">
-        <div class="i">🏦</div>
-        <div>
-          <h3>Banking & Cross-Border</h3>
-          <p class="muted">Corporate/personal accounts (banks & EMIs), KYC/AML procedures, offshore entities (HK/SG/Seychelles) where suitable.</p>
-        </div>
-      </article>
-    </div>
-    <!-- Removed KPI section -->
-  </div>
-</section>
+      </div>
+    </section>
 
-
-    <!-- ===== Why Cyprus ===== -->
     <section id="why" class="section">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>Why Cyprus</h2></div>
@@ -609,7 +146,6 @@ form textarea {
       </div>
     </section>
 
-    <!-- ===== Process ===== -->
     <section class="section alt">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>How We Work</h2></div>
@@ -638,7 +174,6 @@ form textarea {
       </div>
     </section>
 
-    <!-- ===== Case Studies / Testimonials ===== -->
     <section id="cases" class="section">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>Client Feedback</h2></div>
@@ -650,7 +185,6 @@ form textarea {
       </div>
     </section>
 
-    <!-- ===== FAQ ===== -->
     <section id="faq" class="section alt">
       <div class="container">
         <div class="sh"><div class="line"></div><h2>FAQ</h2></div>
@@ -673,219 +207,109 @@ form textarea {
       </div>
     </section>
 
-<!-- ===== Contact ===== -->
-<section id="contact" class="section">
-  <div class="container">
-    <div class="sh"><div class="line"></div><h2>Contact</h2></div>
-    
-    <div class="contact-grid">
-<!-- Left Column: Contact Form -->
-<div>
-  <form id="contact-form" aria-label="Contact form">
-    <label for="name">Full Name <span style="color:var(--gold)">*</span></label>
-    <input type="text" id="name" name="name" required />
-    
-    <label for="email">Email Address <span style="color:var(--gold)">*</span></label>
-    <input type="email" id="email" name="email" required />
-    
-    <label for="subject">Interested In <span style="color:var(--gold)">*</span></label>
-    <select id="subject" name="subject" required>
-      <option value="">Select a service...</option>
-      <option value="Corporate & Commercial">Corporate & Commercial</option>
-      <option value="Corporate & Commercial Agreements">Corporate & Commercial Agreements</option>
-      <option value="Compliance & AML">Compliance & AML</option>
-      <option value="Intellectual Property">Intellectual Property Services</option>
-      <option value="Real Estate & Inheritance">Real Estate & Inheritance</option>
-      <option value="Employment Law">Employment Law</option>
-      <option value="Banking & Cross-Border">Banking & Cross-Border</option>
-      <option value="General Enquiry">General Enquiry</option>
-    </select>
-    
-    <label for="message">Message <span style="color:var(--gold)">*</span></label>
-    <textarea id="message" name="message" rows="5" required style="resize:none"></textarea>
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="sh"><div class="line"></div><h2>Contact</h2></div>
+        
+        <div class="contact-grid">
+          <div>
+            <form id="contact-form" aria-label="Contact form">
+              <label for="name">Full Name <span style="color:var(--gold)">*</span></label>
+              <input type="text" id="name" name="name" required />
+              
+              <label for="email">Email Address <span style="color:var(--gold)">*</span></label>
+              <input type="email" id="email" name="email" required />
+              
+              <label for="subject">Interested In <span style="color:var(--gold)">*</span></label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a service...</option>
+                <option value="Corporate & Commercial">Corporate & Commercial</option>
+                <option value="Corporate & Commercial Agreements">Corporate & Commercial Agreements</option>
+                <option value="Compliance & AML">Compliance & AML</option>
+                <option value="Intellectual Property">Intellectual Property Services</option>
+                <option value="Real Estate & Inheritance">Real Estate & Inheritance</option>
+                <option value="Employment Law">Employment Law</option>
+                <option value="Banking & Cross-Border">Banking & Cross-Border</option>
+                <option value="General Enquiry">General Enquiry</option>
+              </select>
+              
+              <label for="message">Message <span style="color:var(--gold)">*</span></label>
+              <textarea id="message" name="message" rows="5" required></textarea>
 
-    <!-- Cloudflare Turnstile widget -->
-    <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do" style="margin-top:14px"></div>
+              <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAAB86lqYnVVmvP7Do" style="margin-top:14px"></div>
 
-    <!-- Privacy notice moved here -->
-    <p style="font-size:13px;color:var(--muted);margin:14px 0 0;line-height:1.5">
-      By submitting this form, you agree to our <a href="/privacy.html" style="color:var(--gold)">Privacy Policy</a>. 
-      All information is treated confidentially in accordance with GDPR.
-    </p>
+              <p style="font-size:13px;color:var(--muted);margin:14px 0 0;line-height:1.5">
+                By submitting this form, you agree to our <a href="/privacy.html" style="color:var(--gold)">Privacy Policy</a>. 
+                All information is treated confidentially in accordance with GDPR.
+              </p>
 
-    <button type="submit" id="submitBtn" class="btn" style="margin-top:14px;width:100%">Send Message</button>
-    <p id="form-status" style="margin-top:12px;display:none;font-weight:600"></p>
-  </form>
-</div>
-
-      <!-- Right Column: Contact Information -->
-      <div>
-        <div class="contact-info-box">
-          <h3 style="margin-top:0">Get in Touch</h3>
-          <p class="muted">We're here to help. Reach out for a free consultation or to discuss how we can support your business.</p>
-          
-          <div class="contact-item">
-            <div class="contact-icon">📧</div>
-            <div>
-              <strong>Email</strong>
-              <p class="muted" style="margin:4px 0 0"><a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
-            </div>
+              <button type="submit" id="submitBtn" class="btn" style="margin-top:14px;width:100%">Send Message</button>
+              <p id="form-status"></p>
+            </form>
           </div>
 
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div>
-              <strong>Location</strong>
-              <p class="muted" style="margin:4px 0 0">Nicosia, Cyprus</p>
-            </div>
-          </div>
+          <div>
+            <div class="contact-info-box">
+              <h3 style="margin-top:0">Get in Touch</h3>
+              <p class="muted">We're here to help. Reach out for a free consultation or to discuss how we can support your business.</p>
+              
+              <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div>
+                  <strong>Email</strong>
+                  <p class="muted" style="margin:4px 0 0"><a href="mailto:info@geoconsultants.eu">info@geoconsultants.eu</a></p>
+                </div>
+              </div>
 
-          <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div>
-              <strong>Business Hours</strong>
-              <p class="muted" style="margin:4px 0 0">Monday - Friday: 9:00 AM - 5:00 PM</p>
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <strong>Location</strong>
+                  <p class="muted" style="margin:4px 0 0">Nicosia, Cyprus</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">🕐</div>
+                <div>
+                  <strong>Business Hours</strong>
+                  <p class="muted" style="margin:4px 0 0">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ===== End Contact ===== -->
+    </main>
 
-  <!-- ===== Footer ===== -->
   <footer>
-  <div class="container foot">
-    <div class="mini" style="display:flex;align-items:center;gap:10px">
-      <img src="assets/images/logo.png" alt="" style="width:24px;height:24px;border-radius:6px">
-      <span>© <span id="year"></span> GeoConsultants</span>
+    <div class="container foot">
+      <div class="mini" style="display:flex;align-items:center;gap:10px">
+        <img src="assets/images/logo-geo.png" alt="" style="width:24px;height:24px;border-radius:0;">
+        <span>© <span id="year"></span> GeoConsultants</span>
+      </div>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why Cyprus</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/cookies.html">Cookies</a>
+      </div>
     </div>
-    <div class="menu">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#why">Why Cyprus</a>
-      <a href="/terms.html">Terms</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/cookies.html">Cookies</a>
-    </div>
+  </footer>
+  <div id="cookie-consent-banner" class="cookie-banner">
+      <p>This website uses cookies to ensure you get the best experience. Read our <a href="cookies.html">Cookie Policy</a>.</p>
+      <div class="cookie-buttons">
+          <button id="cookie-decline" class="cookie-btn cookie-btn-decline">Decline</button>
+          <button id="cookie-accept" class="cookie-btn">Accept</button>
+      </div>
   </div>
-</footer>
-<!-- ===== End Footer ===== -->
-
-  <!-- Back to top -->
   <button class="top" id="toTop" aria-label="Back to top">↑</button>
 
-  <!-- Load Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-  <!-- Scripts -->
-  <script>
-    // Mobile menu toggle
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    if (toggle) toggle.addEventListener('click', () => menu.classList.toggle('open'));
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const id = a.getAttribute('href');
-        if (id && id.length > 1) {
-          const el = document.querySelector(id);
-          if (el) {
-            e.preventDefault();
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            if (menu) menu.classList.remove('open');
-          }
-        }
-      });
-    });
-
-    // Reveal on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.transform = 'translateY(0)';
-          entry.target.style.opacity = '1';
-        }
-      });
-    }, { threshold: .12, rootMargin: '0px 0px -80px 0px' });
-
-    document.querySelectorAll('.card,.step,.quote').forEach(el => {
-      el.style.transform = 'translateY(14px)';
-      el.style.opacity = '0';
-      el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-      observer.observe(el);
-    });
-
-    // Back to top visibility
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', () => {
-      toTop.style.display = window.scrollY > 600 ? 'flex' : 'none';
-    });
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Contact form handler
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("contact-form");
-      const btn = document.getElementById("submitBtn");
-      const statusEl = document.getElementById("form-status");
-      const widget = document.getElementById("turnstile-widget");
-
-      function showStatus(msg) {
-        if (statusEl) {
-          statusEl.style.display = 'block';
-          statusEl.textContent = msg;
-        }
-      }
-
-      async function handleSubmit(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        showStatus("Sending…");
-
-        const token = window.turnstile && widget ? turnstile.getResponse(widget) : "";
-        if (!token) {
-          showStatus("Security check failed. Please refresh and try again.");
-          btn.disabled = false;
-          return;
-        }
-
-        const payload = {
-          name: form.name.value.trim(),
-          email: form.email.value.trim(),
-          subject: form.subject.value.trim() || "Website contact",
-          message: form.message.value.trim(),
-          token
-        };
-
-        try {
-          const res = await fetch("/api/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          const data = await res.json().catch(() => ({}));
-
-          if (res.ok) {
-            showStatus("✅ Thank you! Your message has been sent.");
-            form.reset();
-          } else {
-            showStatus(`⚠️ ${data.error || "Message failed. Please try again."}`);
-          }
-        } catch {
-          showStatus("⚠️ Network error. Please try again.");
-        } finally {
-          try {
-            if (window.turnstile && widget) turnstile.reset(widget);
-          } catch {}
-          btn.disabled = false;
-        }
-      }
-
-      if (form) form.addEventListener("submit", handleSubmit);
-    });
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>

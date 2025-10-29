@@ -10,37 +10,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   
-  <style>
-    :root{--gold:#C7A157;--char:#2E3138;--ink:#1D2128;--muted:#6E7A88;--cream:#F7F4ED;--panel:#FFFFFF;--radius:14px;--shadow:0 12px 30px rgba(0,0,0,.08);--container:900px;}
-    *{box-sizing:border-box}html,body{margin:0}
-    body{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--char);background:var(--cream);line-height:1.7;font-size:16px}
-    .container{max-width:var(--container);margin:0 auto;padding:40px 20px}
-    header{background:#fff;border-bottom:1px solid #E6DFD1;padding:20px 0;margin-bottom:40px}
-    .nav{max-width:var(--container);margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
-    .brand img{height:36px;border-radius:8px}
-    .legal-page{background:#fff;border:1px solid #E6DFD1;border-radius:var(--radius);padding:40px;box-shadow:var(--shadow)}
-    h1{font-family:"Playfair Display",serif;font-size:36px;color:var(--ink);margin:0 0 10px}
-    h2{font-family:"Playfair Display",serif;font-size:24px;color:var(--ink);margin:30px 0 15px;border-bottom:2px solid var(--gold);padding-bottom:8px}
-    h3{font-size:18px;font-weight:700;color:var(--ink);margin:20px 0 10px}
-    p{margin:10px 0;color:var(--char)}
-    ul{margin:10px 0;padding-left:24px;color:var(--char)}
-    a{color:var(--gold);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .back-link{display:inline-block;margin-bottom:20px;color:var(--gold);font-weight:600}
-    footer{background:var(--char);color:#D9E1ED;padding:28px 0;margin-top:60px}
-    .foot{max-width:var(--container);margin:0 auto;padding:0 20px;text-align:center}
-    @media(max-width:720px){.legal-page{padding:24px}h1{font-size:28px}h2{font-size:20px}}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg" aria-hidden="true"></div>
+
   <header>
-  <div class="nav">
-    <a href="/" style="display:flex;align-items:center">
-      <img src="assets/images/logo.png" alt="GeoConsultants logo">
-    </a>
-  </div>
-</header>
+    <div class="container nav"> <a href="/" class="brand" aria-label="GeoConsultants Home"> <img src="assets/images/logo-geo.png" alt="GeoConsultants logo">
+      </a>
+    </div>
+  </header>
 
   <div class="container">
     <a href="/" class="back-link">← Back to Home</a>
@@ -67,12 +46,18 @@
     </div>
   </div>
 
+  <div id="cookie-consent-banner" class="cookie-banner">
+      <p>This website uses cookies to ensure you get the best experience. Read our <a href="cookies.html">Cookie Policy</a>.</p>
+      <div class="cookie-buttons">
+          <button id="cookie-decline" class="cookie-btn cookie-btn-decline">Decline</button>
+          <button id="cookie-accept" class="cookie-btn">Accept</button>
+      </div>
+  </div>
   <footer>
-    <div class="foot">
-      © <span id="year"></span> GeoConsultants. All rights reserved.
+    <div class="container foot"> © <span id="year"></span> GeoConsultants. All rights reserved.
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="script.js" defer></script>
 </body>
 </html>
