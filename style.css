@@ -2,7 +2,7 @@
    GeoConsultants - Original Theme Stylesheet
    - All original styles from HTML files
    - Re-themed Cookie Banner
-   - NEW Styles for About, Team, and Services Accordion
+   - Styles for new/updated content
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -251,58 +251,40 @@ details[open] { box-shadow: var(--shadow); }
 }
 .team-member h3 { margin: 0 0 6px; font-size: 18px; color: var(--ink); }
 
-/* ----- NEW "SERVICES ACCORDION" STYLES ----- */
-.services-accordion {
+/* ----- NEW "SERVICES LIST" STYLES ----- */
+.service-list-container {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 2.5rem;
 }
-.service-item {
+.service-list-item {
     background: #fff;
     border: 1px solid #EEE6D6;
     border-radius: var(--radius);
-    transition: box-shadow .18s ease;
-}
-.service-item[open] {
+    padding: 22px;
     box-shadow: var(--shadow);
 }
-.service-item summary {
-    padding: 1.25rem 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 700;
+.service-list-item h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
     color: var(--ink);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 0 0 10px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 8px;
 }
-.service-item summary::marker {
-    content: ''; /* Remove default marker */
+.service-list-item p {
+    color: var(--char);
+    margin: 0 0 1rem;
 }
-.service-toggle {
-    font-size: 1.5rem;
-    color: var(--gold);
-    transition: transform 0.2s ease;
-}
-.service-item[open] .service-toggle {
-    transform: rotate(45deg);
-}
-.service-content {
-    padding: 0 1.5rem 1.5rem 1.5rem;
+.service-list-item ul {
+    margin: 10px 0;
+    padding-left: 20px;
     color: var(--muted);
 }
-.service-content ul {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
+.service-list-item li {
+    margin: 6px 0;
 }
-.service-content li {
-    margin-bottom: 0.5rem;
-}
-.service-content p {
-    margin: 0;
-}
-.service-content p + ul {
-    margin-top: 1rem;
-}
+
 
 /* ----- Contact Form ----- */
 .contact-grid {
@@ -497,6 +479,7 @@ footer.legal-footer { /* Specific footer for legal pages */
   .quotes { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .service-list-container { grid-template-columns: 1fr; } /* Services stack on tablet */
 }
 
 @media (max-width: 720px) {
