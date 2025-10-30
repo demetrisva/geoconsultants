@@ -1,6 +1,7 @@
 /* ===============================================
    GeoConsultants - Original Theme Stylesheet
    - V4: Reverted to Original "Small Box" Mobile Menu
+   - V5: Updated FAQ Content & Styles
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -35,7 +36,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
 }
-/* body.nav-is-open is no longer needed */
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -88,8 +88,6 @@ header {
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 40px; width: auto; border-radius: 10px; box-shadow: var(--shadow); }
 .brand-name { font-weight: 800; letter-spacing: .02em; color: var(--ink); }
-
-/* ----- Desktop Menu ----- */
 .menu { display: flex; gap: 18px; align-items: center; }
 .menu a { padding: 8px 12px; border-radius: 10px; color: #5A636F; font-weight: 600; }
 .menu a:hover { background: #F2EEE5; color: var(--ink); }
@@ -102,7 +100,7 @@ header {
   background: linear-gradient(135deg, var(--gold), var(--gold-2));
   color: #fff;
   padding: 10px 16px;
-  border-radius: 999px;
+  border-radius: 999px; /* Original rounded */
   box-shadow: var(--shadow);
   font-weight: 700;
   border: none;
@@ -125,7 +123,6 @@ header {
   z-index: 1001; 
   color: var(--ink);
 }
-/* Swapping the icon based on the .open class on the MENU */
 .menu-toggle .icon-close { display: none; }
 .menu-toggle .icon-hamburger { display: block; }
 .menu.open + .menu-toggle .icon-close { display: block; }
@@ -243,10 +240,6 @@ section { scroll-margin-top: 96px; }
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
 .quote { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 20px; font-style: italic; position: relative; }
 .quote:before { content: "“"; position: absolute; left: 14px; top: -12px; color: var(--gold); font-size: 44px; line-height: 1; }
-details { background: #fff; border: 1px solid #EEE6D6; border-radius: 12px; padding: 14px 16px; }
-details + details { margin-top: 12px; }
-summary { cursor: pointer; font-weight: 700; color: var(--ink); }
-details[open] { box-shadow: var(--shadow); }
 
 /* ----- "About Us" Styles ----- */
 .about-us-content p {
@@ -324,6 +317,14 @@ details[open] { box-shadow: var(--shadow); }
 .service-content p + ul {
     margin-top: 0.5rem;
 }
+
+/* ----- FAQ Styles ----- */
+details { background: #fff; border: 1px solid #EEE6D6; border-radius: 12px; padding: 14px 16px; }
+details + details { margin-top: 12px; }
+summary { cursor: pointer; font-weight: 700; color: var(--ink); }
+/* REMOVED box-shadow on open */
+/* details[open] { box-shadow: var(--shadow); } */
+
 
 /* ----- Contact Form ----- */
 .contact-grid {
@@ -509,10 +510,7 @@ footer.legal-footer {
     color: var(--white);
 }
 
-/* ===============================================
-   REVERTED Responsive & Mobile Styles
-=============================================== */
-
+/* ----- Responsive ----- */
 @media (max-width: 1080px) {
   .hero .cols, .cols { grid-template-columns: 1fr; }
   .cards { grid-template-columns: repeat(2, 1fr); }
@@ -520,14 +518,13 @@ footer.legal-footer {
   .steps { grid-template-columns: repeat(2, 1fr); }
   .quotes { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
-  .service-list-container { grid-template-columns: 1fr; }
+  .services-accordion { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 720px) { /* Original breakpoint */
+@media (max-width: 720px) {
   .cards { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
   
-  /* --- Reverted "Small Box" Mobile Menu --- */
   .brand-name {
     display: none; /* Hide long text on mobile */
   }
@@ -565,7 +562,6 @@ footer.legal-footer {
     width: 100%;
     justify-content: center;
   }
-  /* --- End Mobile Menu --- */
 
   .section {
     padding: 48px 0; /* Tighter padding on mobile */
