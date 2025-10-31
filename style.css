@@ -1,7 +1,6 @@
 /* ===============================================
    GeoConsultants - Original Theme Stylesheet
-   - V4: Reverted to Original "Small Box" Mobile Menu
-   - V5: Updated FAQ Content & Styles
+   - V6: Final Content & Style Updates
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -87,7 +86,19 @@ header {
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 40px; width: auto; border-radius: 10px; box-shadow: var(--shadow); }
-.brand-name { font-weight: 800; letter-spacing: .02em; color: var(--ink); }
+
+/* UPDATED Brand Name Style */
+.brand-name {
+  font-family: "Playfair Display", serif; /* Calligraphic font */
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+  font-size: 1.15rem; /* Slightly larger */
+  letter-spacing: .01em;
+  white-space: nowrap; /* Prevent wrapping on small screens */
+}
+
+/* ----- Desktop Menu ----- */
 .menu { display: flex; gap: 18px; align-items: center; }
 .menu a { padding: 8px 12px; border-radius: 10px; color: #5A636F; font-weight: 600; }
 .menu a:hover { background: #F2EEE5; color: var(--ink); }
@@ -219,9 +230,19 @@ section { scroll-margin-top: 96px; }
 .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
 .k { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 16px; text-align: center; }
 .k strong { display: block; font-size: 22px; }
+
+/* UPDATED "How We Work" Styles */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
 .step { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 18px; position: relative; }
-.step h3 { margin: 0; }
+.step h3 { 
+  margin: 0 0 10px; /* Added margin */
+  font-size: 1.1rem; /* Adjusted for long titles */
+  color: var(--ink);
+  font-weight: 700;
+}
+.step p.muted {
+  font-size: 0.95rem; /* Style for new text */
+}
 .badge {
   position: absolute;
   top: -12px;
@@ -322,8 +343,7 @@ section { scroll-margin-top: 96px; }
 details { background: #fff; border: 1px solid #EEE6D6; border-radius: 12px; padding: 14px 16px; }
 details + details { margin-top: 12px; }
 summary { cursor: pointer; font-weight: 700; color: var(--ink); }
-/* REMOVED box-shadow on open */
-/* details[open] { box-shadow: var(--shadow); } */
+/* details[open] { box-shadow: var(--shadow); } -- Removed this */
 
 
 /* ----- Contact Form ----- */
@@ -510,7 +530,10 @@ footer.legal-footer {
     color: var(--white);
 }
 
-/* ----- Responsive ----- */
+/* ===============================================
+   Responsive & Mobile Styles
+=============================================== */
+
 @media (max-width: 1080px) {
   .hero .cols, .cols { grid-template-columns: 1fr; }
   .cards { grid-template-columns: repeat(2, 1fr); }
@@ -525,8 +548,10 @@ footer.legal-footer {
   .cards { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
   
+  /* --- Mobile Header: Show brand name --- */
   .brand-name {
-    display: none; /* Hide long text on mobile */
+    /* REMOVED display: none; */
+    font-size: 1rem; /* Make it smaller to fit */
   }
   .menu-toggle {
     display: block; /* Show hamburger */
@@ -562,6 +587,7 @@ footer.legal-footer {
     width: 100%;
     justify-content: center;
   }
+  /* --- End Mobile Menu --- */
 
   .section {
     padding: 48px 0; /* Tighter padding on mobile */
