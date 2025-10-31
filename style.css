@@ -1,6 +1,6 @@
 /* ===============================================
    GeoConsultants - Original Theme Stylesheet
-   - V6: Final Content & Style Updates
+   - V7: Added Vertical Gold Accent Lines
 =============================================== */
 
 /* ----- ROOT (Original Colors) ----- */
@@ -87,15 +87,14 @@ header {
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 40px; width: auto; border-radius: 10px; box-shadow: var(--shadow); }
 
-/* UPDATED Brand Name Style */
 .brand-name {
-  font-family: "Playfair Display", serif; /* Calligraphic font */
+  font-family: "Playfair Display", serif;
   font-weight: 600;
   font-style: italic;
   color: var(--ink);
-  font-size: 1.15rem; /* Slightly larger */
+  font-size: 1.15rem;
   letter-spacing: .01em;
-  white-space: nowrap; /* Prevent wrapping on small screens */
+  white-space: nowrap;
 }
 
 /* ----- Desktop Menu ----- */
@@ -111,7 +110,7 @@ header {
   background: linear-gradient(135deg, var(--gold), var(--gold-2));
   color: #fff;
   padding: 10px 16px;
-  border-radius: 999px; /* Original rounded */
+  border-radius: 999px;
   box-shadow: var(--shadow);
   font-weight: 700;
   border: none;
@@ -124,7 +123,7 @@ header {
 
 /* ----- Mobile Menu Toggle Button ----- */
 .menu-toggle {
-  display: none; /* Hidden by default */
+  display: none;
   border: 1px solid #E6DFD1;
   border-radius: 10px;
   padding: 8px;
@@ -181,13 +180,7 @@ header {
   margin: 0 auto 16px;
   font-size: 18px;
 }
-.hero-cta {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
+/* hero-cta was removed */
 
 /* ----- Sections & Cards ----- */
 section { scroll-margin-top: 96px; }
@@ -201,7 +194,6 @@ section { scroll-margin-top: 96px; }
 .sh .line { width: 44px; height: 3px; background: var(--gold); border-radius: 2px; }
 .sh h2 { font-family: "Playfair Display", serif; font-size: 34px; margin: 0; color: var(--ink); }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
 
 .card {
   background: var(--panel);
@@ -214,34 +206,25 @@ section { scroll-margin-top: 96px; }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
 .card h3 { margin: 0 0 6px; font-size: 18px; color: var(--ink); }
 .muted { color: var(--muted); }
-.ic { display: flex; gap: 12px; }
-.ic .i {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-2));
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 12px;
-  margin-top: 3px;
-}
-.kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
-.k { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 16px; text-align: center; }
-.k strong { display: block; font-size: 22px; }
 
-/* UPDATED "How We Work" Styles */
+/* ----- "How We Work" Styles ----- */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
-.step { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 18px; position: relative; }
+.step {
+  background: #fff;
+  border: 1px solid #EEE6D6;
+  border-radius: var(--radius);
+  padding: 18px 18px 18px 22px; /* Adjusted padding */
+  position: relative;
+  border-left: 4px solid var(--gold); /* ADDED LINE */
+}
 .step h3 { 
-  margin: 0 0 10px; /* Added margin */
-  font-size: 1.1rem; /* Adjusted for long titles */
+  margin: 0 0 10px;
+  font-size: 1.1rem;
   color: var(--ink);
   font-weight: 700;
 }
 .step p.muted {
-  font-size: 0.95rem; /* Style for new text */
+  font-size: 0.95rem;
 }
 .badge {
   position: absolute;
@@ -258,9 +241,6 @@ section { scroll-margin-top: 96px; }
   font-weight: 800;
   box-shadow: var(--shadow);
 }
-.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-.quote { background: #fff; border: 1px solid #EEE6D6; border-radius: var(--radius); padding: 20px; font-style: italic; position: relative; }
-.quote:before { content: "“"; position: absolute; left: 14px; top: -12px; color: var(--gold); font-size: 44px; line-height: 1; }
 
 /* ----- "About Us" Styles ----- */
 .about-us-content p {
@@ -270,10 +250,10 @@ section { scroll-margin-top: 96px; }
 }
 .mission-vision {
     margin-top: 2rem;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.75rem; /* Adjusted padding */
     background: #fff;
     border-radius: var(--radius);
-    border-left: 4px solid var(--gold);
+    border-left: 4px solid var(--gold); /* This was already here */
     box-shadow: var(--shadow);
 }
 .mission-vision h3 {
@@ -292,12 +272,13 @@ section { scroll-margin-top: 96px; }
     border: 1px solid #EEE6D6;
     border-radius: var(--radius);
     transition: box-shadow .18s ease;
+    border-left: 4px solid var(--gold); /* ADDED LINE */
 }
 .service-item[open] {
     box-shadow: var(--shadow);
 }
 .service-item summary {
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.25rem 1.25rem; /* Adjusted padding */
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--ink);
@@ -318,7 +299,7 @@ section { scroll-margin-top: 96px; }
     transform: rotate(45deg);
 }
 .service-content {
-    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding: 0 1.5rem 1.5rem 1.25rem; /* Adjusted padding */
     color: var(--muted);
     border-top: 1px solid #EEE6D6;
 }
@@ -340,7 +321,13 @@ section { scroll-margin-top: 96px; }
 }
 
 /* ----- FAQ Styles ----- */
-details { background: #fff; border: 1px solid #EEE6D6; border-radius: 12px; padding: 14px 16px; }
+details {
+  background: #fff;
+  border: 1px solid #EEE6D6;
+  border-radius: 12px;
+  padding: 14px 16px 14px 18px; /* Adjusted padding */
+  border-left: 4px solid var(--gold); /* ADDED LINE */
+}
 details + details { margin-top: 12px; }
 summary { cursor: pointer; font-weight: 700; color: var(--ink); }
 /* details[open] { box-shadow: var(--shadow); } -- Removed this */
@@ -357,9 +344,10 @@ summary { cursor: pointer; font-weight: 700; color: var(--ink); }
   background: #fff;
   border: 1.5px solid #E6DFD1;
   border-radius: var(--radius);
-  padding: 28px;
+  padding: 28px 28px 28px 32px; /* Adjusted padding */
   box-shadow: var(--shadow);
   height: 100%;
+  border-left: 4px solid var(--gold); /* ADDED LINE */
 }
 .contact-item {
   display: flex;
@@ -456,6 +444,7 @@ footer { background: var(--char); color: #D9E1ED; }
   border-radius: var(--radius);
   padding: 40px;
   box-shadow: var(--shadow);
+  border-left: 4px solid var(--gold); /* ADDED LINE */
 }
 .legal-page h1 { font-family: "Playfair Display", serif; font-size: 36px; color: var(--ink); margin: 0 0 10px; }
 .legal-page h2 { font-family: "Playfair Display", serif; font-size: 24px; color: var(--ink); margin: 30px 0 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
@@ -548,9 +537,7 @@ footer.legal-footer {
   .cards { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
   
-  /* --- Mobile Header: Show brand name --- */
   .brand-name {
-    /* REMOVED display: none; */
     font-size: 1rem; /* Make it smaller to fit */
   }
   .menu-toggle {
@@ -587,7 +574,6 @@ footer.legal-footer {
     width: 100%;
     justify-content: center;
   }
-  /* --- End Mobile Menu --- */
 
   .section {
     padding: 48px 0; /* Tighter padding on mobile */
