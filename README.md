@@ -1,6 +1,6 @@
-# GEO CONSULTANTS Website
+# GEONIQUE CONSULTANTS Website
 
-Single-page static site for GEO CONSULTANTS (Nicosia, Cyprus).
+Single-page static site for GEONIQUE CONSULTANTS (Nicosia, Cyprus).
 
 ## Structure
 - index.html — content and inline SVG logo

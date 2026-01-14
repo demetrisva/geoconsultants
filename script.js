@@ -1,21 +1,21 @@
-// ===== GeoConsultants Main Script =====
+// ===== Geonique Consultants Main Script =====
 
 // Mobile menu toggle (Reverted to original logic)
 const toggle = document.querySelector('.menu-toggle');
 const menu = document.querySelector('.menu');
 if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-        const isOpen = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', isOpen);
-    });
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
 
-    // Add click listener to all menu links to close the menu
-    document.querySelectorAll('.menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-        });
+  // Add click listener to all menu links to close the menu
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
     });
+  });
 }
 
 // Smooth scroll for anchor links
@@ -44,7 +44,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: .12, rootMargin: '0px 0px -80px 0px' });
 
 document.querySelectorAll('.card,.step,.quote').forEach(el => {
-  if(el) { // Check if element exists
+  if (el) { // Check if element exists
     el.style.transform = 'translateY(14px)';
     el.style.opacity = '0';
     el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
@@ -57,7 +57,7 @@ const toTop = document.getElementById('toTop');
 if (toTop) {
   window.addEventListener('scroll', () => {
     // This line was broken before. It is now fixed.
-    toTop.style.display = window.scrollY > 600 ? 'flex' : 'none'; 
+    toTop.style.display = window.scrollY > 600 ? 'flex' : 'none';
   });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function handleSubmit(e) {
     if (!form || !btn || !statusEl || !widget) return; // Safety check
-    
+
     e.preventDefault(); // This is the line that was not running
-    
+
     btn.disabled = true;
     showStatus("Sending…");
 
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } finally {
       try {
         if (window.turnstile) turnstile.reset(widget);
-      } catch {}
+      } catch { }
       btn.disabled = false;
     }
   }
@@ -139,58 +139,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ===== COOKIE BANNER SCRIPT =====
 document.addEventListener("DOMContentLoaded", () => {
-    const consentBanner = document.getElementById("cookie-consent-banner");
-    const acceptBtn = document.getElementById("cookie-accept");
-    const declineBtn = document.getElementById("cookie-decline");
+  const consentBanner = document.getElementById("cookie-consent-banner");
+  const acceptBtn = document.getElementById("cookie-accept");
+  const declineBtn = document.getElementById("cookie-decline");
 
-    if (!consentBanner || !acceptBtn || !declineBtn) return; // Safety check
+  if (!consentBanner || !acceptBtn || !declineBtn) return; // Safety check
 
-    // Helper functions for cookies
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  // Helper functions for cookies
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
     }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
 
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for(let i=0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
+    return null;
+  }
 
-    // Check if consent was already given
-    if (!getCookie("cookie_consent")) {
-        // Show the banner
-        consentBanner.style.display = "flex";
-        setTimeout(() => {
-            consentBanner.classList.add("show");
-        }, 100); // Small delay to ensure transition works
-    }
+  // Check if consent was already given
+  if (!getCookie("cookie_consent")) {
+    // Show the banner
+    consentBanner.style.display = "flex";
+    setTimeout(() => {
+      consentBanner.classList.add("show");
+    }, 100); // Small delay to ensure transition works
+  }
 
-    // Accept cookies
-    acceptBtn.addEventListener("click", () => {
-        setCookie("cookie_consent", "accepted", 365);
-        consentBanner.classList.remove("show");
-        setTimeout(() => {
-            consentBanner.style.display = "none";
-        }, 500);
-    });
+  // Accept cookies
+  acceptBtn.addEventListener("click", () => {
+    setCookie("cookie_consent", "accepted", 365);
+    consentBanner.classList.remove("show");
+    setTimeout(() => {
+      consentBanner.style.display = "none";
+    }, 500);
+  });
 
-    // Decline cookies
-    declineBtn.addEventListener("click", () => {
-        setCookie("cookie_consent", "declined", 365); // Remember the choice
-        consentBanner.classList.remove("show");
-        setTimeout(() => {
-            consentBanner.style.display = "none";
-        }, 500);
-    });
+  // Decline cookies
+  declineBtn.addEventListener("click", () => {
+    setCookie("cookie_consent", "declined", 365); // Remember the choice
+    consentBanner.classList.remove("show");
+    setTimeout(() => {
+      consentBanner.style.display = "none";
+    }, 500);
+  });
 });
