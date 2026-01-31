@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale-1" />
-    <title>Articles — Geonique Consultants</title>
+    <title>Price List — Geonique Consultants</title>
     <meta name="description"
-        content="Read our latest insights and guides on corporate banking, company incorporation, and trusts in Cyprus." />
+        content="View our competitive price list for company incorporation and corporate services in Cyprus." />
     <meta name="theme-color" content="#2E3138" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Articles — Geonique Consultants" />
+    <meta property="og:title" content="Price List — Geonique Consultants" />
     <meta property="og:description"
-        content="Read our latest insights and guides on corporate banking, company incorporation, and trusts in Cyprus." />
+        content="View our competitive price list for company incorporation and corporate services in Cyprus." />
     <meta property="og:image" content="https://www.geoconsultants.eu/assets/images/logo.png" />
-    <meta property="og:url" content="https://www.geoconsultants.eu/articles.html" />
+    <meta property="og:url" content="https://www.geoconsultants.eu/pricelist.html" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon">
@@ -28,8 +28,7 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
-    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
+    <!-- We don't need docx-preview for PDF, but we keep the structure consistent -->
 </head>
 
 <body>
@@ -73,67 +72,24 @@
             <div class="container">
                 <div class="sh">
                     <div class="line"></div>
-                    <h2>Articles & Insights</h2>
+                    <h2>Service Price List</h2>
                 </div>
 
                 <p class="lead" style="text-align: left; margin: 0 0 40px 0;">
-                    Download our latest guides and articles or read them online to stay informed about the legal and
-                    corporate landscape in Cyprus.
+                    Transparent and competitive pricing for company incorporation, branding, and corporate services in
+                    Cyprus.
                 </p>
 
                 <div class="cols" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
                     <article class="card">
-                        <h3>Corporate Banking in Cyprus</h3>
-                        <p class="muted">Your guide to hassle-free corporate banking solutions and procedures in Cyprus.
-                        </p>
+                        <h3>Price List 2026</h3>
+                        <p class="muted">Comprehensive list of fees for company incorporation, banking assistance, and
+                            administration services.</p>
                         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-                            <button
-                                onclick="previewDoc('assets/articles/arthro-1-Your-Guide-to-Hassle-Free-Corporate-Banking-in-Cyprus.docx', 'Corporate Banking in Cyprus')"
+                            <button onclick="previewPdf('assets/price list/Price-List_2026.pdf', 'Price List 2026')"
                                 class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
-                            <a href="assets/articles/arthro-1-Your-Guide-to-Hassle-Free-Corporate-Banking-in-Cyprus.docx"
-                                class="btn-outline"
-                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
-                                download>Download</a>
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <h3>Company Incorporation</h3>
-                        <p class="muted">Incorporate your company in Cyprus: Fast, compliant, and strategically
-                            positioned.</p>
-                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-                            <button
-                                onclick="previewDoc('assets/articles/arthro-2-Incorporate-Your-Company-in-Cyprus-Fast-Compliant-Strategically-Positioned.docx', 'Company Incorporation')"
-                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
-                            <a href="assets/articles/arthro-2-Incorporate-Your-Company-in-Cyprus-Fast-Compliant-Strategically-Positioned.docx"
-                                class="btn-outline"
-                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
-                                download>Download</a>
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <h3>Cyprus International Trusts</h3>
-                        <p class="muted">A powerful tool for global asset and wealth protection.</p>
-                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-                            <button
-                                onclick="previewDoc('assets/articles/arthro-4-Cyprus-International-Trusts-A-Powerful-Tool-for-Global-Asset-Wealth-Protection.docx', 'Cyprus International Trusts')"
-                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
-                            <a href="assets/articles/arthro-4-Cyprus-International-Trusts-A-Powerful-Tool-for-Global-Asset-Wealth-Protection.docx"
-                                class="btn-outline"
-                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
-                                download>Download</a>
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <h3>General Corporate Insight</h3>
-                        <p class="muted">Essential insights into the corporate environment and legal framework.</p>
-                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-                            <button onclick="previewDoc('assets/articles/arthro-3.docx', 'General Corporate Insight')"
-                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
-                            <a href="assets/articles/arthro-3.docx" class="btn-outline"
+                            <a href="assets/price list/Price-List_2026.pdf" class="btn-outline"
                                 style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
                                 download>Download</a>
                         </div>
@@ -177,11 +133,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="modal-loading" class="modal-loading" style="display:none">
-                    <div class="spinner"></div>
-                    <p>Loading document...</p>
-                </div>
-                <div id="docx-container"></div>
+                <!-- PDF Container -->
+                <div id="pdf-container" style="width:100%; height:100%;"></div>
             </div>
         </div>
     </div>
@@ -199,11 +152,10 @@
     <script src="script.js" defer></script>
 
     <script>
-        // Preview Logic
+        // PDF Preview Logic
         const modal = document.getElementById('preview-modal');
-        const container = document.getElementById('docx-container');
+        const container = document.getElementById('pdf-container');
         const titleEl = document.getElementById('modal-title');
-        const loadingEl = document.getElementById('modal-loading');
 
         function closePreview() {
             if (!modal) return;
@@ -224,7 +176,7 @@
             });
         }
 
-        async function previewDoc(url, title) {
+        function previewPdf(url, title) {
             if (!modal) return;
 
             // Open Modal
@@ -233,41 +185,14 @@
             modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden'; // Prevent background scroll
 
-            // Reset State
-            container.innerHTML = '';
-            loadingEl.style.display = 'flex';
-            container.style.display = 'none';
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("Failed to load file");
-
-                const blob = await response.blob();
-
-                loadingEl.style.display = 'none';
-                container.style.display = 'block';
-
-                await docx.renderAsync(blob, container, container, {
-                    className: "docx", // class name for section
-                    inWrapper: true, // enables rendering of wrapper
-                    ignoreWidth: false, // disables rendering of width
-                    ignoreHeight: false, // disables rendering of height
-                    ignoreFonts: false, // disables fonts rendering
-                    breakPages: true, // enables page breaking on page breaks
-                    ignoreLastRenderedPageBreak: true, // disables page breaking on lastRenderedPageBreak elements
-                    experimental: false, // enables experimental features (tab stops calculation)
-                    trimXmlDeclaration: true, // if true, xml declaration will be removed from xml documents before parsing
-                    useBase64URL: false, // if true, images, fonts, etc. will be converted to base 64 URL, otherwise URL.createObjectURL is used
-                    useMathMLPolyfill: false, // includes MathML polyfills for chrome, edge, etc.
-                    showChanges: false, // enables experimental changes rendering
-                    debug: false, // enables additional logging
-                });
-
-            } catch (err) {
-                console.error(err);
-                loadingEl.style.display = 'flex';
-                loadingEl.innerHTML = '<p style="color:#D9534F">Error loading document.<br>Please try downloading it instead.</p>';
-            }
+            // Embed PDF using iframe
+            // Note: Mobile browsers might handle iframes differently. 
+            // A fallback link is often good practice if the browser doesn't support inline PDF.
+            container.innerHTML = `
+        <iframe src="${url}" 
+                style="width:100%; height:100%; border:none; display:block;" 
+                title="${title}">
+        </iframe>`;
         }
     </script>
 </body>
