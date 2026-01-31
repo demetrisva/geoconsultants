@@ -27,6 +27,9 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
 </head>
 
 <body>
@@ -73,8 +76,8 @@
                 </div>
 
                 <p class="lead" style="text-align: left; margin: 0 0 40px 0;">
-                    Download our latest guides and articles to stay informed about the legal and corporate landscape in
-                    Cyprus.
+                    Download our latest guides and articles or read them online to stay informed about the legal and
+                    corporate landscape in Cyprus.
                 </p>
 
                 <div class="cols" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
@@ -83,37 +86,56 @@
                         <h3>Corporate Banking in Cyprus</h3>
                         <p class="muted">Your guide to hassle-free corporate banking solutions and procedures in Cyprus.
                         </p>
-                        <a href="assets/articles/arthro-1-Your-Guide-to-Hassle-Free-Corporate-Banking-in-Cyprus.docx"
-                            class="btn-outline"
-                            style="display:inline-block; padding:8px 16px; border-radius:8px; margin-top:10px; font-weight:600;"
-                            download>Download Article</a>
+                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+                            <button
+                                onclick="previewDoc('assets/articles/arthro-1-Your-Guide-to-Hassle-Free-Corporate-Banking-in-Cyprus.docx', 'Corporate Banking in Cyprus')"
+                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
+                            <a href="assets/articles/arthro-1-Your-Guide-to-Hassle-Free-Corporate-Banking-in-Cyprus.docx"
+                                class="btn-outline"
+                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
+                                download>Download</a>
+                        </div>
                     </article>
 
                     <article class="card">
                         <h3>Company Incorporation</h3>
                         <p class="muted">Incorporate your company in Cyprus: Fast, compliant, and strategically
                             positioned.</p>
-                        <a href="assets/articles/arthro-2-Incorporate-Your-Company-in-Cyprus-Fast-Compliant-Strategically-Positioned.docx"
-                            class="btn-outline"
-                            style="display:inline-block; padding:8px 16px; border-radius:8px; margin-top:10px; font-weight:600;"
-                            download>Download Article</a>
+                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+                            <button
+                                onclick="previewDoc('assets/articles/arthro-2-Incorporate-Your-Company-in-Cyprus-Fast-Compliant-Strategically-Positioned.docx', 'Company Incorporation')"
+                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
+                            <a href="assets/articles/arthro-2-Incorporate-Your-Company-in-Cyprus-Fast-Compliant-Strategically-Positioned.docx"
+                                class="btn-outline"
+                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
+                                download>Download</a>
+                        </div>
                     </article>
 
                     <article class="card">
                         <h3>Cyprus International Trusts</h3>
                         <p class="muted">A powerful tool for global asset and wealth protection.</p>
-                        <a href="assets/articles/arthro-4-Cyprus-International-Trusts-A-Powerful-Tool-for-Global-Asset-Wealth-Protection.docx"
-                            class="btn-outline"
-                            style="display:inline-block; padding:8px 16px; border-radius:8px; margin-top:10px; font-weight:600;"
-                            download>Download Article</a>
+                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+                            <button
+                                onclick="previewDoc('assets/articles/arthro-4-Cyprus-International-Trusts-A-Powerful-Tool-for-Global-Asset-Wealth-Protection.docx', 'Cyprus International Trusts')"
+                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
+                            <a href="assets/articles/arthro-4-Cyprus-International-Trusts-A-Powerful-Tool-for-Global-Asset-Wealth-Protection.docx"
+                                class="btn-outline"
+                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
+                                download>Download</a>
+                        </div>
                     </article>
 
                     <article class="card">
                         <h3>General Corporate Insight</h3>
                         <p class="muted">Essential insights into the corporate environment and legal framework.</p>
-                        <a href="assets/articles/arthro-3.docx" class="btn-outline"
-                            style="display:inline-block; padding:8px 16px; border-radius:8px; margin-top:10px; font-weight:600;"
-                            download>Download Article</a>
+                        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+                            <button onclick="previewDoc('assets/articles/arthro-3.docx', 'General Corporate Insight')"
+                                class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
+                            <a href="assets/articles/arthro-3.docx" class="btn-outline"
+                                style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
+                                download>Download</a>
+                        </div>
                     </article>
 
                 </div>
@@ -139,6 +161,29 @@
         </div>
     </footer>
 
+    <!-- Document Preview Modal -->
+    <div id="preview-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">Document Preview</h3>
+                <button class="modal-close" onclick="closePreview()" aria-label="Close preview">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-loading" class="modal-loading" style="display:none">
+                    <div class="spinner"></div>
+                    <p>Loading document...</p>
+                </div>
+                <div id="docx-container"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="cookie-consent-banner" class="cookie-banner">
         <p>This website uses cookies to ensure you get the best experience. Read our <a href="cookies.html">Cookie
                 Policy</a>.</p>
@@ -150,6 +195,79 @@
     <button class="top" id="toTop" aria-label="Back to top">↑</button>
 
     <script src="script.js" defer></script>
+
+    <script>
+        // Preview Logic
+        const modal = document.getElementById('preview-modal');
+        const container = document.getElementById('docx-container');
+        const titleEl = document.getElementById('modal-title');
+        const loadingEl = document.getElementById('modal-loading');
+
+        function closePreview() {
+            if (!modal) return;
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; // Restore scroll
+            container.innerHTML = ''; // Clear content
+        }
+
+        // Close on backdrop click
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closePreview();
+            });
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closePreview();
+            });
+        }
+
+        async function previewDoc(url, title) {
+            if (!modal) return;
+
+            // Open Modal
+            titleEl.textContent = title;
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+
+            // Reset State
+            container.innerHTML = '';
+            loadingEl.style.display = 'flex';
+            container.style.display = 'none';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Failed to load file");
+
+                const blob = await response.blob();
+
+                loadingEl.style.display = 'none';
+                container.style.display = 'block';
+
+                await docx.renderAsync(blob, container, container, {
+                    className: "docx", // class name for section
+                    inWrapper: true, // enables rendering of wrapper
+                    ignoreWidth: false, // disables rendering of width
+                    ignoreHeight: false, // disables rendering of height
+                    ignoreFonts: false, // disables fonts rendering
+                    breakPages: true, // enables page breaking on page breaks
+                    ignoreLastRenderedPageBreak: true, // disables page breaking on lastRenderedPageBreak elements
+                    experimental: false, // enables experimental features (tab stops calculation)
+                    trimXmlDeclaration: true, // if true, xml declaration will be removed from xml documents before parsing
+                    useBase64URL: false, // if true, images, fonts, etc. will be converted to base 64 URL, otherwise URL.createObjectURL is used
+                    useMathMLPolyfill: false, // includes MathML polyfills for chrome, edge, etc.
+                    showChanges: false, // enables experimental changes rendering
+                    debug: false, // enables additional logging
+                });
+
+            } catch (err) {
+                console.error(err);
+                loadingEl.style.display = 'flex';
+                loadingEl.innerHTML = '<p style="color:#D9534F">Error loading document.<br>Please try downloading it instead.</p>';
+            }
+        }
+    </script>
 </body>
 
 </html>
