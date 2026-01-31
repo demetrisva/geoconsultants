@@ -1248,3 +1248,45 @@ footer.legal-footer {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    height: 90vh;
+    /* Taller on mobile or full height */
+  }
+
+  .modal-body {
+    padding: 10px;
+    /* Reduced padding */
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #docx-container {
+    padding: 15px;
+    /* Significantly reduced padding for doc */
+    width: auto;
+    /* Allow auto width to trigger scroll if needed */
+    min-width: 100%;
+    /* But at least full width of container */
+  }
+
+  /* Ensure doc content scales or scrolls */
+  #docx-container .docx-wrapper {
+    min-width: 600px;
+    /* Force minimum width to prevent squashing layout */
+  }
+
+  /* Adjust stacking of buttons in card */
+  .card div[style*="display:flex"] {
+    flex-direction: column;
+  }
+
+  .card div[style*="display:flex"] button,
+  .card div[style*="display:flex"] a {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
