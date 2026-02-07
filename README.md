@@ -16,6 +16,20 @@ Single-page static site for GEONIQUE CONSULTANTS (Nicosia, Cyprus).
 - Cloudflare Pages: new project from repo, framework: None (static).
 - Any static host: upload index.html and style.css.
 
+## Contact Form Email (Zoho Mail)
+- The contact form posts to `/api/contact` (Cloudflare Pages Function).
+- Configure these environment variables in Cloudflare Pages:
+- `ZOHO_MAIL_ACCOUNT_ID` (your Zoho Mail account ID)
+- `ZOHO_MAIL_FROM` (recommended: `info@geoconsultants.eu`)
+- `ZOHO_MAIL_TO` (recommended: `info@geoconsultants.eu`)
+- Optional: `ZOHO_MAIL_API_BASE` (`https://mail.zoho.com` or region-specific host like `https://mail.zoho.eu`)
+- Token option A (quick test): `ZOHO_MAIL_ACCESS_TOKEN`
+- Token option B (recommended auto-refresh):
+- `ZOHO_MAIL_REFRESH_TOKEN`
+- `ZOHO_MAIL_CLIENT_ID`
+- `ZOHO_MAIL_CLIENT_SECRET`
+- Optional for token refresh region: `ZOHO_ACCOUNTS_BASE` (`https://accounts.zoho.com` or `https://accounts.zoho.eu`)
+
 ## Customization
 - Colors and typography in `:root` (style.css).
 - Logo is inline SVG in `<head>` (symbols `logo-wordmark` and `logo-mark`).
