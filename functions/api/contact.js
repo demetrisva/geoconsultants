@@ -47,8 +47,11 @@ export async function onRequest(context) {
 
   const zohoConfig = getZohoConfig(env);
   if (!zohoConfig.isValid) {
-    console.error("Missing Zoho Mail configuration");
-    return jsonResponse({ error: "Server configuration error" }, 500);
+    console.error("Missing Zoho Mail configuration:", zohoConfig.validationError);
+    return jsonResponse({
+      error: "Server configuration error",
+      details: zohoConfig.validationError
+    }, 500);
   }
 
   console.log("Preparing email for Zoho Mail");
@@ -92,17 +95,24 @@ export async function onRequest(context) {
 }
 
 function getZohoConfig(env) {
-  const accountId = String(env.ZOHO_MAIL_ACCOUNT_ID || "").trim();
-  const accessToken = String(env.ZOHO_MAIL_ACCESS_TOKEN || "").trim();
-  const refreshToken = String(env.ZOHO_MAIL_REFRESH_TOKEN || "").trim();
-  const clientId = String(env.ZOHO_MAIL_CLIENT_ID || "").trim();
-  const clientSecret = String(env.ZOHO_MAIL_CLIENT_SECRET || "").trim();
-  const fromAddress = String(env.ZOHO_MAIL_FROM || "info@geoconsultants.eu").trim();
-  const toAddress = String(env.ZOHO_MAIL_TO || "info@geoconsultants.eu").trim();
+  const accountId = envValue(env, ["ZOHO_MAIL_ACCOUNT_ID", "ZOHO_ACCOUNT_ID"]);
+  const accessToken = envValue(env, ["ZOHO_MAIL_ACCESS_TOKEN", "ZOHO_ACCESS_TOKEN"]);
+  const refreshToken = envValue(env, ["ZOHO_MAIL_REFRESH_TOKEN", "ZOHO_REFRESH_TOKEN"]);
+  const clientId = envValue(env, ["ZOHO_MAIL_CLIENT_ID", "ZOHO_CLIENT_ID"]);
+  const clientSecret = envValue(env, ["ZOHO_MAIL_CLIENT_SECRET", "ZOHO_CLIENT_SECRET"]);
+  const fromAddress = envValue(env, ["ZOHO_MAIL_FROM", "ZOHO_FROM_EMAIL", "ZOHO_FROM"]) || "info@geoconsultants.eu";
+  const toAddress = envValue(env, ["ZOHO_MAIL_TO", "ZOHO_TO_EMAIL", "ZOHO_TO"]) || "info@geoconsultants.eu";
   const hasDirectToken = Boolean(accessToken);
   const hasRefreshFlow = Boolean(refreshToken && clientId && clientSecret);
   const accountsBases = resolveZohoAccountsBases(env, fromAddress, toAddress);
   const apiBases = resolveZohoApiBases(env, fromAddress, toAddress);
+  const validationError = buildConfigValidationError({
+    accountId,
+    hasDirectToken,
+    refreshToken,
+    clientId,
+    clientSecret
+  });
 
   return {
     accountId,
@@ -116,13 +126,14 @@ function getZohoConfig(env) {
     toAddress,
     hasDirectToken,
     hasRefreshFlow,
+    validationError,
     isValid: Boolean(
       accountId &&
       fromAddress &&
       toAddress &&
       apiBases.length &&
       accountsBases.length &&
-      (hasDirectToken || hasRefreshFlow)
+      !validationError
     )
   };
 }
@@ -220,7 +231,7 @@ async function sendViaZoho({ config, accessToken, payload }) {
 }
 
 function resolveZohoApiBases(env, fromAddress, toAddress) {
-  const configured = normalizeBaseUrl(env.ZOHO_MAIL_API_BASE);
+  const configured = normalizeBaseUrl(envValue(env, ["ZOHO_MAIL_API_BASE", "ZOHO_API_BASE"]));
   const defaults = inferPreferEuZoho(env, fromAddress, toAddress)
     ? ["https://mail.zoho.eu", "https://mail.zoho.com"]
     : ["https://mail.zoho.com", "https://mail.zoho.eu"];
@@ -229,7 +240,7 @@ function resolveZohoApiBases(env, fromAddress, toAddress) {
 }
 
 function resolveZohoAccountsBases(env, fromAddress, toAddress) {
-  const configured = normalizeBaseUrl(env.ZOHO_ACCOUNTS_BASE);
+  const configured = normalizeBaseUrl(envValue(env, ["ZOHO_ACCOUNTS_BASE", "ZOHO_ACCOUNT_BASE"]));
   const defaults = inferPreferEuZoho(env, fromAddress, toAddress)
     ? ["https://accounts.zoho.eu", "https://accounts.zoho.com"]
     : ["https://accounts.zoho.com", "https://accounts.zoho.eu"];
@@ -238,7 +249,7 @@ function resolveZohoAccountsBases(env, fromAddress, toAddress) {
 }
 
 function inferPreferEuZoho(env, fromAddress, toAddress) {
-  const regionHint = String(env.ZOHO_REGION || "").trim().toLowerCase();
+  const regionHint = String(envValue(env, ["ZOHO_REGION"]) || "").trim().toLowerCase();
   if (regionHint === "eu") return true;
   if (regionHint === "com" || regionHint === "us") return false;
 
@@ -252,6 +263,44 @@ function normalizeBaseUrl(value) {
 
 function uniqueNonEmpty(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function envValue(env, names) {
+  for (const name of names) {
+    const value = String(env?.[name] || "").trim();
+    if (value) return value;
+  }
+  return "";
+}
+
+function buildConfigValidationError({ accountId, hasDirectToken, refreshToken, clientId, clientSecret }) {
+  if (!accountId) {
+    return "Missing account ID. Set ZOHO_MAIL_ACCOUNT_ID (or ZOHO_ACCOUNT_ID).";
+  }
+
+  if (hasDirectToken) {
+    return "";
+  }
+
+  const refreshParts = {
+    refreshToken: Boolean(refreshToken),
+    clientId: Boolean(clientId),
+    clientSecret: Boolean(clientSecret)
+  };
+
+  if (refreshParts.refreshToken && refreshParts.clientId && refreshParts.clientSecret) {
+    return "";
+  }
+
+  if (refreshParts.refreshToken || refreshParts.clientId || refreshParts.clientSecret) {
+    const missing = [];
+    if (!refreshParts.refreshToken) missing.push("ZOHO_MAIL_REFRESH_TOKEN (or ZOHO_REFRESH_TOKEN)");
+    if (!refreshParts.clientId) missing.push("ZOHO_MAIL_CLIENT_ID (or ZOHO_CLIENT_ID)");
+    if (!refreshParts.clientSecret) missing.push("ZOHO_MAIL_CLIENT_SECRET (or ZOHO_CLIENT_SECRET)");
+    return `Incomplete refresh-token auth. Missing: ${missing.join(", ")}.`;
+  }
+
+  return "Missing auth. Set ZOHO_MAIL_ACCESS_TOKEN (or ZOHO_ACCESS_TOKEN), or set all of ZOHO_MAIL_REFRESH_TOKEN, ZOHO_MAIL_CLIENT_ID, ZOHO_MAIL_CLIENT_SECRET.";
 }
 
 function buildPlainTextContent({ name, email, subject, message }) {
