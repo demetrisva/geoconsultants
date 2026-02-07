@@ -57,6 +57,14 @@ export async function onRequest(context) {
   console.log("Preparing email for Zoho Mail");
   try {
     const accessToken = await resolveZohoAccessToken(zohoConfig);
+    const accountId = await resolveZohoAccountId(zohoConfig, accessToken);
+    if (!accountId) {
+      return jsonResponse({
+        error: "Server configuration error",
+        details: "Unable to resolve Zoho account ID automatically. Set ZOHO_MAIL_ACCOUNT_ID."
+      }, 500);
+    }
+
     const payload = new URLSearchParams({
       fromAddress: zohoConfig.fromAddress,
       toAddress: zohoConfig.toAddress,
@@ -67,6 +75,7 @@ export async function onRequest(context) {
 
     const sendResult = await sendViaZoho({
       config: zohoConfig,
+      accountId,
       accessToken,
       payload: payload.toString()
     });
@@ -107,7 +116,6 @@ function getZohoConfig(env) {
   const accountsBases = resolveZohoAccountsBases(env, fromAddress, toAddress);
   const apiBases = resolveZohoApiBases(env, fromAddress, toAddress);
   const validationError = buildConfigValidationError({
-    accountId,
     hasDirectToken,
     refreshToken,
     clientId,
@@ -128,7 +136,6 @@ function getZohoConfig(env) {
     hasRefreshFlow,
     validationError,
     isValid: Boolean(
-      accountId &&
       fromAddress &&
       toAddress &&
       apiBases.length &&
@@ -181,11 +188,77 @@ async function resolveZohoAccessToken(config) {
   throw new Error(errors[0] || "Zoho token refresh failed");
 }
 
-async function sendViaZoho({ config, accessToken, payload }) {
+async function resolveZohoAccountId(config, accessToken) {
+  if (config.accountId) {
+    return config.accountId;
+  }
+
+  const errors = [];
+  for (const apiBase of config.apiBases) {
+    const endpoint = `${apiBase}/api/accounts`;
+    try {
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Authorization": `Zoho-oauthtoken ${accessToken}`
+        }
+      });
+
+      const raw = await response.text();
+      const result = safeJsonParse(raw);
+
+      if (!response.ok) {
+        const details = extractZohoError(result) || raw || `HTTP ${response.status}`;
+        errors.push(`${apiBase}: ${details}`);
+        continue;
+      }
+
+      const accounts = Array.isArray(result?.data) ? result.data : [];
+      const selectedId = pickZohoAccountId(accounts, config.fromAddress);
+      if (selectedId) {
+        console.log("Zoho account ID resolved automatically using", apiBase);
+        return selectedId;
+      }
+
+      errors.push(`${apiBase}: No account ID found in API response`);
+    } catch (err) {
+      errors.push(`${apiBase}: ${err?.message || "Network error"}`);
+    }
+  }
+
+  throw new Error(errors[0] || "Unable to resolve Zoho account ID");
+}
+
+function pickZohoAccountId(accounts, fromAddress) {
+  const target = String(fromAddress || "").trim().toLowerCase();
+  let firstId = "";
+
+  for (const account of accounts) {
+    const accountId = String(account?.accountId || account?.id || "").trim();
+    if (!accountId) continue;
+    if (!firstId) firstId = accountId;
+
+    const candidates = [
+      account?.mailId,
+      account?.emailAddress,
+      account?.primaryEmailAddress,
+      account?.userName,
+      account?.fromAddress
+    ].map((v) => String(v || "").trim().toLowerCase()).filter(Boolean);
+
+    if (target && candidates.includes(target)) {
+      return accountId;
+    }
+  }
+
+  return firstId;
+}
+
+async function sendViaZoho({ config, accountId, accessToken, payload }) {
   const errors = [];
 
   for (const apiBase of config.apiBases) {
-    const endpoint = `${apiBase}/api/accounts/${encodeURIComponent(config.accountId)}/messages`;
+    const endpoint = `${apiBase}/api/accounts/${encodeURIComponent(accountId)}/messages`;
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -273,11 +346,7 @@ function envValue(env, names) {
   return "";
 }
 
-function buildConfigValidationError({ accountId, hasDirectToken, refreshToken, clientId, clientSecret }) {
-  if (!accountId) {
-    return "Missing account ID. Set ZOHO_MAIL_ACCOUNT_ID (or ZOHO_ACCOUNT_ID).";
-  }
-
+function buildConfigValidationError({ hasDirectToken, refreshToken, clientId, clientSecret }) {
   if (hasDirectToken) {
     return "";
   }

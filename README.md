@@ -19,7 +19,7 @@ Single-page static site for GEONIQUE CONSULTANTS (Nicosia, Cyprus).
 ## Contact Form Email (Zoho Mail)
 - The contact form posts to `/api/contact` (Cloudflare Pages Function).
 - Configure these environment variables in Cloudflare Pages:
-- `ZOHO_MAIL_ACCOUNT_ID` (your Zoho Mail account ID)
+- `ZOHO_MAIL_ACCOUNT_ID` (optional but recommended; if omitted, the function will try to resolve it from Zoho API)
 - `ZOHO_MAIL_FROM` (recommended: `info@geoconsultants.eu`)
 - `ZOHO_MAIL_TO` (recommended: `info@geoconsultants.eu`)
 - Optional: `ZOHO_MAIL_API_BASE` (`https://mail.zoho.com` or region-specific host like `https://mail.zoho.eu`)
@@ -38,6 +38,7 @@ Single-page static site for GEONIQUE CONSULTANTS (Nicosia, Cyprus).
 
 ### Troubleshooting
 - If the form shows `Server configuration error`, check the response details shown under the button. It now tells you exactly which env key is missing.
+- If account auto-resolution fails, set `ZOHO_MAIL_ACCOUNT_ID` explicitly.
 
 ## Customization
 - Colors and typography in `:root` (style.css).
