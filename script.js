@@ -88,19 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function handleSubmit(e) {
-    if (!form || !btn || !statusEl || !widget) return; // Safety check
+    if (!form || !btn || !statusEl) return; // Safety check
 
     e.preventDefault(); // This is the line that was not running
 
     btn.disabled = true;
     showStatus("Sending…");
 
-    const token = window.turnstile ? turnstile.getResponse(widget) : "";
-    if (!token) {
-      showStatus("Security check failed. Please refresh and try again.", true);
-      btn.disabled = false;
-      return;
-    }
+    const token = (window.turnstile && widget) ? turnstile.getResponse(widget) : "";
 
     const payload = {
       name: form.name.value.trim(),
@@ -122,7 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showStatus("✅ Thank you! Your message has been sent.");
         form.reset();
       } else {
-        showStatus(`⚠️ ${data.error || "Message failed. Please try again."}`, true);
+        const errText = [data.error, data.details].filter(Boolean).join(": ");
+        showStatus(`⚠️ ${errText || "Message failed. Please try again."}`, true);
       }
     } catch {
       showStatus("⚠️ Network error. Please try again.", true);

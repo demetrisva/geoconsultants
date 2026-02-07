@@ -29,6 +29,11 @@ Single-page static site for GEONIQUE CONSULTANTS (Nicosia, Cyprus).
 - `ZOHO_MAIL_CLIENT_ID`
 - `ZOHO_MAIL_CLIENT_SECRET`
 - Optional for token refresh region: `ZOHO_ACCOUNTS_BASE` (`https://accounts.zoho.com` or `https://accounts.zoho.eu`)
+- Optional for explicit region preference: `ZOHO_REGION` (`eu` or `com`)
+
+### Zoho region behavior
+- If you do not set `ZOHO_MAIL_API_BASE` / `ZOHO_ACCOUNTS_BASE`, the function auto-picks Zoho EU first for `.eu` mailboxes, then falls back to `.com`.
+- This helps avoid failed sends when Zoho resources were created in the EU data center.
 
 ## Customization
 - Colors and typography in `:root` (style.css).

@@ -53,11 +53,8 @@ export async function onRequest(context) {
 
   console.log("Preparing email for Zoho Mail");
   try {
-    console.log("Calling Zoho Mail API");
-
-    const endpoint = `${zohoConfig.apiBase}/api/accounts/${encodeURIComponent(zohoConfig.accountId)}/messages`;
     const accessToken = await resolveZohoAccessToken(zohoConfig);
-    const formData = new URLSearchParams({
+    const payload = new URLSearchParams({
       fromAddress: zohoConfig.fromAddress,
       toAddress: zohoConfig.toAddress,
       subject: `Contact Form: ${subject}`,
@@ -65,37 +62,19 @@ export async function onRequest(context) {
       mailFormat: "plaintext"
     });
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        "Authorization": `Zoho-oauthtoken ${accessToken}`
-      },
-      body: formData.toString()
+    const sendResult = await sendViaZoho({
+      config: zohoConfig,
+      accessToken,
+      payload: payload.toString()
     });
-
-    const raw = await response.text();
-    const result = safeJsonParse(raw);
-    console.log("Zoho response status:", response.status);
-
-    if (!response.ok) {
-      console.error("Zoho error:", result || raw);
+    if (!sendResult.ok) {
       return jsonResponse({
         error: "Failed to send email",
-        details: extractZohoError(result) || "Unknown error"
-      }, response.status);
+        details: sendResult.details || "Unknown error"
+      }, sendResult.status || 502);
     }
 
-    const zohoCode = Number(result?.status?.code || 200);
-    if (zohoCode !== 200) {
-      console.error("Zoho API returned failure payload:", result);
-      return jsonResponse({
-        error: "Failed to send email",
-        details: extractZohoError(result) || "Unknown error"
-      }, 502);
-    }
-
-    const messageId = result?.data?.messageId || null;
+    const messageId = sendResult.result?.data?.messageId || null;
     console.log("Email sent successfully, ID:", messageId);
     return jsonResponse({
       success: true,
@@ -118,12 +97,12 @@ function getZohoConfig(env) {
   const refreshToken = String(env.ZOHO_MAIL_REFRESH_TOKEN || "").trim();
   const clientId = String(env.ZOHO_MAIL_CLIENT_ID || "").trim();
   const clientSecret = String(env.ZOHO_MAIL_CLIENT_SECRET || "").trim();
-  const accountsBase = String(env.ZOHO_ACCOUNTS_BASE || "https://accounts.zoho.com").trim().replace(/\/+$/, "");
-  const apiBase = String(env.ZOHO_MAIL_API_BASE || "https://mail.zoho.com").trim().replace(/\/+$/, "");
   const fromAddress = String(env.ZOHO_MAIL_FROM || "info@geoconsultants.eu").trim();
   const toAddress = String(env.ZOHO_MAIL_TO || "info@geoconsultants.eu").trim();
   const hasDirectToken = Boolean(accessToken);
   const hasRefreshFlow = Boolean(refreshToken && clientId && clientSecret);
+  const accountsBases = resolveZohoAccountsBases(env, fromAddress, toAddress);
+  const apiBases = resolveZohoApiBases(env, fromAddress, toAddress);
 
   return {
     accountId,
@@ -131,13 +110,20 @@ function getZohoConfig(env) {
     refreshToken,
     clientId,
     clientSecret,
-    accountsBase,
-    apiBase,
+    accountsBases,
+    apiBases,
     fromAddress,
     toAddress,
     hasDirectToken,
     hasRefreshFlow,
-    isValid: Boolean(accountId && fromAddress && toAddress && (hasDirectToken || hasRefreshFlow))
+    isValid: Boolean(
+      accountId &&
+      fromAddress &&
+      toAddress &&
+      apiBases.length &&
+      accountsBases.length &&
+      (hasDirectToken || hasRefreshFlow)
+    )
   };
 }
 
@@ -146,29 +132,126 @@ async function resolveZohoAccessToken(config) {
     return config.accessToken;
   }
 
-  const tokenUrl = `${config.accountsBase}/oauth/v2/token`;
-  const body = new URLSearchParams({
-    refresh_token: config.refreshToken,
-    client_id: config.clientId,
-    client_secret: config.clientSecret,
-    grant_type: "refresh_token"
-  });
+  const errors = [];
+  for (const accountsBase of config.accountsBases) {
+    const tokenUrl = `${accountsBase}/oauth/v2/token`;
+    const body = new URLSearchParams({
+      refresh_token: config.refreshToken,
+      client_id: config.clientId,
+      client_secret: config.clientSecret,
+      grant_type: "refresh_token"
+    });
 
-  const response = await fetch(tokenUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-    body: body.toString()
-  });
+    try {
+      const response = await fetch(tokenUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: body.toString()
+      });
 
-  const raw = await response.text();
-  const data = safeJsonParse(raw);
-  const token = String(data?.access_token || "").trim();
-  if (!response.ok || !token) {
-    console.error("Zoho token refresh failed:", data || raw);
-    throw new Error("Zoho token refresh failed");
+      const raw = await response.text();
+      const data = safeJsonParse(raw);
+      const token = String(data?.access_token || "").trim();
+      if (response.ok && token) {
+        console.log("Zoho token refresh succeeded using", accountsBase);
+        return token;
+      }
+
+      const details = extractZohoError(data) || raw || `HTTP ${response.status}`;
+      errors.push(`${accountsBase}: ${details}`);
+      console.error("Zoho token refresh failed on", accountsBase, details);
+    } catch (err) {
+      const details = err?.message || "Network error";
+      errors.push(`${accountsBase}: ${details}`);
+      console.error("Zoho token refresh fetch error on", accountsBase, details);
+    }
   }
 
-  return token;
+  throw new Error(errors[0] || "Zoho token refresh failed");
+}
+
+async function sendViaZoho({ config, accessToken, payload }) {
+  const errors = [];
+
+  for (const apiBase of config.apiBases) {
+    const endpoint = `${apiBase}/api/accounts/${encodeURIComponent(config.accountId)}/messages`;
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          "Authorization": `Zoho-oauthtoken ${accessToken}`
+        },
+        body: payload
+      });
+
+      const raw = await response.text();
+      const result = safeJsonParse(raw);
+      console.log("Zoho response status:", response.status, "Host:", apiBase);
+
+      if (!response.ok) {
+        const details = extractZohoError(result) || raw || "Unknown error";
+        errors.push({ status: response.status, details });
+        console.error("Zoho API HTTP error on", apiBase, details);
+        continue;
+      }
+
+      const zohoCode = Number(result?.status?.code || 200);
+      if (zohoCode !== 200) {
+        const details = extractZohoError(result) || "Unknown error";
+        errors.push({ status: 502, details });
+        console.error("Zoho API payload error on", apiBase, details);
+        continue;
+      }
+
+      return { ok: true, result };
+    } catch (err) {
+      const details = err?.message || "Network error";
+      errors.push({ status: 502, details });
+      console.error("Zoho API fetch error on", apiBase, details);
+    }
+  }
+
+  return {
+    ok: false,
+    status: errors[0]?.status || 502,
+    details: errors[0]?.details || "Unknown error"
+  };
+}
+
+function resolveZohoApiBases(env, fromAddress, toAddress) {
+  const configured = normalizeBaseUrl(env.ZOHO_MAIL_API_BASE);
+  const defaults = inferPreferEuZoho(env, fromAddress, toAddress)
+    ? ["https://mail.zoho.eu", "https://mail.zoho.com"]
+    : ["https://mail.zoho.com", "https://mail.zoho.eu"];
+
+  return uniqueNonEmpty([configured, ...defaults]);
+}
+
+function resolveZohoAccountsBases(env, fromAddress, toAddress) {
+  const configured = normalizeBaseUrl(env.ZOHO_ACCOUNTS_BASE);
+  const defaults = inferPreferEuZoho(env, fromAddress, toAddress)
+    ? ["https://accounts.zoho.eu", "https://accounts.zoho.com"]
+    : ["https://accounts.zoho.com", "https://accounts.zoho.eu"];
+
+  return uniqueNonEmpty([configured, ...defaults]);
+}
+
+function inferPreferEuZoho(env, fromAddress, toAddress) {
+  const regionHint = String(env.ZOHO_REGION || "").trim().toLowerCase();
+  if (regionHint === "eu") return true;
+  if (regionHint === "com" || regionHint === "us") return false;
+
+  const addressHint = `${fromAddress} ${toAddress}`;
+  return /@[^@\s]+\.eu\b/i.test(addressHint);
+}
+
+function normalizeBaseUrl(value) {
+  return String(value || "").trim().replace(/\/+$/, "");
+}
+
+function uniqueNonEmpty(values) {
+  return [...new Set(values.filter(Boolean))];
 }
 
 function buildPlainTextContent({ name, email, subject, message }) {
