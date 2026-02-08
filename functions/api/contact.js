@@ -65,19 +65,18 @@ export async function onRequest(context) {
       }, 500);
     }
 
-    const payload = new URLSearchParams({
+    const payload = {
       fromAddress: zohoConfig.fromAddress,
       toAddress: zohoConfig.toAddress,
       subject: `Contact Form: ${subject}`,
-      content: buildPlainTextContent({ name, email, subject, message }),
-      mailFormat: "plaintext"
-    });
+      content: buildPlainTextContent({ name, email, subject, message })
+    };
 
     const sendResult = await sendViaZoho({
       config: zohoConfig,
       accountId,
       accessToken,
-      payload: payload.toString()
+      payload
     });
     if (!sendResult.ok) {
       return jsonResponse({
@@ -268,10 +267,11 @@ async function sendViaZoho({ config, accountId, accessToken, payload }) {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          "Accept": "application/json",
+          "Content-Type": "application/json",
           "Authorization": `Zoho-oauthtoken ${accessToken}`
         },
-        body: payload
+        body: JSON.stringify(payload)
       });
 
       const raw = await response.text();
@@ -398,13 +398,16 @@ function safeJsonParse(value) {
 
 function extractZohoError(payload) {
   if (!payload) return "";
-  return String(
-    payload?.status?.description ||
-    payload?.status?.message ||
-    payload?.message ||
-    payload?.error ||
-    ""
-  ).trim();
+  const parts = [
+    payload?.status?.description,
+    payload?.status?.message,
+    payload?.data?.moreInfo,
+    payload?.data?.errorCode,
+    payload?.message,
+    payload?.error
+  ].map((v) => String(v || "").trim()).filter(Boolean);
+
+  return [...new Set(parts)].join(" | ").trim();
 }
 
 function corsHeaders() {
