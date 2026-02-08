@@ -104,7 +104,12 @@ export async function onRequest(context) {
 }
 
 function getZohoConfig(env) {
-  const accountId = envValue(env, ["ZOHO_MAIL_ACCOUNT_ID", "ZOHO_ACCOUNT_ID"]);
+  const accountId = envValue(env, [
+    "ZOHO_MAIL_ACCOUNT_ID",
+    "ZOHO_ACCOUNT_ID",
+    "ZOHO_MAIL_SENDMAIL_ID",
+    "ZOHO_SENDMAIL_ID"
+  ]);
   const accessToken = envValue(env, ["ZOHO_MAIL_ACCESS_TOKEN", "ZOHO_ACCESS_TOKEN"]);
   const refreshToken = envValue(env, ["ZOHO_MAIL_REFRESH_TOKEN", "ZOHO_REFRESH_TOKEN"]);
   const clientId = envValue(env, ["ZOHO_MAIL_CLIENT_ID", "ZOHO_CLIENT_ID"]);
