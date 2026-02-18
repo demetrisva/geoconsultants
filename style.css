@@ -7,6 +7,7 @@
 :root {
   --gold: #C7A157;
   --gold-2: #A78953;
+  --white: #FFFFFF;
   --char: #2E3138;
   --ink: #1D2128;
   --muted: #6E7A88;
@@ -158,6 +159,46 @@ header {
 .menu a:hover {
   background: #F2EEE5;
   color: var(--ink);
+}
+
+/* ----- Theme Toggle ----- */
+.theme-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #E6DFD1;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: #F2EEE5;
+}
+
+.theme-toggle .theme-icon {
+  line-height: 1;
+  font-size: 15px;
+}
+
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: inline;
 }
 
 /* ----- Buttons ----- */
@@ -983,6 +1024,11 @@ footer.legal-footer {
     /* Show hamburger */
   }
 
+  .theme-toggle {
+    margin-left: 10px;
+    padding: 8px 10px;
+  }
+
   .menu {
     position: fixed;
     top: 64px;
@@ -1033,6 +1079,16 @@ footer.legal-footer {
   .brand-name {
     font-size: 1rem;
     /* Make it smaller to fit */
+  }
+
+  .theme-toggle {
+    padding: 8px;
+    min-width: 40px;
+    justify-content: center;
+  }
+
+  .theme-toggle .theme-label {
+    display: none;
   }
 
   /* Nav styles moved to 1180px query above */
@@ -1292,4 +1348,133 @@ footer.legal-footer {
     width: 100%;
     margin-bottom: 8px;
   }
+}
+
+/* ===============================================
+   Dark Theme Overrides
+=============================================== */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --char: #D8E2F1;
+  --ink: #F2F7FF;
+  --muted: #AAB8CB;
+  --cream: #0F1724;
+  --panel: #192437;
+  --shadow: 0 12px 30px rgba(0, 0, 0, .42);
+  --shadow-2: 0 18px 44px rgba(0, 0, 0, .56);
+  --ring: 0 0 0 4px rgba(199, 161, 87, .30);
+}
+
+:root[data-theme="dark"] .bg {
+  background:
+    radial-gradient(1200px 700px at 90% -10%, rgba(199, 161, 87, .15), transparent 65%),
+    linear-gradient(180deg, rgba(9, 14, 22, .88), rgba(9, 14, 22, .18) 45%),
+    var(--cream);
+}
+
+:root[data-theme="dark"] .bg:after {
+  opacity: .08;
+}
+
+:root[data-theme="dark"] header {
+  background: rgba(9, 14, 22, .92);
+  border-bottom: 1px solid rgba(168, 182, 202, .2);
+}
+
+:root[data-theme="dark"] .menu a {
+  color: #C2CEDF;
+}
+
+:root[data-theme="dark"] .menu a:hover {
+  background: rgba(199, 161, 87, .16);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .theme-toggle,
+:root[data-theme="dark"] .menu-toggle {
+  background: #162133;
+  border-color: #334761;
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .theme-toggle:hover {
+  background: #1B2A40;
+}
+
+:root[data-theme="dark"] .alt {
+  background: rgba(16, 24, 36, .74);
+  border-top-color: #243347;
+  border-bottom-color: #243347;
+}
+
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .step,
+:root[data-theme="dark"] .mission-vision,
+:root[data-theme="dark"] .service-item,
+:root[data-theme="dark"] details,
+:root[data-theme="dark"] .contact-info-box,
+:root[data-theme="dark"] form,
+:root[data-theme="dark"] .legal-page,
+:root[data-theme="dark"] .modal-content,
+:root[data-theme="dark"] #docx-container {
+  background: var(--panel);
+  border-color: #32465F;
+}
+
+:root[data-theme="dark"] .service-content,
+:root[data-theme="dark"] .modal-header {
+  border-color: #32465F;
+}
+
+:root[data-theme="dark"] .contact-item {
+  background: rgba(199, 161, 87, .10);
+}
+
+:root[data-theme="dark"] form input,
+:root[data-theme="dark"] form select,
+:root[data-theme="dark"] form textarea {
+  background: #111A2A;
+  color: var(--ink);
+  border-color: #32465F;
+}
+
+:root[data-theme="dark"] form input::placeholder,
+:root[data-theme="dark"] form textarea::placeholder {
+  color: #8FA0B7;
+}
+
+:root[data-theme="dark"] .btn-outline {
+  background: transparent;
+  border-color: #4A607D;
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .btn-outline:hover {
+  background: #1A2A40;
+  border-color: #C7A157;
+}
+
+:root[data-theme="dark"] .modal-body {
+  background: #0F1724;
+}
+
+:root[data-theme="dark"] .modal-close:hover {
+  background: rgba(199, 161, 87, .16);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] footer,
+:root[data-theme="dark"] footer.legal-footer,
+:root[data-theme="dark"] .cookie-banner {
+  background: #0A111B;
+  color: #D9E1ED;
+}
+
+:root[data-theme="dark"] .foot a,
+:root[data-theme="dark"] .foot .menu a {
+  color: #D9E1ED;
+}
+
+:root[data-theme="dark"] .menu {
+  border-color: #32465F;
 }

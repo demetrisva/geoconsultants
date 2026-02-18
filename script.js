@@ -1,5 +1,82 @@
 // ===== Geonique Consultants Main Script =====
 
+// Theme switcher (light default, persistent dark option)
+const THEME_STORAGE_KEY = "gc-theme";
+const rootEl = document.documentElement;
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem(THEME_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function persistTheme(theme) {
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Ignore storage failures (private mode / blocked storage)
+  }
+}
+
+function activeTheme() {
+  return rootEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
+}
+
+function applyTheme(theme) {
+  const nextTheme = theme === "dark" ? "dark" : "light";
+  rootEl.setAttribute("data-theme", nextTheme);
+
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", nextTheme === "dark" ? "#101721" : "#2E3138");
+  }
+
+  document.querySelectorAll(".theme-toggle").forEach((btn) => {
+    const isDark = nextTheme === "dark";
+    const labelEl = btn.querySelector(".theme-label");
+    if (labelEl) labelEl.textContent = isDark ? "Light" : "Dark";
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+    btn.title = isDark ? "Switch to light theme" : "Switch to dark theme";
+  });
+}
+
+function mountThemeToggles() {
+  document.querySelectorAll(".container.nav").forEach((nav) => {
+    if (nav.querySelector(".theme-toggle")) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "theme-toggle";
+    btn.setAttribute("aria-pressed", "false");
+    btn.innerHTML = `
+      <span class="theme-icon icon-sun" aria-hidden="true">L</span>
+      <span class="theme-icon icon-moon" aria-hidden="true">D</span>
+      <span class="theme-label">Dark</span>
+    `;
+
+    btn.addEventListener("click", () => {
+      const nextTheme = activeTheme() === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+      persistTheme(nextTheme);
+    });
+
+    const mobileMenuToggle = nav.querySelector(".menu-toggle");
+    if (mobileMenuToggle) {
+      nav.insertBefore(btn, mobileMenuToggle);
+    } else {
+      nav.appendChild(btn);
+    }
+  });
+
+  applyTheme(activeTheme());
+}
+
+applyTheme(readStoredTheme() || "light");
+mountThemeToggles();
+
 // Mobile menu toggle (Reverted to original logic)
 const toggle = document.querySelector('.menu-toggle');
 const menu = document.querySelector('.menu');
