@@ -3,6 +3,6 @@
   Referrer-Policy: strict-origin-when-cross-origin
 
 /api/*
-  Access-Control-Allow-Origin: https://www.geoconsultants.eu https://geoconsultants.eu
+  Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: POST, OPTIONS
   Access-Control-Allow-Headers: Content-Type
