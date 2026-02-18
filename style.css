@@ -115,7 +115,7 @@ header {
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   padding: 14px 0;
 }
 
@@ -123,6 +123,7 @@ header {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-right: auto;
 }
 
 .brand img {
@@ -163,7 +164,6 @@ header {
 
 /* ----- Theme Toggle ----- */
 .theme-toggle {
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -184,21 +184,9 @@ header {
   background: #F2EEE5;
 }
 
-.theme-toggle .theme-icon {
-  line-height: 1;
-  font-size: 15px;
-}
-
-.theme-toggle .icon-moon {
-  display: none;
-}
-
-:root[data-theme="dark"] .theme-toggle .icon-sun {
-  display: none;
-}
-
-:root[data-theme="dark"] .theme-toggle .icon-moon {
-  display: inline;
+.theme-toggle .theme-prefix {
+  opacity: .7;
+  font-weight: 600;
 }
 
 /* ----- Buttons ----- */
@@ -1025,7 +1013,6 @@ footer.legal-footer {
   }
 
   .theme-toggle {
-    margin-left: 10px;
     padding: 8px 10px;
   }
 
@@ -1082,12 +1069,10 @@ footer.legal-footer {
   }
 
   .theme-toggle {
-    padding: 8px;
-    min-width: 40px;
-    justify-content: center;
+    padding: 8px 10px;
   }
 
-  .theme-toggle .theme-label {
+  .theme-toggle .theme-prefix {
     display: none;
   }
 

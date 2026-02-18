@@ -52,8 +52,7 @@ function mountThemeToggles() {
     btn.className = "theme-toggle";
     btn.setAttribute("aria-pressed", "false");
     btn.innerHTML = `
-      <span class="theme-icon icon-sun" aria-hidden="true">L</span>
-      <span class="theme-icon icon-moon" aria-hidden="true">D</span>
+      <span class="theme-prefix">Theme</span>
       <span class="theme-label">Dark</span>
     `;
 
