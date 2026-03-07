@@ -30,4 +30,25 @@
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
+
+  <url>
+    <loc>https://www.geoconsultants.eu/editorial-policy.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geoconsultants.eu/guide-corporate-banking-cyprus.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geoconsultants.eu/guide-company-incorporation-cyprus.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geoconsultants.eu/guide-cyprus-corporate-compliance-basics.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
