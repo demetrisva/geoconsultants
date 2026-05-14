@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Price List — Geonique Consultants</title>
     <meta name="description"
         content="View our competitive price list for company incorporation and corporate services in Cyprus." />
@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@600;700&amp;display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
@@ -87,7 +87,7 @@
                         <p class="muted">Comprehensive list of fees for company incorporation, banking assistance, and
                             administration services.</p>
                         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-                            <button onclick="previewPdf('assets/price list/Price-List_2026.pdf', 'Price List 2026')"
+                            <button id="preview-price-list"
                                 class="btn" style="flex:1; justify-content:center; font-size:14px">Read Online</button>
                             <a href="assets/price list/Price-List_2026.pdf" class="btn-outline"
                                 style="flex:1; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; font-weight:700; font-size:14px"
@@ -120,11 +120,12 @@
     </footer>
 
     <!-- Document Preview Modal -->
-    <div id="preview-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
-        <div class="modal-content" onclick="event.stopPropagation()">
+    <div id="preview-modal" class="modal-backdrop" aria-hidden="true" aria-labelledby="modal-title" aria-modal="true"
+        role="dialog">
+        <div class="modal-content">
             <div class="modal-header">
                 <h3 id="modal-title" class="modal-title">Document Preview</h3>
-                <button class="modal-close" onclick="closePreview()" aria-label="Close preview">
+                <button class="modal-close" id="close-preview" aria-label="Close preview">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -156,43 +157,51 @@
         const modal = document.getElementById('preview-modal');
         const container = document.getElementById('pdf-container');
         const titleEl = document.getElementById('modal-title');
+        const previewPriceListBtn = document.getElementById('preview-price-list');
+        const closePreviewBtn = document.getElementById('close-preview');
 
         function closePreview() {
             if (!modal) return;
             modal.classList.remove('open');
             modal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = ''; // Restore scroll
-            container.innerHTML = ''; // Clear content
+            document.body.style.overflow = '';
+            container.innerHTML = '';
+            if (previewPriceListBtn) previewPriceListBtn.focus();
         }
 
-        // Close on backdrop click
         if (modal) {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closePreview();
             });
-            // Close on Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('open')) closePreview();
+            });
+        }
+
+        if (closePreviewBtn) {
+            closePreviewBtn.addEventListener('click', closePreview);
+        }
+
+        if (previewPriceListBtn) {
+            previewPriceListBtn.addEventListener('click', () => {
+                previewPdf('assets/price list/Price-List_2026.pdf', 'Price List 2026');
             });
         }
 
         function previewPdf(url, title) {
             if (!modal) return;
 
-            // Open Modal
             titleEl.textContent = title;
             modal.classList.add('open');
             modal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            document.body.style.overflow = 'hidden';
 
-            // Embed PDF using iframe
-            // Note: Mobile browsers might handle iframes differently. 
-            // A fallback link is often good practice if the browser doesn't support inline PDF.
             container.innerHTML = `
         <iframe src="${url}" 
                 style="width:100%; height:100%; border:none; display:block;" 
                 title="${title}">
         </iframe>`;
+            if (closePreviewBtn) closePreviewBtn.focus();
         }
     </script>
 </body>

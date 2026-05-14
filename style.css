@@ -246,11 +246,13 @@ header {
   display: block;
 }
 
-.menu.open+.menu-toggle .icon-close {
+.menu.open+.menu-toggle .icon-close,
+.menu-toggle[aria-expanded="true"] .icon-close {
   display: block;
 }
 
-.menu.open+.menu-toggle .icon-hamburger {
+.menu.open+.menu-toggle .icon-hamburger,
+.menu-toggle[aria-expanded="true"] .icon-hamburger {
   display: none;
 }
 
